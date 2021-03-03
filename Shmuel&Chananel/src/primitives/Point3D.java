@@ -19,6 +19,11 @@ public class Point3D {
 		this.z = new Coordinate(z);
 	}
 
+	/**
+	 * 
+	 * @param point
+	 * @return
+	 */
 	public Vector subtract(Point3D point) {
 		
 	}
