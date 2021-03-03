@@ -1,5 +1,10 @@
 package primitives;
 
+/**
+ * point with 3 d
+ * @author user1
+ *
+ */
 public class Point3D {
 	Coordinate x;
 	Coordinate y;
