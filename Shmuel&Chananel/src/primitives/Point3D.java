@@ -10,7 +10,7 @@ public class Point3D {
 	Coordinate y;
 	Coordinate z;
 	
-	private static final Point3D ZERO = new Point3D(0, 0, 0);
+	static final Point3D ZERO = new Point3D(0, 0, 0);
 	
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
 		this.x = x;
@@ -36,7 +36,7 @@ public class Point3D {
 	}
 	
 	public Point3D add(Vector vector) {
-		return Point3D(this.x.coord + vector.head.x.coord, this.y.coord + vector.head.y.coord, this.z.coord + vector.head.z.coord);
+		return new Point3D(this.x.coord + vector.head.x.coord, this.y.coord + vector.head.y.coord, this.z.coord + vector.head.z.coord);
 	}
 	
 	public double distanceSquared(Point3D point) {
