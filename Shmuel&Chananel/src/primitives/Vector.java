@@ -1,7 +1,7 @@
 package primitives;
 
 public class Vector {
-	Point3D head;
+	private Point3D head;
 
 	/**
 	 * constructor with 3 double number
@@ -38,21 +38,25 @@ public class Vector {
 		this.head = new Point3D(head.x, head.y, head.z);
 	}
 
+	/**
+	 * @return the p0
+	 */
+	public Point3D getHead() {
+		return head;
+	}
+	
 	public Vector add(Vector vector) {
 		return new Vector(this.head.x.coord + vector.head.x.coord, this.head.y.coord + vector.head.y.coord,
 				this.head.z.coord + vector.head.z.coord);
-
 	}
 
 	public Vector subtract(Vector vector) {
 		return new Vector(this.head.x.coord - vector.head.x.coord, this.head.y.coord - vector.head.y.coord,
 				this.head.z.coord - vector.head.z.coord);
-
 	}
 
 	public Vector scale(double num) {
 		return new Vector(this.head.x.coord * num, this.head.y.coord * num, this.head.z.coord * num);
-
 	}
 
 	public double dotProduct(Vector vector) {
@@ -60,7 +64,6 @@ public class Vector {
 		sum = this.head.x.coord * vector.head.x.coord + this.head.y.coord * vector.head.y.coord
 				+ this.head.z.coord * vector.head.z.coord;
 		return sum;
-
 	}
 
 	public Vector crossProduct(Vector vector) {
@@ -72,13 +75,11 @@ public class Vector {
 				this.head.x.coord * vector.head.y.coord - this.head.y.coord * vector.head.x.coord);
 
 		return new Vector(x, y, z);
-
 	}
 
 	public double lengthSquared() {
 		return (this.head.x.coord * this.head.x.coord + this.head.y.coord * this.head.y.coord
 				+ this.head.z.coord * this.head.z.coord);
-
 	}
 
 	public double length() {
@@ -86,31 +87,32 @@ public class Vector {
 	}
 
 	public Vector normalize() {
-		Point3D newHead = new Point3D(this.head.x.coord / this.length(), this.head.y.coord / this.length(), this.head.z.coord / this.length());
+		Point3D newHead = new Point3D(this.head.x.coord / this.length(), this.head.y.coord / this.length(),
+				this.head.z.coord / this.length());
 
-		this.head = newHead; 
+		this.head = newHead;
 		return this;
 	}
 
-	public Vector normalized  (){
+	public Vector normalized() {
 		Vector vector = new Vector(this.head);
 		return vector.normalize();
 	}
-				
-		
 	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Vector))
+			return false;
+		Vector other = (Vector) obj;
+		return this.head.equals(other.head);
 	}
-
+	
+	@Override
+	public String toString() {
+		return head.toString();
+	}
 }
