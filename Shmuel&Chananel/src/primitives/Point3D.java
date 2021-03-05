@@ -10,14 +10,29 @@ public class Point3D {
 	Coordinate x;
 	Coordinate y;
 	Coordinate z;
-
-	static final Point3D ZERO = new Point3D(0, 0, 0);
-
+/**
+ * save zero number
+ */
+	public static final Point3D ZERO = new Point3D(0, 0, 0);
+	
+	/**
+	 * constructor that get three Coordinate and build Point3D
+	 * @param x For the position on the axis x
+	 * @param y For the position on the axis y
+	 * @param z For the position on the axis z
+	 */
 	public Point3D(Coordinate x, Coordinate y, Coordinate z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
+	
+	/**
+	 * constructor that get three double and build Point3D
+	 * @param x For the position on the axis x
+	 * @param y For the position on the axis y
+	 * @param z For the position on the axis z
+	 */
 
 	public Point3D(double x, double y, double z) {
 		this.x = new Coordinate(x);
@@ -26,19 +41,29 @@ public class Point3D {
 	}
 
 	/**
-	 * 
+	 * subtract between tow vector
 	 * @param point
-	 * @return
+	 * @return result 
 	 */
 	public Vector subtract(Point3D point) {
 		return new Vector(this.x.coord - point.x.coord, this.y.coord - point.y.coord, this.z.coord - point.z.coord);
 	}
-
+	
+	/**
+	 * Adding a vector to a point
+	 * @param vector
+	 * @returna new point
+	 */
 	public Point3D add(Vector vector) {
 		return new Point3D(this.x.coord + vector.getHead().x.coord, this.y.coord + vector.getHead().y.coord,
 				this.z.coord + vector.getHead().z.coord);
 	}
 
+	/**
+	 * calculate the distance between two points squared
+	 * @param point
+	 * @return distance squared
+	 */
 	public double distanceSquared(Point3D point) {
 		double xSquared = (this.x.coord - point.x.coord) * (this.x.coord - point.x.coord);
 		double ySquared = (this.y.coord - point.y.coord) * (this.y.coord - point.y.coord);
@@ -46,6 +71,11 @@ public class Point3D {
 		return xSquared + ySquared + zSquared;
 	}
 
+	/**
+	 * As the function above only with the root of the result
+	 * @param point
+	 * @return
+	 */
 	public double distance(Point3D point) {
 		return Math.sqrt(distanceSquared(point));
 	}

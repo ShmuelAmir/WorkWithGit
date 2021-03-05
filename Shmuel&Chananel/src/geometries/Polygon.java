@@ -85,12 +85,11 @@ public class Polygon implements Geometry {
 		return plane.getNormal();
 	}
 	
-	@Override
-	public String toString() {
-		String points = new String();
-		for (Point3D point3d : vertices) {
-		
-		}
-		return plane.toString() + " " + ;
-	}
+	//@Override
+	//public String toString() {
+	//	String points = new String();
+		//for (Point3D point3d : vertices)	
+	//	}
+		//return plane.toString() + " " + ;
+	//}
 }

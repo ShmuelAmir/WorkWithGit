@@ -2,6 +2,11 @@ package geometries;
 
 import primitives.*;
 
+/**
+ * 
+ * Sphere class represents  in ball 3D Cartesian coordinate
+ *
+ */
 public class Sphere implements Geometry {
 	private Point3D center;
 	private double radius;

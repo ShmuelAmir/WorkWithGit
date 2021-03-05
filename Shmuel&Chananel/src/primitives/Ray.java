@@ -1,9 +1,19 @@
 package primitives;
 
+/**
+ * Ray - any of a set of straight lines passing through one point
+ * 
+ *
+ */
 public class Ray {
 	private Point3D p0;
 	private Vector dir;
 	
+	/**
+	 * Constructor that get point and vector and creat ray
+	 * @param point
+	 * @param vector
+	 */
 	public Ray(Point3D point, Vector vector) {
 		p0 = point;
 		dir = vector.normalized();
