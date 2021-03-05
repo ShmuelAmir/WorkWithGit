@@ -3,7 +3,7 @@ import primitives.*;
 
 /**
  * @author shmulik
- *
+ * Geometry interface represents Some geometric body
  */
 public interface Geometry {
 	/**

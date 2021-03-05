@@ -2,15 +2,31 @@ package geometries;
 
 import primitives.*;
 
+/**
+ * 
+ *  Plane class represents plain in the geometric space
+ *
+ */
 public class Plane implements Geometry{
-	private Point3D p0;
-	private Vector normal;
+	private Point3D p0;    //point in the plane
+	private Vector normal; // vector normal to the plane
 	
+	/**
+	 * Constructor that calculate the normal and build a plain object 
+	 * @param p1 - first point
+	 * @param p2 - second point
+	 * @param p3 - third point 
+	 */
 	public Plane(Point3D p1, Point3D p2, Point3D p3) {
 		normal = null;
 		p0 = p1;
 	}
 	
+	/**
+	 * Constructor that build a plain object 
+	 * @param point
+	 * @param vector
+	 */
 	public Plane(Point3D point, Vector vector) {
 		normal = vector;
 		p0 = point;

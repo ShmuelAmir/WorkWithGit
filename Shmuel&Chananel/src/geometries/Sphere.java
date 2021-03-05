@@ -8,9 +8,14 @@ import primitives.*;
  *
  */
 public class Sphere implements Geometry {
-	private Point3D center;
-	private double radius;
+	private Point3D center;  // the center of the sphere
+	private double radius;   // the radius of the sphere
 	
+	/**
+	 * constractor that build sphere object
+	 * @param point
+	 * @param radius
+	 */
 	public Sphere(Point3D point, double radius) {
 		this.center = point;
 		this.radius = radius;
