@@ -3,16 +3,16 @@ package primitives;
 /**
  * Ray - any of a set of straight lines passing through one point
  * 
- *
+ * @author shmulik
  */
 public class Ray {
 	private Point3D p0;
 	private Vector dir;
 	
 	/**
-	 * Constructor that get point and vector and creat ray
-	 * @param point
-	 * @param vector
+	 * Constructor that get point and vector and create ray
+	 * @param point - starting point
+	 * @param vector - direction vector
 	 */
 	public Ray(Point3D point, Vector vector) {
 		p0 = point;

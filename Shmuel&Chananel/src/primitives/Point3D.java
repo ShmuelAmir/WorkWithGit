@@ -1,18 +1,15 @@
 package primitives;
 
 /**
- * point with 3 d
+ * Class Point3D represents three-dimensional point With three coordinates.
  * 
  * @author user1
- *
  */
 public class Point3D {
 	Coordinate x;
 	Coordinate y;
 	Coordinate z;
-	/**
-	 * save zero number
-	 */
+
 	public static final Point3D ZERO = new Point3D(0, 0, 0);
 
 	/**
@@ -35,7 +32,6 @@ public class Point3D {
 	 * @param y For the position on the axis y
 	 * @param z For the position on the axis z
 	 */
-
 	public Point3D(double x, double y, double z) {
 		this.x = new Coordinate(x);
 		this.y = new Coordinate(y);
@@ -43,10 +39,10 @@ public class Point3D {
 	}
 
 	/**
-	 * subtract between tow vector
+	 * subtract between tow points
 	 * 
-	 * @param point
-	 * @return result
+	 * @param point - start point for the vector
+	 * @return vector from the parameter point to this point
 	 */
 	public Vector subtract(Point3D point) {
 		return new Vector(this.x.coord - point.x.coord, this.y.coord - point.y.coord, this.z.coord - point.z.coord);
@@ -55,8 +51,8 @@ public class Point3D {
 	/**
 	 * Adding a vector to a point
 	 * 
-	 * @param vector
-	 * @returna new point
+	 * @param vector - the vector to add
+	 * @return new point (end of the new vector)
 	 */
 	public Point3D add(Vector vector) {
 		return new Point3D(this.x.coord + vector.getHead().x.coord, this.y.coord + vector.getHead().y.coord,
@@ -66,7 +62,7 @@ public class Point3D {
 	/**
 	 * calculate the distance between two points squared
 	 * 
-	 * @param point
+	 * @param point - The second point
 	 * @return distance squared
 	 */
 	public double distanceSquared(Point3D point) {
@@ -77,10 +73,10 @@ public class Point3D {
 	}
 
 	/**
-	 * As the function above only with the root of the result
+	 * calculate the distance between two points
 	 * 
-	 * @param point
-	 * @return
+	 * @param point - The second point
+	 * @return the distance
 	 */
 	public double distance(Point3D point) {
 		return Math.sqrt(distanceSquared(point));

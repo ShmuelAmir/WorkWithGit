@@ -3,18 +3,19 @@ package geometries;
 import primitives.*;
 
 /**
+ * Sphere class represents in ball 3D Cartesian coordinate
  * 
- * Sphere class represents  in ball 3D Cartesian coordinate
- *
+ * @author shmulik
  */
 public class Sphere implements Geometry {
-	private Point3D center;  // the center of the sphere
-	private double radius;   // the radius of the sphere
-	
+	private Point3D center; // the center of the sphere
+	private double radius; // the radius of the sphere
+
 	/**
-	 * constractor that build sphere object
-	 * @param point
-	 * @param radius
+	 * constructor that build sphere object
+	 * 
+	 * @param point - center point
+	 * @param radius - the radius
 	 */
 	public Sphere(Point3D point, double radius) {
 		this.center = point;

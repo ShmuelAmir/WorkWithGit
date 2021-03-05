@@ -1,15 +1,18 @@
 package geometries;
+
 import primitives.*;
 
 /**
- * @author shmulik
  * Geometry interface represents Some geometric body
+ * 
+ * @author shmulik
  */
 public interface Geometry {
 	/**
 	 * calculate the normal vector to the body at specific point
-	 * @param point
-	 * @return normal vector
+	 * 
+	 * @param point - A point on the geometric shape
+	 * @return The normal vector
 	 */
 	public Vector getNormal(Point3D point);
 }

@@ -1,43 +1,49 @@
 package primitives;
 
 /**
+ * Class Vector represents size and direction (according to the end point when
+ * the starting point at the beginning of the axes)
  * 
- * 
+ * @author shmulik
  *
  */
 public class Vector {
 	private Point3D head;
 
 	/**
-	 * constructor with 3 double number
+	 * constructor with 3 coordinates
 	 * 
-	 * @param head
+	 * @param x - The x coordinate
+	 * @param y - The y coordinate
+	 * @param z - The z coordinate
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		Point3D check = new Point3D(x, y, z);
 		if (check.equals(Point3D.ZERO)) {
-			throw new IllegalArgumentException("No vector 0");
+			throw new IllegalArgumentException("The zero vector is not defined");
 		}
-		this.head = new Point3D(x, y, z);
+		this.head = check;
 	}
 
 	/**
-	 * constructor with 3 double number
+	 * constructor with 3 double numbers
 	 * 
-	 * @param head
+	 * @param x - number for the x coordinate
+	 * @param y - number for the y coordinate
+	 * @param z - number for the z coordinate
 	 */
 	public Vector(double x, double y, double z) {
 		Point3D check = new Point3D(x, y, z);
 		if (check.equals(Point3D.ZERO)) {
-			throw new IllegalArgumentException("No vector 0");
+			throw new IllegalArgumentException("The zero vector is not defined");
 		}
-		this.head = new Point3D(x, y, z);
+		this.head = check;
 	}
 
 	/**
 	 * constructor with point
 	 * 
-	 * @param head
+	 * @param head - The head point
 	 */
 	public Vector(Point3D head) {
 		this.head = new Point3D(head.x, head.y, head.z);
@@ -51,10 +57,10 @@ public class Vector {
 	}
 
 	/**
-	 * Vector addition
+	 * Vector addition [u+v = (u1+v1, u2+v2, u3+v3)]
 	 * 
-	 * @param vector
-	 * @return result vector
+	 * @param vector - The second vector
+	 * @return The result vector
 	 */
 	public Vector add(Vector vector) {
 		return new Vector(this.head.x.coord + vector.head.x.coord, this.head.y.coord + vector.head.y.coord,
@@ -62,10 +68,10 @@ public class Vector {
 	}
 
 	/**
-	 * Vector subtraction
+	 * Vector subtraction [u-v = (u1-v1, u2-v2, u3-v3)]
 	 * 
-	 * @param vector
-	 * @return result vector
+	 * @param vector - The second vector
+	 * @return The result vector
 	 */
 	public Vector subtract(Vector vector) {
 		return new Vector(this.head.x.coord - vector.head.x.coord, this.head.y.coord - vector.head.y.coord,
@@ -73,32 +79,31 @@ public class Vector {
 	}
 
 	/**
-	 * Vector multiplication by number
+	 * Vector multiplication by number [a*v = (a*x, a*y, a*z)]
 	 * 
-	 * @param num - scalar
-	 * @return vector
+	 * @param num - The scalar
+	 * @return The result vector
 	 */
 	public Vector scale(double num) {
-		return new Vector(this.head.x.coord * num, this.head.y.coord * num, this.head.z.coord * num);
+		return new Vector(num * this.head.x.coord, num * this.head.y.coord, num * this.head.z.coord);
 	}
 
 	/**
-	 * Scalar product between tow vector
+	 * Scalar product between tow vectors [u*v = u1*v1 + u2*v2 + u3*v3]
 	 * 
-	 * @param vector
-	 * @return result number
+	 * @param vector - The second vector
+	 * @return The result number
 	 */
 	public double dotProduct(Vector vector) {
-		double sum;
-		sum = this.head.x.coord * vector.head.x.coord + this.head.y.coord * vector.head.y.coord
+		return this.head.x.coord * vector.head.x.coord + this.head.y.coord * vector.head.y.coord
 				+ this.head.z.coord * vector.head.z.coord;
-		return sum;
 	}
 
 	/**
-	 * cross product between tow vector
+	 * cross product between tow vectors [uXv = (u2*v3-u3*v2, u3*v1-u1*v3,
+	 * u1*v2-u2*v1)]
 	 * 
-	 * @param vector
+	 * @param - The second vector
 	 * @return a new vector that perpendicular for two vectors
 	 */
 	public Vector crossProduct(Vector vector) {
@@ -113,19 +118,19 @@ public class Vector {
 	}
 
 	/**
-	 * Calculate the length of the vector squared
+	 * Calculate the length of the vector squared [x^2 + y^2 + z^2]
 	 * 
-	 * @return result number
+	 * @return length of the vector squared
 	 */
 	public double lengthSquared() {
-		return (this.head.x.coord * this.head.x.coord + this.head.y.coord * this.head.y.coord
-				+ this.head.z.coord * this.head.z.coord);
+		return this.head.x.coord * this.head.x.coord + this.head.y.coord * this.head.y.coord
+				+ this.head.z.coord * this.head.z.coord;
 	}
 
 	/**
-	 * Calculate the length of the vector
+	 * Calculate the length of the vector [sqrt(x^2 + y^2 + z^2)]
 	 * 
-	 * @return result number
+	 * @return length of the vector
 	 */
 	public double length() {
 		return Math.sqrt(this.lengthSquared());
@@ -137,17 +142,16 @@ public class Vector {
 	 * @return current vector normalization
 	 */
 	public Vector normalize() {
-		Point3D newHead = new Point3D(this.head.x.coord / this.length(), this.head.y.coord / this.length(),
+		this.head = new Point3D(this.head.x.coord / this.length(), this.head.y.coord / this.length(),
 				this.head.z.coord / this.length());
 
-		this.head = newHead;
 		return this;
 	}
 
 	/**
-	 * A vector normalization operation that will create new vector
+	 * A vector normalization operation that will create a new vector
 	 * 
-	 * @return new vector
+	 * @return The new vector
 	 */
 	public Vector normalized() {
 		Vector vector = new Vector(this.head);

@@ -2,18 +2,18 @@ package geometries;
 
 import primitives.*;
 
-
 /**
- * 
  * Tube class represents Tube in the geometric space (a long, hollow cylinder)
- *
+ * 
+ * @author shmulik
  */
 public class Tube implements Geometry {
 	protected Ray axisRay; // ray that defines the axis of the tube
 	protected double radius; // radius of the ray
-	
+
 	/**
-	 * Constructor that build tube from ray and radius. 
+	 * Constructor that build tube from ray and radius.
+	 * 
 	 * @param ray
 	 * @param radius
 	 */
