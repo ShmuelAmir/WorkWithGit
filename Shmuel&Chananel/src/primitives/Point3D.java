@@ -10,13 +10,14 @@ public class Point3D {
 	Coordinate x;
 	Coordinate y;
 	Coordinate z;
-/**
- * save zero number
- */
+	/**
+	 * save zero number
+	 */
 	public static final Point3D ZERO = new Point3D(0, 0, 0);
-	
+
 	/**
 	 * constructor that get three Coordinate and build Point3D
+	 * 
 	 * @param x For the position on the axis x
 	 * @param y For the position on the axis y
 	 * @param z For the position on the axis z
@@ -26,9 +27,10 @@ public class Point3D {
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	/**
 	 * constructor that get three double and build Point3D
+	 * 
 	 * @param x For the position on the axis x
 	 * @param y For the position on the axis y
 	 * @param z For the position on the axis z
@@ -42,15 +44,17 @@ public class Point3D {
 
 	/**
 	 * subtract between tow vector
+	 * 
 	 * @param point
-	 * @return result 
+	 * @return result
 	 */
 	public Vector subtract(Point3D point) {
 		return new Vector(this.x.coord - point.x.coord, this.y.coord - point.y.coord, this.z.coord - point.z.coord);
 	}
-	
+
 	/**
 	 * Adding a vector to a point
+	 * 
 	 * @param vector
 	 * @returna new point
 	 */
@@ -61,6 +65,7 @@ public class Point3D {
 
 	/**
 	 * calculate the distance between two points squared
+	 * 
 	 * @param point
 	 * @return distance squared
 	 */
@@ -73,6 +78,7 @@ public class Point3D {
 
 	/**
 	 * As the function above only with the root of the result
+	 * 
 	 * @param point
 	 * @return
 	 */
@@ -93,7 +99,7 @@ public class Point3D {
 	}
 
 	@Override
-    public String toString() {
-        return "(" + x.toString() + ", " + y.toString() + ", " + z.toString() + ")";
-    }
+	public String toString() {
+		return "(" + x.toString() + ", " + y.toString() + ", " + z.toString() + ")";
+	}
 }

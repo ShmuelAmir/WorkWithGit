@@ -49,9 +49,10 @@ public class Vector {
 	public Point3D getHead() {
 		return head;
 	}
-	
+
 	/**
-	 * Vector addition 
+	 * Vector addition
+	 * 
 	 * @param vector
 	 * @return result vector
 	 */
@@ -62,6 +63,7 @@ public class Vector {
 
 	/**
 	 * Vector subtraction
+	 * 
 	 * @param vector
 	 * @return result vector
 	 */
@@ -72,6 +74,7 @@ public class Vector {
 
 	/**
 	 * Vector multiplication by number
+	 * 
 	 * @param num - scalar
 	 * @return vector
 	 */
@@ -81,6 +84,7 @@ public class Vector {
 
 	/**
 	 * Scalar product between tow vector
+	 * 
 	 * @param vector
 	 * @return result number
 	 */
@@ -92,7 +96,8 @@ public class Vector {
 	}
 
 	/**
-	 * cross product between tow vector 
+	 * cross product between tow vector
+	 * 
 	 * @param vector
 	 * @return a new vector that perpendicular for two vectors
 	 */
@@ -109,6 +114,7 @@ public class Vector {
 
 	/**
 	 * Calculate the length of the vector squared
+	 * 
 	 * @return result number
 	 */
 	public double lengthSquared() {
@@ -118,6 +124,7 @@ public class Vector {
 
 	/**
 	 * Calculate the length of the vector
+	 * 
 	 * @return result number
 	 */
 	public double length() {
@@ -126,7 +133,8 @@ public class Vector {
 
 	/**
 	 * A vector normalization operation that will change the vector itself
-	 * @return  current vector normalization
+	 * 
+	 * @return current vector normalization
 	 */
 	public Vector normalize() {
 		Point3D newHead = new Point3D(this.head.x.coord / this.length(), this.head.y.coord / this.length(),
@@ -138,13 +146,14 @@ public class Vector {
 
 	/**
 	 * A vector normalization operation that will create new vector
+	 * 
 	 * @return new vector
 	 */
 	public Vector normalized() {
 		Vector vector = new Vector(this.head);
 		return vector.normalize();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -156,7 +165,7 @@ public class Vector {
 		Vector other = (Vector) obj;
 		return this.head.equals(other.head);
 	}
-	
+
 	@Override
 	public String toString() {
 		return head.toString();
