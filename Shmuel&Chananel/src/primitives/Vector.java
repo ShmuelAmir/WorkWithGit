@@ -46,7 +46,7 @@ public class Vector {
 	 * @param head - The head point
 	 */
 	public Vector(Point3D head) {
-		this.head = new Point3D(head.x, head.y, head.z);
+		this.head = head;
 	}
 
 	/**
