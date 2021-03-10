@@ -7,6 +7,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import primitives.*;
+
+import static primitives.Util.*;
+
+
 /**
  * @author shmulik
  *
@@ -42,7 +47,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testAdd() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 4, 7);
+	    Vector v2 = new Vector(2, 6, -3);
+	    Vector v3 = new Vector(3, 10, 4);
+	    assertEquals("add() wrong result length",  v3 ,v1.add(v2) );
 	}
 
 	/**
@@ -50,7 +58,11 @@ public class VectorTests {
 	 */
 	@Test
 	public void testSubtract() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 4, 7);
+	    Vector v2 = new Vector(2, 6, -3);
+	    Vector v3 = new Vector(-1, -2, 10);
+	    assertEquals("Subtract() wrong result length",  v3 ,v1.subtract(v2) );
+		
 	}
 
 	/**
@@ -58,7 +70,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testScale() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 4, 7);
+	    double num = 4;
+	    Vector v3 = new Vector(4, 16, 28);
+	    assertEquals("Scale() wrong result length",  v3 ,v1.scale(num) );
 	}
 
 	/**
@@ -66,7 +81,12 @@ public class VectorTests {
 	 */
 	@Test
 	public void testDotProduct() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+		Vector v2 = new Vector(-2, -4, -6);
+		Vector v3 = new Vector(0, 3, -2);
+		
+		assertTrue("dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
+		assertTrue("dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
 	}
 
 	/**
@@ -74,7 +94,28 @@ public class VectorTests {
 	 */
 	@Test
 	public void testCrossProduct() {
-		fail("Not yet implemented");
+        Vector v1 = new Vector(1, 2, 3);
+        Vector v2 = new Vector(-2, -4, -6);
+
+        // ============ Equivalence Partitions Tests ==============
+        Vector v3 = new Vector(0, 3, -2);
+        Vector vr = v1.crossProduct(v3);
+
+        // Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
+        assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), 0.00001);
+
+        // Test cross-product result orthogonality to its operands
+        assertTrue("crossProduct() result is not orthogonal to 1st operand", isZero(vr.dotProduct(v1)));
+        assertTrue("crossProduct() result is not orthogonal to 2nd operand", isZero(vr.dotProduct(v3)));
+
+        // =============== Boundary Values Tests ==================
+        // test zero vector from cross-productof co-lined vectors
+        try {
+            v1.crossProduct(v2);
+            fail("crossProduct() for parallel vectors does not throw an exception");
+        } catch (Exception e) {}
+
+		
 	}
 
 	/**
@@ -82,7 +123,9 @@ public class VectorTests {
 	 */
 	@Test
 	public void testLengthSquared() {
-		fail("Not yet implemented");
+		Vector v1 = new Vector(1, 2, 3);
+		
+		assertTrue("lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
 	}
 
 	/**
@@ -90,7 +133,9 @@ public class VectorTests {
 	 */
 	@Test
 	public void testLength() {
-		fail("Not yet implemented");
+		assertTrue("length() wrong value", isZero(new Vector(0, 3, 4).length() - 5));
+		
+	
 	}
 
 	/**
@@ -98,7 +143,17 @@ public class VectorTests {
 	 */
 	@Test
 	public void testNormalize() {
-		fail("Not yet implemented");
+		Vector v = new Vector(1, 2, 3);
+		Vector vCopy = new Vector(v.getHead());
+		Vector vCopyNormalize = vCopy.normalize();
+		
+		assertTrue("normalize() function creates a new vector", vCopy == vCopyNormalize);
+		assertTrue("normalize() result is not a unit vector", isZero(vCopyNormalize.length() - 1));
+		
+		
+		
+		
+	
 	}
 
 	/**
@@ -106,7 +161,10 @@ public class VectorTests {
 	 */
 	@Test
 	public void testNormalized() {
-		fail("Not yet implemented");
+		Vector v = new Vector(1, 2, 3);
+		Vector u = v.normalized();
+		
+		assertTrue("normalizated() function does not create a new vector", u != v);
 	}
 
 }
