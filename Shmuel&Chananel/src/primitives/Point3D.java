@@ -6,9 +6,9 @@ package primitives;
  * @author user1
  */
 public class Point3D {
-	Coordinate x;
-	Coordinate y;
-	Coordinate z;
+	final Coordinate x;
+	final Coordinate y;
+	final Coordinate z;
 
 	public static final Point3D ZERO = new Point3D(0, 0, 0);
 

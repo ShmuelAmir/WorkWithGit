@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import geometries.Sphere;
+
 /**
  * @author user1
  *
@@ -26,7 +28,9 @@ public class SphereTests {
 	 */
 	@Test
 	public void testGetNormal() {
-		fail("Not yet implemented");
+		Sphere s = new Sphere(null, 0);
+		
+		assertEquals("", , s.getNormal(null));
 	}
 
 }

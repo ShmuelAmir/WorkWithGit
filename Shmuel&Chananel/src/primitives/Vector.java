@@ -46,6 +46,9 @@ public class Vector {
 	 * @param head - The head point
 	 */
 	public Vector(Point3D head) {
+		if (head.equals(Point3D.ZERO)) {
+			throw new IllegalArgumentException("The zero vector is not defined");
+		}
 		this.head = head;
 	}
 
