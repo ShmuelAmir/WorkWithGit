@@ -18,4 +18,10 @@ public class Triangle extends Polygon {
 	public Triangle(Point3D p1, Point3D p2, Point3D p3) {
 		super(p1, p2, p3);
 	}
+
+	@Override
+	public String toString() {
+		return this.vertices.get(0).toString() + " " + this.vertices.get(1).toString() + " "
+				+ this.vertices.get(2).toString() + " " + this.plane.toString();
+	}
 }
