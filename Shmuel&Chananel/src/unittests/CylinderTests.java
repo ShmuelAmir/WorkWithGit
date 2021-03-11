@@ -15,23 +15,7 @@ import primitives.*;
  *
  */
 public class CylinderTests {
-
-	/**
-	 * Test method for {@link geometries.Cylinder#Cylinder(primitives.Ray, double, double)}.
-	 */
-	@Test
-	public void testCylinder() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link geometries.Tube#Tube(primitives.Ray, double)}.
-	 */
-	@Test
-	public void testTube() {
-		fail("Not yet implemented");
-	}
-
+	
 	/**
 	 * Test method for {@link geometries.Tube#getNormal(primitives.Point3D)}.
 	 */
@@ -46,10 +30,10 @@ public class CylinderTests {
 		assertEquals("Bad normal to cylinder", new Vector(0, 0, 1), c.getNormal(new Point3D(0, 0, 2)));
 		
 		// =============== Boundary Values Tests ==================
-		// TC10: Suture point (normal vector according to the side of the tube)
-		assertEquals("Bad normal to cylinder", new Vector(1, 0, 0), c.getNormal(new Point3D(1, 0, 0)));
+		// TC10: Suture point (normal vector according to the base of the tube)
+		assertEquals("Bad normal to cylinder", new Vector(0, 0, -1), c.getNormal(new Point3D(1, 0, 0)));
 		// TC11: 
-		assertEquals("Bad normal to cylinder", new Vector(1, 0, 0), c.getNormal(new Point3D(1, 0, 2)));
+		assertEquals("Bad normal to cylinder", new Vector(0, 0, 1), c.getNormal(new Point3D(1, 0, 2)));
 	}
 
 }

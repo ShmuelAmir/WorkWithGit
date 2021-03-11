@@ -17,14 +17,6 @@ import primitives.*;
 public class TubeTests {
 
 	/**
-	 * Test method for {@link geometries.Tube#Tube(primitives.Ray, double)}.
-	 */
-	@Test
-	public void testTube() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link geometries.Tube#getNormal(primitives.Point3D)}.
 	 */
 	@Test
