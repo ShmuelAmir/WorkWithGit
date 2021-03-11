@@ -38,7 +38,11 @@ public class Tube implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		return null;
+		double t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));
+		Vector v = axisRay.getDir().scale(t);
+		Point3D center = axisRay.getP0().add(v);
+		
+		return point.subtract(center).normalize();
 	}
 
 	@Override
