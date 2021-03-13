@@ -10,7 +10,7 @@ import primitives.Vector;
  * @author shmulik
  */
 public class Cylinder extends Tube {
-	private double height;
+	private double height; // save the height of the cylinder
 	
 	/**
 	 * constructor with ray, radius and height

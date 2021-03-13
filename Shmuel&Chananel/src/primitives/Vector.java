@@ -8,7 +8,7 @@ package primitives;
  *
  */
 public class Vector {
-	private Point3D head;
+	private Point3D head; // the Starting point of the vector
 
 	/**
 	 * constructor with 3 coordinates

@@ -6,8 +6,8 @@ package primitives;
  * @author shmulik
  */
 public class Ray {
-	private Point3D p0;
-	private Vector dir;
+	private Point3D p0; // the starting point
+	private Vector dir; // the vector from the Starting point
 	
 	/**
 	 * Constructor that get point and vector and create ray
