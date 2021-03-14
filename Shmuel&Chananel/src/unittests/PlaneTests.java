@@ -1,17 +1,22 @@
 package unittests;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
-import geometries.Plane;
-import geometries.Polygon;
-import primitives.Point3D;
-import primitives.Vector;
+import geometries.*;
+import primitives.*;
 
+
+/**
+ * Testing Plane
+ * 
+ * @author shmulik
+ *
+ */
 public class PlaneTests {
-
-	
+	/**
+	 * Test method for {@link geometries.Plane#getNormal(primitives.Point3D)}.
+	 */
 	@Test
 	public void testGetNormalPoint3D() {
 		// ============ Equivalence Partitions Tests ==============

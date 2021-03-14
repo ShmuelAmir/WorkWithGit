@@ -18,11 +18,11 @@ public class Vector {
 	 * @param z - The z coordinate
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
-		Point3D check = new Point3D(x, y, z);
-		if (check.equals(Point3D.ZERO)) {
+		this.head = new Point3D(x, y, z);
+		
+		if (this.head.equals(Point3D.ZERO)) {
 			throw new IllegalArgumentException("The zero vector is not defined");
 		}
-		this.head = check;
 	}
 
 	/**
@@ -33,11 +33,11 @@ public class Vector {
 	 * @param z - number for the z coordinate
 	 */
 	public Vector(double x, double y, double z) {
-		Point3D check = new Point3D(x, y, z);
-		if (check.equals(Point3D.ZERO)) {
+		this.head = new Point3D(x, y, z);
+		
+		if (this.head.equals(Point3D.ZERO)) {
 			throw new IllegalArgumentException("The zero vector is not defined");
 		}
-		this.head = check;
 	}
 
 	/**
@@ -49,11 +49,12 @@ public class Vector {
 		if (head.equals(Point3D.ZERO)) {
 			throw new IllegalArgumentException("The zero vector is not defined");
 		}
+		
 		this.head = head;
 	}
 
 	/**
-	 * @return the p0
+	 * @return the head point of the vector
 	 */
 	public Point3D getHead() {
 		return head;

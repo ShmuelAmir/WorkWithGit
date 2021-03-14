@@ -10,7 +10,10 @@ public class Point3D {
 	final Coordinate y; //  Will save the position relative to the y axis 
 	final Coordinate z; //  Will save the position relative to the z axis 
 
-	public static final Point3D ZERO = new Point3D(0, 0, 0); // save the position of the origin
+	/**
+	 * The starting point of the axes
+	 */
+	public static final Point3D ZERO = new Point3D(0, 0, 0);
 
 	/**
 	 * constructor that get three Coordinate and build Point3D
