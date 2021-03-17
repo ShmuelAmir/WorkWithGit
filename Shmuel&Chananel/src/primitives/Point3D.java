@@ -10,6 +10,28 @@ public class Point3D {
 	final Coordinate y; //  Will save the position relative to the y axis 
 	final Coordinate z; //  Will save the position relative to the z axis 
 
+	
+	/**
+	 * @return the x
+	 */
+	public double getX() {
+		return x.coord;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public double getY() {
+		return y.coord;
+	}
+
+	/**
+	 * @return the z
+	 */
+	public double getZ() {
+		return z.coord;
+	}
+
 	/**
 	 * The starting point of the axes
 	 */

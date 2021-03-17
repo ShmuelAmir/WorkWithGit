@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -50,6 +52,12 @@ public class Tube implements Geometry {
 		return point.subtract(center).normalize();
 	}
 
+	@Override
+	public List<Point3D> findIntersections(Ray ray)
+	{
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 		return axisRay.toString() + " " + radius;
