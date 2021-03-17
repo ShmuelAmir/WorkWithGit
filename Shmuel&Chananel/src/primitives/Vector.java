@@ -4,7 +4,7 @@ package primitives;
  * Class Vector represents size and direction (according to the end point when
  * the starting point at the beginning of the axes)
  * 
- * @author Shmulik Amir
+ * @author Shmulik Amir and Chnanel Zaguri
  *
  */
 public class Vector {
