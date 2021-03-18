@@ -43,28 +43,26 @@ public class TriangleTests {
 		result = triangle.findIntersections(new Ray(new Point3D(0.5, 0.25, 0), new Vector(0, 0, 1)));
 		assertEquals("Ray intersection inside the triangle", List.of(new Point3D(0.5, 0.25, 1)), result);
 
-		// TC01: Ray's line is Outside against edge (0 points)
+		// TC02: Ray's line is Outside against edge (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(-1,0.5,0), new Vector(0, 0, 1)));
 		assertEquals("Ray's line is Outside against edge", null , result);
 
-		// TC01: Ray's line is Outside against vertex (0 points)
+		// TC03: Ray's line is Outside against vertex (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(-1,-1,0), new Vector(0, 0, 1)));
 		assertEquals("Ray's line is Outside against vertex", null , result);
 		
 		// =============== Boundary Values Tests =================
-		// TC01: Ray's line is on edge (0 points)
+		
+		// TC10: Ray's line is on edge (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(0.5,0.5,0), new Vector(0, 0, 1)));
 		assertEquals("Ray's line is on edge", null , result);
 
-		// TC01: Ray's line is in vertex (0 points)
+		// TC11: Ray's line is in vertex (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(1,0,0), new Vector(0, 0, 1)));
 		assertEquals("Ray's line is in vertex", null, result);
 
-		// TC01: Ray's line is On edge's continuation  (0 points)
+		// TC12: Ray's line is On edge's continuation (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(2,0,0), new Vector(0, 0, 1)));
 		assertEquals("Ray's line is On edge's continuation", null , result);
-
-
 	}
-
 }

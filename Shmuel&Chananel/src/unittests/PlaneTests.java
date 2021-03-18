@@ -38,7 +38,7 @@ public class PlaneTests {
 		// ============ Equivalence Partitions Tests ==============
 
 		// TC01: Ray intersects the plane (1 points)
-		assertEquals("Ray does not intersect the plane", List.of(new Point3D(1, 2, 1)),
+		assertEquals("Ray intersect the plane", List.of(new Point3D(1, 2, 1)),
 				plane.findIntersections(new Ray(new Point3D(0, 1, 2), new Vector(1, 1, -1))));
 		
 		// TC02: Ray does not intersect the plane (0 points)

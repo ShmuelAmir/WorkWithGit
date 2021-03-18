@@ -65,20 +65,20 @@ public class Plane implements Geometry {
 	@Override
 	public List<Point3D> findIntersections(Ray ray)
 	{
-		Point3D result = null;
-		// Check if ray is contained within the plane
 		double nv = normal.dotProduct(ray.getDir());
+
+		// Check if ray is contained within the plane
 		if (isZero(nv))
 			return null;
+		
 		double numerator = normal.dotProduct(p0.subtract(ray.getP0()));
 		double t = alignZero(numerator / nv);
-		if (t > 0)
-		{
-			result = ray.getP0().add(normal.scale(t));
-			return List.of(result);
-		}
-		return null;
 		
+		if (t > 0) {
+			return List.of(ray.getP0().add(normal.scale(t)));
+		}
+		
+		return null;
 	}
 	
 	@Override
