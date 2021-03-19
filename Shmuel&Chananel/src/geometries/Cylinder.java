@@ -45,6 +45,10 @@ public class Cylinder extends Tube {
 			return axisRay.getDir().scale(-1);
 		}
 
+//		if (tsetVector.dotProduct(axisRay.getDir()) == height) {
+//			return axisRay.getDir();
+//		}
+		
 		Vector helpVector = axisRay.getDir().scale(height);
 		Point3D helpPoint = axisRay.getP0().add(helpVector); // to find point on the second base
 		if (point.equals(helpPoint)) {

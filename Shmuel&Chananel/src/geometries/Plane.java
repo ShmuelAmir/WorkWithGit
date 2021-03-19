@@ -40,7 +40,7 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point3D point, Vector vector) {
 		p0 = point;
-		normal = vector;
+		normal = vector.normalize();		//
 	}
 
 	/**
@@ -71,11 +71,14 @@ public class Plane implements Geometry {
 		if (isZero(nv))
 			return null;
 		
+		if (p0.equals(ray.getP0()))
+			return null;
+		
 		double numerator = normal.dotProduct(p0.subtract(ray.getP0()));
 		double t = alignZero(numerator / nv);
 		
 		if (t > 0) {
-			return List.of(ray.getP0().add(normal.scale(t)));
+			return List.of(ray.getP0().add(ray.getDir().scale(t)));
 		}
 		
 		return null;
