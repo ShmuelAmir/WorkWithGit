@@ -78,7 +78,7 @@ public class Plane implements Geometry {
 		double t = alignZero(numerator / nv);
 		
 		if (t > 0) {
-			return List.of(ray.getP0().add(ray.getDir().scale(t)));
+			return List.of(ray.getPoint(t));
 		}
 		
 		return null;

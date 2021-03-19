@@ -1,6 +1,9 @@
 package unittests;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 
 import geometries.*;
@@ -86,5 +89,43 @@ public class PolygonTests {
 				new Point3D(-1, 1, 1));
 		double sqrt3 = Math.sqrt(1d / 3);
 		assertEquals("Bad normal to trinagle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
+	}
+	
+	/**
+	 * Test method for
+	 * {@link geometries.Polygon#findIntersections(primitives.Ray)}.
+	 */
+	@Test
+	public void testFindIntersections() {
+		List<Point3D> result;
+		Triangle triangle = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 1), new Point3D(0, 1, 1));
+		
+		// ============ Equivalence Partitions Tests ==============
+
+		// TC01: Ray's line is inside triangle (1 points)
+		result = triangle.findIntersections(new Ray(new Point3D(0.5, 0.25, 0), new Vector(0, 0, 1)));
+		assertEquals("Ray intersection inside the triangle", List.of(new Point3D(0.5, 0.25, 1)), result);
+
+		// TC02: Ray's line is Outside against edge (0 points)
+		result = triangle.findIntersections(new Ray(new Point3D(-1,0.5,0), new Vector(0, 0, 1)));
+		assertEquals("Ray's line is Outside against edge", null , result);
+
+		// TC03: Ray's line is Outside against vertex (0 points)
+		result = triangle.findIntersections(new Ray(new Point3D(-1,-1,0), new Vector(0, 0, 1)));
+		assertEquals("Ray's line is Outside against vertex", null , result);
+		
+		// =============== Boundary Values Tests =================
+		
+		// TC10: Ray's line is on edge (0 points)
+		result = triangle.findIntersections(new Ray(new Point3D(0.5,0.5,0), new Vector(0, 0, 1)));
+		assertEquals("Ray's line is on edge", null , result);
+
+		// TC11: Ray's line is in vertex (0 points)
+		result = triangle.findIntersections(new Ray(new Point3D(1,0,0), new Vector(0, 0, 1)));
+		assertEquals("Ray's line is in vertex", null, result);
+
+		// TC12: Ray's line is On edge's continuation (0 points)
+		result = triangle.findIntersections(new Ray(new Point3D(2,0,0), new Vector(0, 0, 1)));
+		assertEquals("Ray's line is On edge's continuation", null , result);
 	}
 }

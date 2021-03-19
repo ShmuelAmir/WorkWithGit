@@ -46,8 +46,7 @@ public class Tube implements Geometry {
 			return point.subtract(axisRay.getP0()).normalize();
 		}
 		
-		Vector v = axisRay.getDir().scale(t);			// t * v
-		Point3D center = axisRay.getP0().add(v);		// O = P0 + t*v
+		Point3D center = axisRay.getPoint(t);			// O = P0 + t*v
 		
 		return point.subtract(center).normalize();
 	}

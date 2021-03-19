@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import geometries.Geometries;
 import geometries.Plane;
+import geometries.Polygon;
 import geometries.Sphere;
 import geometries.Triangle;
 import primitives.Point3D;
@@ -27,9 +28,11 @@ public class GeometriesTests {
 	@Test
 	public void testFindIntersections() {
 		Plane plane = new Plane(new Point3D(0, 0, 1), new Point3D(1, 0, 1), new Point3D(0, 1, 1));
+		Polygon polygon = new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 1), new Point3D(2, 1, 1), new Point3D(0, 1, 1)); 
 		Triangle triangle = new Triangle(new Point3D(0, 0, 2), new Point3D(5, 0, 2), new Point3D(0, 5, 2));
 		Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
-		Geometries geometries = new Geometries(plane, triangle, sphere);
+		Geometries geometries = new Geometries(plane, polygon, triangle, sphere);
+		
 		Ray ray = new Ray(new Point3D(2, 1, 0), new Vector(0, 0, 1));
 		
 		// ============ Equivalence Partitions Tests ==============
@@ -52,6 +55,6 @@ public class GeometriesTests {
 		
 		// TC13: All shapes are intersection
 		ray = new Ray(new Point3D(0.5, 0.5, 0), new Vector(0, 0, 1));
-		assertEquals("All shapes are intersection", 3, geometries.findIntersections(ray).size());
+		assertEquals("All shapes are intersection", 4, geometries.findIntersections(ray).size());
 	}
 }

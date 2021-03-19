@@ -26,29 +26,31 @@ public class Triangle extends Polygon {
 	@Override
 	public List<Point3D> findIntersections(Ray ray)
 	{
-		List<Point3D> result = plane.findIntersections(ray);
-		if (result == null)
-			return null;
+		return super.findIntersections(ray);
 		
-		Vector v1 = vertices.get(0).subtract(ray.getP0());
-		Vector v2 = vertices.get(1).subtract(ray.getP0());
-		Vector v3 = vertices.get(2).subtract(ray.getP0());
-		
-		Vector n1 = v1.crossProduct(v2).normalize();
-		Vector n2 = v2.crossProduct(v3).normalize();
-		Vector n3 = v3.crossProduct(v1).normalize();
-		
-		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
-		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
-		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
-		
-		if (vDotN1 > 0 && vDotN2 > 0 && vDotN3 > 0)
-			return result;
-		
-		if (vDotN1 < 0 && vDotN2 < 0 && vDotN3 < 0)
-			return result;
-
-		return null;
+//		List<Point3D> result = plane.findIntersections(ray);
+//		if (result == null)
+//			return null;
+//		
+//		Vector v1 = vertices.get(0).subtract(ray.getP0());
+//		Vector v2 = vertices.get(1).subtract(ray.getP0());
+//		Vector v3 = vertices.get(2).subtract(ray.getP0());
+//		
+//		Vector n1 = v1.crossProduct(v2).normalize();
+//		Vector n2 = v2.crossProduct(v3).normalize();
+//		Vector n3 = v3.crossProduct(v1).normalize();
+//		
+//		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
+//		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
+//		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
+//		
+//		if (vDotN1 > 0 && vDotN2 > 0 && vDotN3 > 0)
+//			return result;
+//		
+//		if (vDotN1 < 0 && vDotN2 < 0 && vDotN3 < 0)
+//			return result;
+//
+//		return null;
 	}
 	
 	@Override
