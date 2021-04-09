@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.List;
 
+import static primitives.Util.*;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -35,13 +36,14 @@ public class Cylinder extends Tube {
 
 	@Override
 	public Vector getNormal(Point3D point) {
+		
 		if (point.equals(axisRay.getP0())) {
 			return axisRay.getDir().scale(-1);
 		}
 		
 		Vector tsetVector = point.subtract(axisRay.getP0());
 		// The point is in the base where the begging of the ray
-		if (tsetVector.dotProduct(axisRay.getDir()) == 0) {
+		if (isZero(tsetVector.dotProduct(axisRay.getDir()))) {
 			return axisRay.getDir().scale(-1);
 		}
 
@@ -51,6 +53,7 @@ public class Cylinder extends Tube {
 		
 		Vector helpVector = axisRay.getDir().scale(height);
 		Point3D helpPoint = axisRay.getP0().add(helpVector); // to find point on the second base
+		
 		if (point.equals(helpPoint)) {
 			return axisRay.getDir();
 		}

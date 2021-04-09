@@ -9,9 +9,9 @@ import primitives.*;
  */
 public interface Geometry extends Intersectable {
 	/**
-	 * calculate the normal vector to the body at specific point
+	 * calculate the normal vector to the body at specific point.
 	 * 
-	 * @param point - A point on the geometric shape
+	 * @param point - A point on the geometric shape (the method don't check it)
 	 * @return The normal vector
 	 */
 	public Vector getNormal(Point3D point);

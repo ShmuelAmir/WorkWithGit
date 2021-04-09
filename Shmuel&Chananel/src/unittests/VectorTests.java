@@ -21,10 +21,8 @@ public class VectorTests {
 	public void testConstructorCoordinate() {
 		// =============== Boundary Values Tests ==================
 		// TC01: Test zero vector
-		try {
-			new Vector(new Coordinate(0), new Coordinate(0), new Coordinate(0));
-			fail("zero vector does not throw an exception");
-		} catch (Exception e) {}
+		assertThrows("zero vector does not throw an exception", IllegalArgumentException.class,
+				() -> new Vector(new Coordinate(0), new Coordinate(0), new Coordinate(0)));
 	}
 
 	/**
@@ -34,10 +32,8 @@ public class VectorTests {
 	public void testConstructorDouble() {
 		// =============== Boundary Values Tests ==================
 		// TC01: Test zero vector
-		try {
-			new Vector(0, 0, 0);
-			fail("zero vector does not throw an exception");
-		} catch (Exception e) {}
+		assertThrows("zero vector does not throw an exception", IllegalArgumentException.class,
+				() -> new Vector(0, 0, 0));
 	}
 
 	/**
@@ -48,12 +44,10 @@ public class VectorTests {
 	public void testConstructorPoint3D() {
 		// =============== Boundary Values Tests ==================
 		// TC01: Test zero vector
-		try {
-			new Vector(Point3D.ZERO);
-			fail("zero vector does not throw an exception");
-		} catch (Exception e) {}
+		assertThrows("zero vector does not throw an exception", IllegalArgumentException.class,
+				() -> new Vector(Point3D.ZERO));
 	}
-	
+
 	/**
 	 * Test method for {@link primitives.Vector#add(primitives.Vector)}.
 	 */
@@ -62,7 +56,7 @@ public class VectorTests {
 		Vector v1 = new Vector(1, 4, 7);
 		Vector v2 = new Vector(2, 6, -3);
 		Vector v3 = new Vector(3, 10, 4);
-		
+
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: Test add
 		assertEquals("add() wrong result", v3, v1.add(v2));
@@ -76,7 +70,7 @@ public class VectorTests {
 		Vector v1 = new Vector(1, 4, 7);
 		Vector v2 = new Vector(2, 6, -3);
 		Vector v3 = new Vector(-1, -2, 10);
-		
+
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: Test subtract
 		assertEquals("Subtract() wrong result", v3, v1.subtract(v2));
@@ -90,7 +84,7 @@ public class VectorTests {
 		Vector v1 = new Vector(1, 4, 7);
 		double num = 4;
 		Vector v3 = new Vector(4, 16, 28);
-		
+
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: Test scale
 		assertEquals("Scale() wrong result", v3, v1.scale(num));
@@ -108,7 +102,7 @@ public class VectorTests {
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: Test dotProduct result
 		assertTrue("dotProduct() wrong value", isZero(v1.dotProduct(v2) + 28));
-		
+
 		// =============== Boundary Values Tests ==================
 		// TC10: Test dot product of orthogonal vectors
 		assertTrue("dotProduct() for orthogonal vectors is not zero", isZero(v1.dotProduct(v3)));
@@ -126,20 +120,18 @@ public class VectorTests {
 		Vector v3 = new Vector(0, 3, -2);
 		Vector vr = v1.crossProduct(v3);
 
-		//TC01: Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
+		// TC01: Test that length of cross-product is proper (orthogonal vectors taken
+		// for simplicity)
 		assertEquals("crossProduct() wrong result length", v1.length() * v3.length(), vr.length(), 0.00001);
 
-		//TC02: Test cross-product result orthogonality to its operands
+		// TC02: Test cross-product result orthogonality to its operands
 		assertTrue("crossProduct() result is not orthogonal to 1st operand", isZero(vr.dotProduct(v1)));
 		assertTrue("crossProduct() result is not orthogonal to 2nd operand", isZero(vr.dotProduct(v3)));
 
 		// =============== Boundary Values Tests ==================
-		//TC10: Test zero vector from cross-productof co-lined vectors
-		try {
-			v1.crossProduct(v2);
-			fail("crossProduct() for parallel vectors does not throw an exception");
-		} catch (Exception e) {
-		}
+		// TC10: Test zero vector from cross-productof co-lined vectors
+		assertThrows("crossProduct() for parallel vectors does not throw an exception", IllegalArgumentException.class,
+				() -> v1.crossProduct(v2));
 	}
 
 	/**
@@ -150,7 +142,7 @@ public class VectorTests {
 		Vector v1 = new Vector(1, 2, 3);
 
 		// ============ Equivalence Partitions Tests ==============
-		//TC01: Text length squared result
+		// TC01: Text length squared result
 		assertTrue("lengthSquared() wrong value", isZero(v1.lengthSquared() - 14));
 	}
 
@@ -160,7 +152,7 @@ public class VectorTests {
 	@Test
 	public void testLength() {
 		// ============ Equivalence Partitions Tests ==============
-		//TC01: Text length result
+		// TC01: Text length result
 		assertTrue("length() wrong value", isZero(new Vector(0, 3, 4).length() - 5));
 	}
 
@@ -174,9 +166,9 @@ public class VectorTests {
 		Vector vCopyNormalize = vCopy.normalize();
 
 		// =============== Boundary Values Tests ==================
-		//TC10: normalize does not need to create a new vector
-		assertTrue("normalize() function creates a new vector", vCopy == vCopyNormalize);
-		//TC11: normalize need to create a unit vector
+		// TC10: normalize does not need to create a new vector
+		assertSame("normalize() function creates a new vector", vCopy, vCopyNormalize);
+		// TC11: normalize need to create a unit vector
 		assertTrue("normalize() result is not a unit vector", isZero(vCopyNormalize.length() - 1));
 	}
 
@@ -189,7 +181,7 @@ public class VectorTests {
 		Vector u = v.normalized();
 
 		// =============== Boundary Values Tests ==================
-		//TC10: normalizated need to create a new vector
-		assertTrue("normalizated() function does not create a new vector", u != v);
+		// TC10: normalizated need to create a new vector
+		assertNotSame("normalizated() function does not create a new vector", u, v);
 	}
 }

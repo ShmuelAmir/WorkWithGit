@@ -33,5 +33,9 @@ public class CylinderTests {
 		assertEquals("Bad normal to cylinder", new Vector(0, 0, -1), c.getNormal(new Point3D(1, 0, 0)));
 		// TC11: test normal in suture point (normal vector defined according to the base of the tube)
 		assertEquals("Bad normal to cylinder", new Vector(0, 0, 1), c.getNormal(new Point3D(1, 0, 2)));
+		// TC12: test normal in base center 1 
+		assertEquals("Bad normal to cylinder", new Vector(0, 0, -1), c.getNormal(new Point3D(0, 0, 0)));
+		// TC13: test normal in base center 2
+		assertEquals("Bad normal to cylinder", new Vector(0, 0, 1), c.getNormal(new Point3D(0, 0, 2)));
 	}
 }
