@@ -40,10 +40,13 @@ public class Tube implements Geometry {
 
 	@Override
 	public Vector getNormal(Point3D point) {
-		double t = axisRay.getDir().dotProduct(point.subtract(axisRay.getP0()));	// t = v * (P - P0)
+		Point3D p0 = axisRay.getP0();
+		Vector dir = axisRay.getDir();
+		
+		double t = dir.dotProduct(point.subtract(p0));	// t = v * (P - P0)
 		
 		if (isZero(t)) {	// P0 and the point are on the same plane 
-			return point.subtract(axisRay.getP0()).normalize();
+			return point.subtract(p0).normalize();
 		}
 		
 		Point3D center = axisRay.getPoint(t);			// O = P0 + t*v

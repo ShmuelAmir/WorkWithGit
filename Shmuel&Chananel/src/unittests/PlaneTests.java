@@ -17,6 +17,22 @@ import primitives.*;
  */
 public class PlaneTests {
 	/**
+	 * Test method for
+	 * {@link geometries.Plane#Plane(primitives.Point3D, primitives.Point3D, primitives.Point3D)}.
+	 */
+	@Test
+	public void testConstructorPoint3D() {
+		// ============ Boundary Values Tests ==============
+		// TC10 P1 and P2 are the same:
+		assertThrows("P1 and P2 are the same", IllegalArgumentException.class,
+				() -> new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 1), new Point3D(0, 1, 0)));
+
+		// TC11 P1, P2 and P3 on the same line:
+		assertThrows("P1, P2 and P3 on the same line", IllegalArgumentException.class,
+				() -> new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 2), new Point3D(0, 0, 3)));
+	}
+
+	/**
 	 * Test method for {@link geometries.Plane#getNormal(primitives.Point3D)}.
 	 */
 	@Test
@@ -40,7 +56,7 @@ public class PlaneTests {
 		// TC01: Ray intersects the plane (1 points)
 		assertEquals("Ray intersect the plane", List.of(new Point3D(1, 2, 1)),
 				plane.findIntersections(new Ray(new Point3D(0, 1, 2), new Vector(1, 1, -1))));
-		
+
 		// TC02: Ray does not intersect the plane (0 points)
 		assertEquals("Ray does not intersect the plane", null,
 				plane.findIntersections(new Ray(new Point3D(0, 1, 3), new Vector(1, 1, 1))));

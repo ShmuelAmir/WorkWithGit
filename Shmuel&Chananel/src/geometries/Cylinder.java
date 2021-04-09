@@ -36,34 +36,23 @@ public class Cylinder extends Tube {
 
 	@Override
 	public Vector getNormal(Point3D point) {
+		Point3D p0 = axisRay.getP0();
+		Vector dir = axisRay.getDir();
 		
-		if (point.equals(axisRay.getP0())) {
-			return axisRay.getDir().scale(-1);
+		if (point.equals(p0)) {
+			return dir.scale(-1);
 		}
 		
-		Vector tsetVector = point.subtract(axisRay.getP0());
+		Vector tsetVector = point.subtract(p0);
 		// The point is in the base where the begging of the ray
-		if (isZero(tsetVector.dotProduct(axisRay.getDir()))) {
-			return axisRay.getDir().scale(-1);
+		if (isZero(tsetVector.dotProduct(dir))) {
+			return dir.scale(-1);
 		}
 
-//		if (tsetVector.dotProduct(axisRay.getDir()) == height) {
-//			return axisRay.getDir();
-//		}
-		
-		Vector helpVector = axisRay.getDir().scale(height);
-		Point3D helpPoint = axisRay.getP0().add(helpVector); // to find point on the second base
-		
-		if (point.equals(helpPoint)) {
-			return axisRay.getDir();
+		if (isZero(tsetVector.dotProduct(dir) - height)) {
+			return dir;
 		}
 		
-		tsetVector = point.subtract(helpPoint);
-		// The point is in the other base
-		if (tsetVector.dotProduct(axisRay.getDir()) == 0) {
-			return axisRay.getDir();
-		}
-
 		// The point is in the casing
 		return super.getNormal(point);
 	}
