@@ -42,24 +42,23 @@ public class Tube implements Geometry {
 	public Vector getNormal(Point3D point) {
 		Point3D p0 = axisRay.getP0();
 		Vector dir = axisRay.getDir();
-		
-		double t = dir.dotProduct(point.subtract(p0));	// t = v * (P - P0)
-		
-		if (isZero(t)) {	// P0 and the point are on the same plane 
+
+		double t = dir.dotProduct(point.subtract(p0)); // t = v * (P - P0)
+
+		if (isZero(t)) { // P0 and the point are on the same plane
 			return point.subtract(p0).normalize();
 		}
-		
-		Point3D center = axisRay.getPoint(t);			// O = P0 + t*v
-		
+
+		Point3D center = axisRay.getPoint(t); // O = P0 + t*v
+
 		return point.subtract(center).normalize();
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray)
-	{
+	public List<Point3D> findIntersections(Ray ray) {
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
 		return axisRay.toString() + " " + radius;

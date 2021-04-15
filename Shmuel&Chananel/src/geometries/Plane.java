@@ -24,8 +24,8 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point3D p1, Point3D p2, Point3D p3) {
 		p0 = p1;
-		
-		// Calculate two vectors of the plane (point subtraction) 
+
+		// Calculate two vectors of the plane (point subtraction)
 		// and the vector orthogonal to them (cross product).
 		Vector v1 = p2.subtract(p1);
 		Vector v2 = p3.subtract(p1);
@@ -35,12 +35,12 @@ public class Plane implements Geometry {
 	/**
 	 * Constructor that build a plain object
 	 * 
-	 * @param point - point on the plane
+	 * @param point  - point on the plane
 	 * @param vector - The normal vector
 	 */
 	public Plane(Point3D point, Vector vector) {
 		p0 = point;
-		normal = vector.normalize();		//
+		normal = vector.normalize(); //
 	}
 
 	/**
@@ -63,27 +63,29 @@ public class Plane implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray)
-	{
-		double nv = normal.dotProduct(ray.getDir());
+	public List<Point3D> findIntersections(Ray ray) {
+		Point3D rayP0 = ray.getP0();
+		Vector dir = ray.getDir();
+		
+		double nv = normal.dotProduct(dir);
 
 		// Check if ray is contained within the plane
 		if (isZero(nv))
 			return null;
-		
-		if (p0.equals(ray.getP0()))
+
+		if (p0.equals(rayP0))
 			return null;
-		
-		double numerator = normal.dotProduct(p0.subtract(ray.getP0()));
+
+		double numerator = normal.dotProduct(p0.subtract(rayP0));
 		double t = alignZero(numerator / nv);
-		
+
 		if (t > 0) {
 			return List.of(ray.getPoint(t));
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
 		return p0.toString() + " " + normal.toString();

@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import primitives.*;
 
-
 /**
  * Testing Point3D
  * 
@@ -33,6 +32,7 @@ public class Point3DTests {
 		// ============ Equivalence Partitions Tests ==============
 		// TC02: Point - Vector
 		Point3D p1 = new Point3D(1, 2, 3);
-		assertTrue("Point - Point does not work correctly", new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)));
+		assertTrue("Point - Point does not work correctly",
+				new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)));
 	}
 }

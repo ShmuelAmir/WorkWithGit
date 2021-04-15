@@ -3,8 +3,8 @@ package geometries;
 import java.util.List;
 import primitives.Point3D;
 import primitives.Ray;
-import primitives.Vector;
-import static primitives.Util.*;
+//import primitives.Vector;
+//import static primitives.Util.*;
 
 /**
  * Triangle class represents two-dimensional Triangle in 3D Cartesian coordinate

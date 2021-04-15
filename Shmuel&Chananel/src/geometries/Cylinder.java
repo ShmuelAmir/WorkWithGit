@@ -38,11 +38,11 @@ public class Cylinder extends Tube {
 	public Vector getNormal(Point3D point) {
 		Point3D p0 = axisRay.getP0();
 		Vector dir = axisRay.getDir();
-		
+
 		if (point.equals(p0)) {
 			return dir.scale(-1);
 		}
-		
+
 		Vector tsetVector = point.subtract(p0);
 		// The point is in the base where the begging of the ray
 		if (isZero(tsetVector.dotProduct(dir))) {
@@ -52,17 +52,16 @@ public class Cylinder extends Tube {
 		if (isZero(tsetVector.dotProduct(dir) - height)) {
 			return dir;
 		}
-		
+
 		// The point is in the casing
 		return super.getNormal(point);
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray)
-	{
+	public List<Point3D> findIntersections(Ray ray) {
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + " " + height;

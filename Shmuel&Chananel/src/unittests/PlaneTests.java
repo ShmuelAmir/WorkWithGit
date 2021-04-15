@@ -23,11 +23,11 @@ public class PlaneTests {
 	@Test
 	public void testConstructorPoint3D() {
 		// ============ Boundary Values Tests ==============
-		// TC10 P1 and P2 are the same:
+		// TC10 P1 and P2 are the same
 		assertThrows("P1 and P2 are the same", IllegalArgumentException.class,
 				() -> new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 1), new Point3D(0, 1, 0)));
 
-		// TC11 P1, P2 and P3 on the same line:
+		// TC11 P1, P2 and P3 on the same line
 		assertThrows("P1, P2 and P3 on the same line", IllegalArgumentException.class,
 				() -> new Plane(new Point3D(0, 0, 1), new Point3D(0, 0, 2), new Point3D(0, 0, 3)));
 	}
@@ -65,11 +65,11 @@ public class PlaneTests {
 
 		// **** Group: Ray is parallel to the plane
 		// TC10: Ray is included in the plane (0 points)
-		assertEquals("Ray is parallel to the plane and included in it", null,
+		assertNull("Ray is parallel to the plane and included in it",
 				plane.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(1, 0, 0))));
 
 		// TC11: Ray is not included in the plane (0 points)
-		assertEquals("Ray is parallel to the plane and not included in it", null,
+		assertNull("Ray is parallel to the plane and not included in it",
 				plane.findIntersections(new Ray(new Point3D(0, 0, 2), new Vector(1, 0, 0))));
 
 		// **** Group: Ray is orthogonal to the plane
@@ -78,11 +78,11 @@ public class PlaneTests {
 				plane.findIntersections(new Ray(new Point3D(0, 0, -1), new Vector(0, 0, 1))));
 
 		// TC13: Ray starts in the plane (0 points)
-		assertEquals("Ray is orthogonal to the plane and starts in it", null,
+		assertNull("Ray is orthogonal to the plane and starts in it",
 				plane.findIntersections(new Ray(new Point3D(0, 0, 1), new Vector(0, 0, 1))));
 
 		// TC14: Ray starts after the plane (0 points)
-		assertEquals("Ray is orthogonal to the plane and starts after it", null,
+		assertNull("Ray is orthogonal to the plane and starts after it",
 				plane.findIntersections(new Ray(new Point3D(0, 0, 3), new Vector(0, 0, 1))));
 
 		// **** Group: Special cases
@@ -91,7 +91,7 @@ public class PlaneTests {
 				plane.findIntersections(new Ray(new Point3D(1, 2, 1), new Vector(1, 0, 1))));
 
 		// TC16: Ray begins in the same point that appear in the plane (0 points)
-		assertEquals("Ray begins in the same point that appear in the plane", null,
+		assertNull("Ray begins in the same point that appear in the plane",
 				plane.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(1, 0, 1))));
 	}
 }

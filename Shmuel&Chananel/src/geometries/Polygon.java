@@ -1,6 +1,5 @@
 package geometries;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
@@ -17,6 +16,7 @@ public class Polygon implements Geometry {
 	 * List of polygon's vertices
 	 */
 	protected List<Point3D> vertices;
+	
 	/**
 	 * Associated plane in which the polygon lays
 	 */
@@ -87,45 +87,46 @@ public class Polygon implements Geometry {
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
 	}
-	
+
 	@Override
-	public List<Point3D> findIntersections(Ray ray)
-	{
+	public List<Point3D> findIntersections(Ray ray) {
 		List<Point3D> result = plane.findIntersections(ray);
 		// Ray not intersects the plane
 		if (result == null)
 			return null;
+
+		Point3D p0 = ray.getP0();
+		Vector dir = ray.getDir();
 		
 		// vi = pi - p0
 		List<Vector> vectors = new LinkedList<>();
 		for (Point3D point : vertices) {
-			vectors.add(point.subtract(ray.getP0()));
+			vectors.add(point.subtract(p0));
 		}
-		
+
 		// ni = normalize(vi x vi+1)
 		List<Vector> nVectors = new LinkedList<>();
 		for (int i = 0; i < vectors.size() - 1; ++i) {
-			nVectors.add(vectors.get(i).crossProduct(vectors.get(i+1)).normalize());
+			nVectors.add(vectors.get(i).crossProduct(vectors.get(i + 1)).normalize());
 		}
-		nVectors.add(vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize());	// vn x v1 
-		
-		double vN1 = alignZero(ray.getDir().dotProduct(nVectors.get(0)));
+		nVectors.add(vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize()); // vn x v1
+
+		double vN1 = alignZero(dir.dotProduct(nVectors.get(0)));
 		if (vN1 == 0)
 			return null;
-		
+
 		if (vN1 > 0) {
 			for (Vector n : nVectors) {
-				if (ray.getDir().dotProduct(n) <= 0)
+				if (dir.dotProduct(n) <= 0)
 					return null;
 			}
-		}
-		else if (vN1 < 0) {
+		} else if (vN1 < 0) {
 			for (Vector n : nVectors) {
-				if (ray.getDir().dotProduct(n) >= 0)
+				if (dir.dotProduct(n) >= 0)
 					return null;
 			}
 		}
-		
+
 		// all v dot Ni have the same sign
 		return result;
 	}
