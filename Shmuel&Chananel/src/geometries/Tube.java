@@ -56,6 +56,63 @@ public class Tube implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
+		Vector vA = axisRay.getDir();
+		Point3D pA = axisRay.getP0();
+		Vector v = ray.getDir();
+		Point3D p = ray.getP0();
+		double A, B, C;
+		
+		Vector yA = null;
+		boolean vOrthogonalVa = true;
+		try {
+			Vector xA = vA.scale(v.dotProduct(vA));
+			vOrthogonalVa = false;
+			
+			yA = v.subtract(xA);
+		} catch (IllegalArgumentException e) {
+			if (vOrthogonalVa) {
+				yA = vA;
+			}
+			
+			return null;
+		}
+		finally {
+			A = yA.dotProduct(yA);
+		}
+		
+		
+		if (p.equals(pA)) {
+			B = 0;
+			C = radius * radius;
+		}
+		else {
+			Vector deltaP = p.subtract(pA);
+			try {
+				
+			} catch (IllegalArgumentException e) {
+				
+			}
+		
+			Vector xB = vA.scale(deltaP.dotProduct(vA));
+			Vector yB = v.subtract(xB);
+			B = yA.dotProduct(yB) * 2;
+			
+			C = yB.dotProduct(yB) - radius * radius;
+		}
+		
+		
+		double d = (B*B - 4*C*C) / 2*A;
+		double t1, t2;
+		if (d > 0) {
+			t1 = (-B+Math.sqrt(d)) / 2*A;
+			t2 = (-B-Math.sqrt(d)) / 2*A;
+			return List.of(ray.getPoint(t1), ray.getPoint(t2));
+		}
+		else if (d == 0) {
+			t1 = (-B+Math.sqrt(d)) / 2*A;
+			return List.of(ray.getPoint(t1));	
+		}
+		
 		return null;
 	}
 
