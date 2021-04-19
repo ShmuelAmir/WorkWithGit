@@ -56,7 +56,7 @@ public class Cylinder extends Tube {
 		// The point is in the casing
 		return super.getNormal(point);
 	}
-
+	
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
 		return null;

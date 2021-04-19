@@ -83,29 +83,67 @@ public class Tube implements Geometry {
 		
 		if (p.equals(pA)) {
 			B = 0;
-			C = radius * radius;
+			C = - radius * radius;
 		}
+		
+	
 		else {
+			boolean vAOrthogonalDeltaP = true;
+			boolean deltaPSubtractXB = true;
 			Vector deltaP = p.subtract(pA);
+			Vector yB = null;
+			
+			
 			try {
+				Vector xB = vA.scale(deltaP.dotProduct(vA));
+				vAOrthogonalDeltaP = false;
+				yB = deltaP.subtract(xB);
 				
 			} catch (IllegalArgumentException e) {
+				if ( vAOrthogonalDeltaP) {
+					yB = deltaP;
+				}
+				
+				else {
+					B = 0;
+					C = - radius * radius;
+					
+					double d = (B*B - 4*C*C) / 2*A;
+					double t1, t2;
+					if (d > 0) {
+						t1 = (-B+Math.sqrt(d)) / 2*A;
+						t2 = (-B-Math.sqrt(d)) / 2*A;
+						return List.of(ray.getPoint(t1), ray.getPoint(t2));
+					}
+					else if (d == 0) {
+						t1 = (-B+Math.sqrt(d)) / 2*A;
+						return List.of(ray.getPoint(t1));	
+					}
+					
+					return null;
+					
+				}
 				
 			}
-		
-			Vector xB = vA.scale(deltaP.dotProduct(vA));
-			Vector yB = v.subtract(xB);
-			B = yA.dotProduct(yB) * 2;
+			
+			try {
+				B = yA.dotProduct(yB) * 2;
+				
+			} catch (IllegalArgumentException e) {
+				B = 0;
+			}
 			
 			C = yB.dotProduct(yB) - radius * radius;
 		}
 		
 		
-		double d = (B*B - 4*C*C) / 2*A;
+		double d = (B*B - 4*A*C);
 		double t1, t2;
 		if (d > 0) {
-			t1 = (-B+Math.sqrt(d)) / 2*A;
-			t2 = (-B-Math.sqrt(d)) / 2*A;
+			t1 = Math.sqrt(d);
+			t1 = -B+Math.sqrt(d);
+			t1 = (-B+Math.sqrt(d)) / (2*A);
+			t2 = (-B-Math.sqrt(d)) / (2*A);
 			return List.of(ray.getPoint(t1), ray.getPoint(t2));
 		}
 		else if (d == 0) {
