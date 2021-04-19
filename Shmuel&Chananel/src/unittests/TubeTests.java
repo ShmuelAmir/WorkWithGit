@@ -98,58 +98,58 @@ public class TubeTests {
 		// ============ Boundary Partitions Tests =============
 		
 		// TC23: Ray's line is begin in the tube and vertical to the tube ray
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line is begin in the tube and vertical to the tube ray", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-2, 0.5, 0.25), new Vector(0, 1, 0)));
+		assertEquals("Ray's line is begin in the tube and vertical to the tube ray", List.of(new Point3D(-2, 0.97, 0.25)), result);
 
 		
 		// **** Group: Ray's line pass throw the tube ray
-		// TC24: Ray's line is begin in the tube ray and no vertical to the tube ray
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line is begin in the tube ray and no vertical to the tube ray", List.of(new Point3D(0.5, 0.25, 1)), result);
+		// TC24: Ray's line is begin in the tube ray and vertical to the tube ray
+		result = tube.findIntersections(new Ray(new Point3D(-2, 0, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line is begin in the tube ray and vertical to the tube ray", List.of(new Point3D(-2, 1, 0)), result);
 
 		// TC25: Ray's line is begin in the tube and no vertical to the tube ray
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line is begin in the tube and no vertical to the tube ray", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-2, 0, 0), new Vector(0.45, 0.8, 0.59)));
+		assertEquals("Ray's line is begin in the tube and no vertical to the tube ray", List.of(new Point3D(-1.55, 0.8, 0.59)), result);
 
 		// TC26: Ray's line is begin before it
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the tube ray and begin before it", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-2, -0.5, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the tube ray and begin before it", List.of(new Point3D(-2, 1, 0)), result);
 
 		// TC27: Ray's line is begin on the casing
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the tube ray and begin on the casing", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-2, -1, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the tube ray and begin on the casing", List.of(new Point3D(-2, 1, 0)), result);
 
 		// TC28: Ray's line is begin after it
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the tube ray and begin after it", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-2, 0.5, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the tube ray and begin after it", List.of(new Point3D(-2, 1, 0)), result);
 
 		
-		// TC29: Ray's line is on the casing
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line is on the casing", List.of(new Point3D(0.5, 0.25, 1)), result);
+//		// TC29: Ray's line is on the casing
+//		result = tube.findIntersections(new Ray(new Point3D(-2, -1, 0), new Vector(3.5, -6.97, -3)));
+//		assertEquals("Ray's line is on the casing", List.of(new Point3D(-2.85, 0.69, 0.73)), result);
 
 		
 		// **** Group: Ray's line pass throw the starting point
 		// TC30: Ray's line is begin before it
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the starting point and begin before it", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-0.8, -0.5, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the starting point and begin before it", List.of(new Point3D(-0.8, 1, 0)), result);
 
 		// TC31: Ray's line is begin in the starting point
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the starting point and begin before it", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-0.8, 0, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the starting point and begin before it", List.of(new Point3D(-0.8, 1, 0)), result);
 
 		// TC32: Ray's line is begin after it
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the starting point and begin after it", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-0.8, 0.5, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the starting point and begin after it", List.of(new Point3D(-0.8, 1, 0)), result);
 		
 		// TC34: Ray's line is begin on the casing
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the starting point and begin on the casing", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-0.8, -1, 0), new Vector(0, 1, 0)));
+		assertEquals("Ray's line pass throw the starting point and begin on the casing", List.of(new Point3D(-0.8, 1, 0)), result);
 
 		
 		// TC33: Ray's line pass throw the plane of the starting point
-		result = tube.findIntersections(new Ray(new Point3D(-1, 1, 0), new Vector(0, 0, 1)));
-		assertEquals("Ray's line pass throw the plane of the starting point", List.of(new Point3D(0.5, 0.25, 1)), result);
+		result = tube.findIntersections(new Ray(new Point3D(-0.8, 0 , 0.25), new Vector(0 ,1 ,-0.25)));
+		assertEquals("Ray's line pass throw the plane of the starting point", List.of(new Point3D(-0.8, 1, 0)), result);
 
 
 
