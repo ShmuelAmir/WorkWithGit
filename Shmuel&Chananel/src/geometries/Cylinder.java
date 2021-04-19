@@ -59,7 +59,10 @@ public class Cylinder extends Tube {
 	
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		return null;
+		List<Point3D> result = this.findIntersections(ray);
+		
+		
+		return result;
 	}
 
 	@Override

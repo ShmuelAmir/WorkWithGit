@@ -1,5 +1,7 @@
 package geometries;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import static primitives.Util.*;
 import primitives.*;
@@ -71,28 +73,24 @@ public class Tube implements Geometry {
 			yA = v.subtract(xA);
 		} catch (IllegalArgumentException e) {
 			if (vOrthogonalVa) {
-				yA = vA;
+				//yA = vA;
+				yA = v;
 			}
-			
-			return null;
+			else {
+				return null;
+			}
 		}
-		finally {
-			A = yA.dotProduct(yA);
-		}
+		A = yA.dotProduct(yA);
 		
 		
 		if (p.equals(pA)) {
 			B = 0;
 			C = - radius * radius;
 		}
-		
-	
 		else {
 			boolean vAOrthogonalDeltaP = true;
-			boolean deltaPSubtractXB = true;
 			Vector deltaP = p.subtract(pA);
 			Vector yB = null;
-			
 			
 			try {
 				Vector xB = vA.scale(deltaP.dotProduct(vA));
@@ -103,7 +101,6 @@ public class Tube implements Geometry {
 				if ( vAOrthogonalDeltaP) {
 					yB = deltaP;
 				}
-				
 				else {
 					B = 0;
 					C = - radius * radius;
@@ -112,23 +109,20 @@ public class Tube implements Geometry {
 					double t1, t2;
 					if (d > 0) {
 						t1 = (-B+Math.sqrt(d)) / 2*A;
-						t2 = (-B-Math.sqrt(d)) / 2*A;
+						t2 = (-B-Math.sqrt(d)) / 2*A; 
 						return List.of(ray.getPoint(t1), ray.getPoint(t2));
 					}
 					else if (d == 0) {
-						t1 = (-B+Math.sqrt(d)) / 2*A;
+						t1 = (-B+Math.sqrt(d)) / 2*A; 
 						return List.of(ray.getPoint(t1));	
 					}
 					
 					return null;
-					
 				}
-				
 			}
 			
-			try {
+			try {    ///אולי להוריד
 				B = yA.dotProduct(yB) * 2;
-				
 			} catch (IllegalArgumentException e) {
 				B = 0;
 			}
@@ -137,18 +131,51 @@ public class Tube implements Geometry {
 		}
 		
 		
-		double d = (B*B - 4*A*C);
+		double d = B*B - 4*A*C;
 		double t1, t2;
 		if (d > 0) {
-			t1 = Math.sqrt(d);
-			t1 = -B+Math.sqrt(d);
 			t1 = (-B+Math.sqrt(d)) / (2*A);
 			t2 = (-B-Math.sqrt(d)) / (2*A);
-			return List.of(ray.getPoint(t1), ray.getPoint(t2));
+
+		    Point3D p1 = ray.getPoint(t1);
+		    Point3D p2 = ray.getPoint(t2);
+		    
+		    BigDecimal instance11 = new BigDecimal(Double.toString(p1.getX()));
+		    instance11 = instance11.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance12 = new BigDecimal(Double.toString(p1.getY()));
+		    instance12 = instance12.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance13 = new BigDecimal(Double.toString(p1.getZ()));
+		    instance13 = instance13.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance21 = new BigDecimal(Double.toString(p2.getX()));
+		    instance21 = instance21.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance22 = new BigDecimal(Double.toString(p2.getY()));
+		    instance22 = instance22.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance23 = new BigDecimal(Double.toString(p2.getZ()));
+		    instance23 = instance23.setScale(2, RoundingMode.HALF_UP);
+						
+		    return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()), 
+		    		new Point3D(instance21.doubleValue(), instance22.doubleValue(), instance23.doubleValue()));
 		}
 		else if (d == 0) {
 			t1 = (-B+Math.sqrt(d)) / 2*A;
-			return List.of(ray.getPoint(t1));	
+			
+			if (t1 == 0)
+				return null;
+			
+			Point3D p1 = ray.getPoint(t1);
+			
+			Vector n = this.getNormal(p1);
+			if (n.dotProduct(v) == 0)
+				return null;
+			
+			BigDecimal instance11 = new BigDecimal(Double.toString(p1.getX()));
+		    instance11 = instance11.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance12 = new BigDecimal(Double.toString(p1.getY()));
+		    instance12 = instance12.setScale(2, RoundingMode.HALF_UP);
+		    BigDecimal instance13 = new BigDecimal(Double.toString(p1.getZ()));
+		    instance13 = instance13.setScale(2, RoundingMode.HALF_UP);
+			
+			return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()));	
 		}
 		
 		return null;
