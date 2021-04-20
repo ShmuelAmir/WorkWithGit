@@ -79,11 +79,7 @@ public class Plane implements Geometry {
 		double numerator = normal.dotProduct(p0.subtract(rayP0));
 		double t = alignZero(numerator / nv);
 
-		if (t > 0) {
-			return List.of(ray.getPoint(t));
-		}
-
-		return null;
+		return (t > 0) ? List.of(ray.getPoint(t)) : null;
 	}
 
 	@Override

@@ -3,8 +3,8 @@ package geometries;
 import java.util.List;
 import primitives.Point3D;
 import primitives.Ray;
-//import primitives.Vector;
-//import static primitives.Util.*;
+import primitives.Vector;
+import static primitives.Util.*;
 
 /**
  * Triangle class represents two-dimensional Triangle in 3D Cartesian coordinate
@@ -26,31 +26,29 @@ public class Triangle extends Polygon {
 	@Override
 	public List<Point3D> findIntersections(Ray ray)
 	{
-		return super.findIntersections(ray);
+		List<Point3D> result = plane.findIntersections(ray);
+		if (result == null)
+			return null;
 		
-//		List<Point3D> result = plane.findIntersections(ray);
-//		if (result == null)
-//			return null;
-//		
-//		Vector v1 = vertices.get(0).subtract(ray.getP0());
-//		Vector v2 = vertices.get(1).subtract(ray.getP0());
-//		Vector v3 = vertices.get(2).subtract(ray.getP0());
-//		
-//		Vector n1 = v1.crossProduct(v2).normalize();
-//		Vector n2 = v2.crossProduct(v3).normalize();
-//		Vector n3 = v3.crossProduct(v1).normalize();
-//		
-//		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
-//		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
-//		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
-//		
-//		if (vDotN1 > 0 && vDotN2 > 0 && vDotN3 > 0)
-//			return result;
-//		
-//		if (vDotN1 < 0 && vDotN2 < 0 && vDotN3 < 0)
-//			return result;
-//
-//		return null;
+		Vector v1 = vertices.get(0).subtract(ray.getP0());
+		Vector v2 = vertices.get(1).subtract(ray.getP0());
+		Vector v3 = vertices.get(2).subtract(ray.getP0());
+		
+		Vector n1 = v1.crossProduct(v2).normalize();
+		Vector n2 = v2.crossProduct(v3).normalize();
+		Vector n3 = v3.crossProduct(v1).normalize();
+		
+		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
+		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
+		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
+		
+		if (vDotN1 > 0 && vDotN2 > 0 && vDotN3 > 0)
+			return result;
+		
+		if (vDotN1 < 0 && vDotN2 < 0 && vDotN3 < 0)
+			return result;
+
+		return null;
 	}
 	
 	@Override

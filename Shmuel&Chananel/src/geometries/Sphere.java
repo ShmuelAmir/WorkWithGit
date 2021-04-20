@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.List;
 
+import static primitives.Util.*;
 import primitives.*;
 
 /**
@@ -53,26 +54,18 @@ public class Sphere implements Geometry {
 		double tm = ray.getDir().dotProduct(u);
 		double d = Math.sqrt(u.lengthSquared() - tm * tm);
 		
-		if (d >= radius) {
+		if (alignZero(d - radius) >= 0) {
 			return null;			
 		}
 		
 		double th = Math.sqrt(radius * radius - d * d);
-		double t1 = tm + th;
-		double t2 = tm - th;
+		double t1 = alignZero(tm + th);
+		double t2 = alignZero(tm - th);
 
-		if (t1 > 0 && t2 > 0) {
-			return List.of(ray.getPoint(t1), ray.getPoint(t2));
+		if (t1 > 0) {
+			return (t2 > 0) ? List.of(ray.getPoint(t1), ray.getPoint(t2)) : List.of(ray.getPoint(t1));
 		}
-
-		if (t1 > 0 && t2 <= 0) {
-			return List.of(ray.getPoint(t1));
-		}
-
-		if (t1 <= 0 && t2 > 0) {
-			return List.of(ray.getPoint(t2));
-		}
-
+		
 		return null;
 	}
 
