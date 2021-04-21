@@ -3,6 +3,7 @@ package geometries;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+
 import static primitives.Util.*;
 import primitives.*;
 
@@ -57,182 +58,148 @@ public class Tube implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) { // find intersection
-		Vector vA = axisRay.getDir(); // save the vector for calc
-		Point3D pA = axisRay.getP0(); // save the point for calc
-		Vector v = ray.getDir();      // save the vector for calc
-		Point3D p = ray.getP0();      // save the point for calc
+	public List<Point3D> findIntersections(Ray ray) {// להוסיף alignZero לt
+		Vector vA = axisRay.getDir();
+		Point3D pA = axisRay.getP0();
+		Vector v = ray.getDir();
+		Point3D p = ray.getP0();
 		double A, B, C;
-		
-		Vector yA = null;  //  Initialize
-		boolean vOrthogonalVa = true; // will check if they  Orthogona
-		try { 
+
+		Vector yA = null;
+		boolean vOrthogonalVa = true;
+		try {
 			Vector xA = vA.scale(v.dotProduct(vA));
 			vOrthogonalVa = false;
-			
+
 			yA = v.subtract(xA);
 		} catch (IllegalArgumentException e) {
-			if (vOrthogonalVa) {
-				//yA = vA;
+			if (vOrthogonalVa)
 				yA = v;
-			}
-			else {
+			else
 				return null;
-			}
 		}
 		A = yA.dotProduct(yA);
-		
-		
+
 		if (p.equals(pA)) {
-			B = 0;           // calc B
-			C = - radius * radius;  // calc C
-		}
-		else {
+			B = 0;
+			C = -radius * radius;
+		} else {
 			boolean vAOrthogonalDeltaP = true;
 			Vector deltaP = p.subtract(pA);
 			Vector yB = null;
-			
+
 			try {
 				Vector xB = vA.scale(deltaP.dotProduct(vA));
 				vAOrthogonalDeltaP = false;
+
 				yB = deltaP.subtract(xB);
-				
 			} catch (IllegalArgumentException e) {
-				if ( vAOrthogonalDeltaP) {
+				if (vAOrthogonalDeltaP) {
 					yB = deltaP;
-				}
-				else {
+				} else {
 					B = 0;
-					C = - radius * radius; // calc C
-					
-					double d = (B*B - 4*A*C);
-					double t1, t2;
-					if (d > 0) {
-						t1 = (-B+Math.sqrt(d)) / (2*A);
-						t2 = (-B-Math.sqrt(d)) / (2*A); 
-						
-						Point3D p1 = ray.getPoint(t1);
-					    Point3D p2 = ray.getPoint(t2);
-					    
-					    BigDecimal instance11 = new BigDecimal(Double.toString(p1.getX())); // Round
-					    instance11 = instance11.setScale(2, RoundingMode.HALF_UP);
-					    BigDecimal instance12 = new BigDecimal(Double.toString(p1.getY()));
-					    instance12 = instance12.setScale(2, RoundingMode.HALF_UP);
-					    BigDecimal instance13 = new BigDecimal(Double.toString(p1.getZ()));
-					    instance13 = instance13.setScale(2, RoundingMode.HALF_UP);
-					    BigDecimal instance21 = new BigDecimal(Double.toString(p2.getX()));
-					    instance21 = instance21.setScale(2, RoundingMode.HALF_UP);
-					    BigDecimal instance22 = new BigDecimal(Double.toString(p2.getY()));
-					    instance22 = instance22.setScale(2, RoundingMode.HALF_UP);
-					    BigDecimal instance23 = new BigDecimal(Double.toString(p2.getZ()));
-					    instance23 = instance23.setScale(2, RoundingMode.HALF_UP);
-						
-					    if(t1 < 0 && t2 < 0) {
-							return null;
+					C = -radius * radius;
+
+					double[] rootArray = quadratic(A, B, C);
+					if (rootArray != null) {
+						if (rootArray.length == 2) {
+							double t1 = rootArray[0];
+							double t2 = rootArray[1];
+				
+							Point3D p1 = roundPoint(ray.getPoint(t1));
+							Point3D p2 = roundPoint(ray.getPoint(t2));
+				
+							return List.of(p1, p2);
+						} else if (rootArray.length == 1) {
+							double t = rootArray[0];
+				
+							Point3D p1 = roundPoint(ray.getPoint(t));
+				
+							return List.of(p1);
 						}
-						
-						if (t1 <0) {
-							return List.of( 
-						    		new Point3D(instance21.doubleValue(), instance22.doubleValue(), instance23.doubleValue()));
-						}
-						
-						if(t2<0) {
-							return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()));
-						}
-						
-					    return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()), 
-					    		new Point3D(instance21.doubleValue(), instance22.doubleValue(), instance23.doubleValue()));
 					}
-					else if (d == 0) {
-						t1 = (-B+Math.sqrt(d)) / (2*A); 
-						return List.of(ray.getPoint(t1));	
-					}
-					
+
 					return null;
 				}
 			}
-			
-			try {    ///אולי להוריד
-				B = yA.dotProduct(yB) * 2;
-			} catch (IllegalArgumentException e) {
-				B = 0;
-			}
-			
+
+			B = yA.dotProduct(yB) * 2;
 			C = yB.dotProduct(yB) - radius * radius;
 		}
-		
-		
-		double d = B*B - 4*A*C;   // calc the formola
-		double t1, t2;
-		BigDecimal instance21 = null , instance22 = null , instance23 = null , instance11 = null , instance12 = null , instance13 = null;
-		if (d > 0) {
-			t1 = (-B+Math.sqrt(d)) / (2*A);
-			t2 = (-B-Math.sqrt(d)) / (2*A);
-			
-			
-			if (t2 > 0) {
-				Point3D p2 = ray.getPoint(t2); // Round
-				instance21 = new BigDecimal(Double.toString(p2.getX()));
-			    instance21 = instance21.setScale(2, RoundingMode.HALF_UP);
-			    instance22 = new BigDecimal(Double.toString(p2.getY()));
-			    instance22 = instance22.setScale(2, RoundingMode.HALF_UP);
-			    instance23 = new BigDecimal(Double.toString(p2.getZ()));
-			    instance23 = instance23.setScale(2, RoundingMode.HALF_UP);
+
+		double[] rootArray = quadratic(A, B, C);
+		if (rootArray != null) {
+			if (rootArray.length == 2) {
+				double t1 = rootArray[0];
+				double t2 = rootArray[1];
+	
+				Point3D p1 = roundPoint(ray.getPoint(t1));
+				Point3D p2 = roundPoint(ray.getPoint(t2));
+	
+				return List.of(p1, p2);
+			} else if (rootArray.length == 1) {
+				double t = rootArray[0];
+	
+				Point3D p1 = roundPoint(ray.getPoint(t));
+	
+				return List.of(p1);
 			}
-		    if (t1 > 0) {
-		    	Point3D p1 = ray.getPoint(t1);  // Round
-		    	instance11 = new BigDecimal(Double.toString(p1.getX()));
-			    instance11 = instance11.setScale(2, RoundingMode.HALF_UP);
-			    instance12 = new BigDecimal(Double.toString(p1.getY()));
-			    instance12 = instance12.setScale(2, RoundingMode.HALF_UP);
-			    instance13 = new BigDecimal(Double.toString(p1.getZ()));
-			    instance13 = instance13.setScale(2, RoundingMode.HALF_UP);
-		    }
-		    
-		   
-			if(t1 < 0 && t2 < 0) {
-				return null;
-			}
-			
-			if (t1 <=0) {
-				return List.of( 
-			    		new Point3D(instance21.doubleValue(), instance22.doubleValue(), instance23.doubleValue()));
-			}
-			
-			if(t2 <= 0) {
-				return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()));
-			}
-			
-		    return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()), 
-		    		new Point3D(instance21.doubleValue(), instance22.doubleValue(), instance23.doubleValue()));
 		}
-		else if (d == 0) {
-			t1 = (-B+Math.sqrt(d)) / 2*A;
-			
-			if (t1 == 0)
-				return null;
-			
-			Point3D p1 = ray.getPoint(t1);
-			
-			Vector n = this.getNormal(p1);
-			if (n.dotProduct(v) == 0)
-				return null;
-			
-			instance11 = new BigDecimal(Double.toString(p1.getX()));  // Round
-		    instance11 = instance11.setScale(2, RoundingMode.HALF_UP);
-		    instance12 = new BigDecimal(Double.toString(p1.getY()));
-		    instance12 = instance12.setScale(2, RoundingMode.HALF_UP);
-		    instance13 = new BigDecimal(Double.toString(p1.getZ()));
-		    instance13 = instance13.setScale(2, RoundingMode.HALF_UP);
-			
-			return List.of(new Point3D(instance11.doubleValue(), instance12.doubleValue(), instance13.doubleValue()));	
-		}
-		
 		return null;
 	}
 
 	@Override
 	public String toString() {
 		return axisRay.toString() + " " + radius;
+	}
+
+	
+	// ---------- help functions for find intersection
+
+	/**
+	 * solve a quadratic equation.
+	 * 
+	 * @return if 0 or 1 roots - null, otherwise array with roots bigger than 0.
+	 */
+	private double[] quadratic(double a, double b, double c) {
+		double t1, t2;
+		double[] rootArray = null;
+
+		double d = (b * b) - (4 * a * c);
+		if (d > 0) {
+			t1 = (-b + Math.sqrt(d)) / (2.0 * a);
+			t2 = (-b - Math.sqrt(d)) / (2.0 * a);
+			if (t1 > 0 && t2 > 0) {
+				rootArray = new double[2];
+				rootArray[0] = t1;
+				rootArray[1] = t2;
+			} else if (t1 > 0) {
+				rootArray = new double[1];
+				rootArray[0] = t1;
+			} else if (t2 > 0) {
+				rootArray = new double[1];
+				rootArray[0] = t2;
+			}
+		}
+
+		return rootArray;
+	}
+	
+	/**
+	 * round x, y and z of point tow digits after the decimal point.
+	 * @param point - point to round.
+	 * @return rounded point.
+	 */
+	private Point3D roundPoint(Point3D point) {
+		BigDecimal x = null, y = null, z = null;
+		
+		x = new BigDecimal(Double.toString(point.getX()));
+		x = x.setScale(2, RoundingMode.HALF_UP);
+		y = new BigDecimal(Double.toString(point.getY()));
+		y = y.setScale(2, RoundingMode.HALF_UP);
+		z = new BigDecimal(Double.toString(point.getZ()));
+		z = z.setScale(2, RoundingMode.HALF_UP);
+		
+		return new Point3D(x.doubleValue(), y.doubleValue(), z.doubleValue());
 	}
 }

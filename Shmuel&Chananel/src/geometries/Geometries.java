@@ -12,14 +12,12 @@ import primitives.Ray;
  * @author shmulik
  */
 public class Geometries implements Intersectable {
-	private List<Intersectable> geometriesList;
+	private List<Intersectable> geometriesList = new LinkedList<>();
 
 	/**
 	 * Default constructor that initializes an empty list.
 	 */
-	public Geometries() {
-		geometriesList = new LinkedList<>();
-	}
+	public Geometries() {}
 
 	/**
 	 * Constructor that initializes list with geometric shapes.
@@ -27,7 +25,7 @@ public class Geometries implements Intersectable {
 	 * @param geometries - Some geometric shapes
 	 */
 	public Geometries(Intersectable... geometries) {
-		geometriesList = List.of(geometries);
+		add(geometries);
 	}
 
 	/**
