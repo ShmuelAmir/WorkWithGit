@@ -53,10 +53,10 @@ public class Camera {
 	 * @param vUp
 	 * @param vTo
 	 */
-	public Camera(Point3D p0, Vector vUp, Vector vTo) {
+	public Camera(Point3D p0, Vector vTo, Vector vUp) {
 		this.p0 = p0;
-		this.vUp = vUp.normalized();
 		this.vTo = vTo.normalized();
+		this.vUp = vUp.normalized();
 		if (! isZero(vUp.dotProduct(vTo)))
 			throw new IllegalArgumentException("///////");
 		vRight = vTo.crossProduct(vUp).normalized();
@@ -90,7 +90,6 @@ public class Camera {
 			pIJ = pIJ.add(vUp.scale(yI));
 		
 		return new Ray(p0, pIJ.subtract(p0));
-//		return new Ray(p0, p0.subtract(pIJ));
 	}
 
 }

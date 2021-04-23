@@ -21,14 +21,14 @@ public class CameraRayConstructionTest {
 	public void testSphere() {
 
 		// TC01: 3X3 Sphere
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setDistance(1).setViewPlaneSize(3, 3);
 		Sphere sphere = new Sphere(new Point3D(0, 0, -3), 1);
 
 		assertEquals("ray sphere 2 point intersections", 2, countIntersections(camera, sphere));
 
 		// TC02: 3X3 Sphere
-		camera = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 1, 0), new Vector(0, 0, -1));
+		camera = new Camera(new Point3D(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setDistance(1).setViewPlaneSize(3, 3);
 		sphere = new Sphere(new Point3D(0, 0, -2.5), 2.5);
 
@@ -49,25 +49,25 @@ public class CameraRayConstructionTest {
 
 	@Test
 	public void testPlain() {
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setDistance(1).setViewPlaneSize(3, 3);
 
 		// TC01: 3X3 Plane
-		Plane plane = new Plane(new Point3D(0, 0, -5), new Vector(0, 0, 1));
+		Plane plane = new Plane(new Point3D(0, 0, -10), new Vector(0, 0, 1));
 		assertEquals("ray sphere 9 point intersections", 9, countIntersections(camera, plane));
 
 		// TC02: 3X3 Plane
-		plane = new Plane(new Point3D(-1, 2, 0), new Point3D(-1, -2, 0), new Point3D(-0.5, 2, 2));
+		plane = new Plane(new Point3D(-0.5, 0, -1), new Point3D(-0.5, -2, -1.5), new Point3D(-1.5, 0, -1));
 		assertEquals("ray sphere 9 point intersections", 9, countIntersections(camera, plane));
 
 		// TC03: 3X3 Plane
-		plane = new Plane(new Point3D(-4, 2, 0), new Point3D(-4, -2, 0), new Point3D(-0.5, 2, 2));
+		plane = new Plane(new Point3D(-0.5, 0, -1), new Point3D(-0.5, -2, 1), new Point3D(-1.5, 0, -1));
 		assertEquals("ray sphere 6 point intersections", 6, countIntersections(camera, plane));
 	}
 
 	@Test
 	public void testTriangle() {
-		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 1, 0), new Vector(0, 0, -1));
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setDistance(1).setViewPlaneSize(3, 3);
 
 		// TC01: 3X3 Sphere
