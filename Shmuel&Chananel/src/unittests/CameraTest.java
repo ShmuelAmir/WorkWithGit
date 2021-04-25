@@ -17,7 +17,7 @@ import static primitives.Util.*;
 public class CameraTest {
 
 	/**
-	 * Test method for
+	 * Test method for construct ray through pixel
 	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
 	 */
 	@Test
