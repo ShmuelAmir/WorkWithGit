@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import elements.Camera;
 import primitives.*;
-import static primitives.Util.*;
 
 /**
  * Testing Camera Class

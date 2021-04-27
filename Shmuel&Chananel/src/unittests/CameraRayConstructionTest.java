@@ -13,12 +13,12 @@ import primitives.*;
 
 /**
  * Testing Camera method
+ * 
  * @author user1
  *
  */
 public class CameraRayConstructionTest {
 
-	
 	/**
 	 * Test method for construct ray through pixel
 	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
@@ -87,16 +87,17 @@ public class CameraRayConstructionTest {
 
 	/**
 	 * help method - build ray and find the instructions
+	 * 
 	 * @param camera - starting point of the ray
-	 * @param shape - the shape that cut by the rays
-	 * @param sum - sum the Cutting point
+	 * @param shape  - the shape that cut by the rays
+	 * @param sum    - sum the Cutting point
 	 * @return - sum
 	 */
 	public int countIntersections(Camera camera, Intersectable shape) {
 		int sum = 0;
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				var intersection = shape.findIntersections(camera.constructRayThroughPixel(3, 3, j, i)); 																								/// צריך?
+				var intersection = shape.findIntersections(camera.constructRayThroughPixel(3, 3, j, i)); /// צריך?
 				if (intersection != null) {
 					sum += intersection.size();
 				}
