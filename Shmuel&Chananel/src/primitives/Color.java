@@ -16,9 +16,6 @@ public class Color {
 	private final double r;
 	private final double g;
 	private final double b;
-//	private double r = 0.0;
-//	private double g = 0.0;
-//	private double b = 0.0;
 
 	public static final Color BLACK = new Color();
 
@@ -48,17 +45,6 @@ public class Color {
 	}
 
 	/**
-	 * Copy constructor for Color
-	 * 
-	 * @param other the source color
-	 */
-//	public Color(Color other) {
-//		r = other.r;
-//		g = other.g;
-//		b = other.b;
-//	}
-
-	/**
 	 * Constructor on base of java.awt.Color object
 	 * 
 	 * @param other java.awt.Color's source object
@@ -68,62 +54,6 @@ public class Color {
 		g = other.getGreen();
 		b = other.getBlue();
 	}
-
-	/**
-	 * Color setter to reset the color to BLACK
-	 * 
-	 * @return the Color object itself for chaining calls
-	 */
-//	public Color setColor() {
-//		r = 0.0;
-//		g = 0.0;
-//		b = 0.0;
-//		return this;
-//	}
-
-	/**
-	 * Color setter to generate a color according to RGB components Each component
-	 * in range 0..255 (for printed white color) or more [for lights]
-	 * 
-	 * @param r Red component
-	 * @param g Green component
-	 * @param b Blue component
-	 * @return the Color object itself for chaining calls
-	 */
-//	public Color setColor(double r, double g, double b) {
-//		if (r < 0 || g < 0 || b < 0)
-//			throw new IllegalArgumentException("Negative color component is illegal");
-//		this.r = r;
-//		this.g = g;
-//		this.b = b;
-//		return this;
-//	}
-
-	/**
-	 * Color setter to copy RGB components from another color
-	 *
-	 * @param other source Color object
-	 * @return the Color object itself for chaining calls
-	 */
-//	public Color setColor(Color other) {
-//		r = other.r;
-//		g = other.g;
-//		b = other.b;
-//		return this;
-//	}
-
-	/**
-	 * Color setter to take components from an base of java.awt.Color object
-	 *
-	 * @param other java.awt.Color's source object
-	 * @return the Color object itself for chaining calls
-	 */
-//	public Color setColor(java.awt.Color other) {
-//		r = other.getRed();
-//		g = other.getGreen();
-//		b = other.getBlue();
-//		return this;
-//	}
 
 	/**
 	 * Color getter - returns the color after converting it into java.awt.Color

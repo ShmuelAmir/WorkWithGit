@@ -36,18 +36,18 @@ public class Point3DTests {
 		assertTrue("Point - Point does not work correctly",
 				new Vector(1, 1, 1).equals(new Point3D(2, 3, 4).subtract(p1)));
 	}
-	
+
 	/**
-	 * Test method for {@link primitives.Point3D#distance(Point3D point)}.
+	 * Test method for {@link primitives.Point3D#distance(primitives.Point3D)}.
 	 */
 	@Test
 	public void testDistance() {
 		// ============ Equivalence Partitions Tests ==============
 		// TC01: Point - Point
-		
+
 		Point3D p1 = new Point3D(1, 0, 0);
 		Point3D p2 = new Point3D(2, 0, 0);
-		assertTrue("Bad normal to trinagle",isZero(1.0 - p1.distance(p2)));
-				
+		assertTrue("Bad normal to trinagle", isZero(1.0 - p1.distance(p2)));
+
 	}
 }
