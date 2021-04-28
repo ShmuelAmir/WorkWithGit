@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Ray - any of a set of straight lines passing through one point
  * 
@@ -35,6 +37,21 @@ public class Ray {
 
 	public Point3D getPoint(double t) {
 		return p0.add(dir.scale(t));
+	}
+	
+	public Point3D getClosestPoint (List<Point3D> points) {
+		if(points == null)
+			return null;
+		Point3D minPoint = points.get(0);
+		double  minDistance = minPoint.distance(p0);
+		for (Point3D point : points) {
+			if (point.distance(p0) < minDistance) {
+				minPoint = point;
+				minDistance = point.distance(p0);
+			}
+		}
+		
+		return minPoint;
 	}
 	
 	@Override
