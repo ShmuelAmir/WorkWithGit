@@ -11,8 +11,9 @@ import primitives.*;
  * @author shmulik
  */
 public class Sphere implements Geometry {
-	private Point3D center; // the center of the sphere
-	private double radius; // the radius of the sphere
+	private final Point3D center; // the center of the sphere
+	private final double radius; // the radius of the sphere
+	private final double rSquared;
 
 	/**
 	 * constructor that build sphere object
@@ -23,6 +24,7 @@ public class Sphere implements Geometry {
 	public Sphere(Point3D point, double radius) {
 		this.center = point;
 		this.radius = radius;
+		this.rSquared = radius * radius;
 	}
 
 	/**
@@ -49,23 +51,25 @@ public class Sphere implements Geometry {
 		if (center.equals(ray.getP0())) {
 			return List.of(ray.getPoint(radius));
 		}
-		
+
 		Vector u = center.subtract(ray.getP0());
-		double tm = ray.getDir().dotProduct(u);
-		double d = Math.sqrt(u.lengthSquared() - tm * tm);
-		
-		if (alignZero(d - radius) >= 0) {
-			return null;			
+		double tm = ray.getDir().dotProduct(u); // tm is never greater than d
+		// d^2 = u^2 - tm^2
+		double dSquared = u.lengthSquared() - tm * tm;
+		double thSquared = alignZero(rSquared - dSquared);
+
+		if (thSquared <= 0) {
+			return null;
 		}
-		
-		double th = Math.sqrt(radius * radius - d * d);
+
+		double th = Math.sqrt(thSquared);
 		double t1 = alignZero(tm + th);
 		double t2 = alignZero(tm - th);
 
 		if (t1 > 0) {
 			return (t2 > 0) ? List.of(ray.getPoint(t1), ray.getPoint(t2)) : List.of(ray.getPoint(t1));
 		}
-		
+
 		return null;
 	}
 

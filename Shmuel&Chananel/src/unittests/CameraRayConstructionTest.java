@@ -25,7 +25,6 @@ public class CameraRayConstructionTest {
 	 */
 	@Test
 	public void testSphere() {
-
 		// TC01: 3X3 case of ray-sphere 2 point intersections
 		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0));
 		camera.setDistance(1).setViewPlaneSize(3, 3);
@@ -95,12 +94,12 @@ public class CameraRayConstructionTest {
 	 */
 	public int countIntersections(Camera camera, Intersectable shape) {
 		int sum = 0;
+		
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
-				var intersection = shape.findIntersections(camera.constructRayThroughPixel(3, 3, j, i)); /// צריך?
-				if (intersection != null) {
+				var intersection = shape.findIntersections(camera.constructRayThroughPixel(3, 3, j, i));
+				if (intersection != null)
 					sum += intersection.size();
-				}
 			}
 		}
 

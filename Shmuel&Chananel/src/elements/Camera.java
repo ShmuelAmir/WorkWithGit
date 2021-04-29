@@ -15,19 +15,15 @@ import primitives.*;
  *
  */
 public class Camera {
-	// camera location
+	// camera location and directions
 	private Point3D p0;
-	// vector upward of the camera
 	private Vector vUp;
-	// vector forward of the camera
 	private Vector vTo;
-	// vector in the right direction of the camera
 	private Vector vRight;
-	// the width of view plane
+	// width and height of the view plane
 	private double width;
-	// the height of view plane
 	private double height;
-	// the distance between the camera and the view plan
+	// distance between the camera and the view plan
 	private double distance;
 
 	/**
@@ -76,17 +72,14 @@ public class Camera {
 	 * @throws IllegalArgumentException in case that vTo and vUp not orthogonal
 	 */
 	public Camera(Point3D p0, Vector vTo, Vector vUp) {
+		// check if the vectors are orthogonal
+		if (!isZero(vUp.dotProduct(vTo)))
+			throw new IllegalArgumentException("vTo and vUp must be ortogonal");
+
 		this.p0 = p0;
 		this.vTo = vTo.normalized();
 		this.vUp = vUp.normalized();
-		// We check if the vector is orthogonal by dotProduct - if the result is 0 the
-		// vectors are orthogonal
-		if (!isZero(vUp.dotProduct(vTo)))
-			throw new IllegalArgumentException("vTo and vUp must be ortogonal");
-		// After we check if the vector is orthogonal we can calculate the other vector
-		// by crossProduct
-		vRight = vTo.crossProduct(vUp).normalized();
-
+		this.vRight = vTo.crossProduct(vUp).normalized();	// vRight = vTo x vUp
 	}
 
 	/**
@@ -123,21 +116,17 @@ public class Camera {
 	 * @return ray that begin in the camera and go thorough pixel
 	 */
 	public Ray constructRayThroughPixel(int nX, int nY, int j, int i) {
-		// save the view plain center
 		Point3D pCenter = p0.add(vTo.scale(distance));
 
-		// calculate and save the ratio
-		// ratio pixel width
+		// calculate the width and height ratio
 		double rX = width / nX;
-		// ratio pixel height
 		double rY = height / nY;
-		// calculate and save the location in x axis
-		double xJ = (j - ((nX - 1) / 2.0)) * rX;
-		// calculate and save the location in y axis
-		double yI = (-1) * (i - ((nY - 1) / 2.0)) * rY;
+		
+		// calculate the location in x and y axis
+		double xJ = (j - (nX - 1) / 2.0) * rX;
+		double yI = ((nY - 1) / 2.0 - i) * rY;
 
-		// in the beginning we initialize pIJ in the center location and after we move
-		// the point to the desired place
+		// pIJ = pC + vRight*xJ + vUp*yI
 		Point3D pIJ = pCenter;
 		// this if need to prevent scale vector by zero
 		if (xJ != 0)

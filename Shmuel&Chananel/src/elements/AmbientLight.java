@@ -16,7 +16,7 @@ public class AmbientLight {
 	/**
 	 * @param intensity
 	 */
-	public AmbientLight(Color intensity , double kA ) {
+	public AmbientLight(Color intensity , double kA) {
 		
 		this.intensity = intensity.scale(kA);
 	}
