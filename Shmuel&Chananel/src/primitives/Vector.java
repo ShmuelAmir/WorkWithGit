@@ -8,7 +8,7 @@ package primitives;
  *
  */
 public class Vector {
-	private Point3D head; // the Starting point of the vector
+	private Point3D head; // the ending point of the vector (start in zero point)
 
 	/**
 	 * constructor with 3 coordinates
@@ -20,9 +20,8 @@ public class Vector {
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		this.head = new Point3D(x, y, z);
 		
-		if (this.head.equals(Point3D.ZERO)) {
+		if (this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
-		}
 	}
 
 	/**
@@ -35,9 +34,8 @@ public class Vector {
 	public Vector(double x, double y, double z) {
 		this.head = new Point3D(x, y, z);
 		
-		if (this.head.equals(Point3D.ZERO)) {
+		if (this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
-		}
 	}
 
 	/**
@@ -46,9 +44,8 @@ public class Vector {
 	 * @param head - The head point
 	 */
 	public Vector(Point3D head) {
-		if (head.equals(Point3D.ZERO)) {
+		if (head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
-		}
 		
 		this.head = head;
 	}

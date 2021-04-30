@@ -12,7 +12,6 @@ import scene.*;
  *
  */
 public abstract class RayTracerBase {
-	
 	protected Scene scene;
 	
 	/**

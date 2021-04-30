@@ -46,105 +46,116 @@ public class Tube implements Geometry {
 		Point3D p0 = axisRay.getP0();
 		Vector dir = axisRay.getDir();
 
-		double t = dir.dotProduct(point.subtract(p0)); // t = v * (P - P0)
+		double t = dir.dotProduct(point.subtract(p0));	// t = v * (P - P0)
 
-		if (isZero(t)) { // P0 and the point are on the same plane
+		if (isZero(t))	// P0 and the point are on the same plane
 			return point.subtract(p0).normalize();
-		}
 
-		Point3D center = axisRay.getPoint(t); // O = P0 + t*v
+		Point3D center = axisRay.getPoint(t);	// O = P0 + t*v
 
 		return point.subtract(center).normalize();
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {// להוסיף alignZero לt
-		Vector vA = axisRay.getDir();
-		Point3D pA = axisRay.getP0();
-		Vector v = ray.getDir();
-		Point3D p = ray.getP0();
-		double A, B, C;
+	public List<Point3D> findIntersections(Ray ray) {
+//		Vector vA = axisRay.getDir();
+//		Point3D pA = axisRay.getP0();
+//		Vector v = ray.getDir();
+//		Point3D p = ray.getP0();
+//		double A, B, C;
+//
+//		Vector yA = null;
+//		boolean vOrthogonalVa = true;
+//		try {
+//			Vector xA = vA.scale(v.dotProduct(vA));
+//			vOrthogonalVa = false;
+//
+//			yA = v.subtract(xA);
+//		} catch (IllegalArgumentException e) {
+//			if (vOrthogonalVa)
+//				yA = v;
+//			else
+//				return null;
+//		}
+//		A = yA.dotProduct(yA);
+//
+//		if (p.equals(pA)) {
+//			B = 0;
+//			C = -radius * radius;
+//		} else {
+//			boolean vAOrthogonalDeltaP = true;
+//			Vector deltaP = p.subtract(pA);
+//			Vector yB = null;
+//
+//			try {
+//				Vector xB = vA.scale(deltaP.dotProduct(vA));
+//				vAOrthogonalDeltaP = false;
+//
+//				yB = deltaP.subtract(xB);
+//			} catch (IllegalArgumentException e) {
+//				if (vAOrthogonalDeltaP) {
+//					yB = deltaP;
+//				} else {
+//					B = 0;
+//					C = -radius * radius;
+//
+//					double[] rootArray = quadratic(A, B, C);
+//					if (rootArray != null) {
+//						if (rootArray.length == 2) {
+//							double t1 = rootArray[0];
+//							double t2 = rootArray[1];
+//				
+//							Point3D p1 = roundPoint(ray.getPoint(t1));
+//							Point3D p2 = roundPoint(ray.getPoint(t2));
+//				
+//							return List.of(p1, p2);
+//						} else if (rootArray.length == 1) {
+//							double t = rootArray[0];
+//				
+//							Point3D p1 = roundPoint(ray.getPoint(t));
+//				
+//							return List.of(p1);
+//						}
+//					}
+//
+//					return null;
+//				}
+//			}
+//
+//			B = yA.dotProduct(yB) * 2;
+//			C = yB.dotProduct(yB) - radius * radius;
+//		}
+		
+		double[] abc = findABC(ray);
+		if (abc == null)
+			return null;
+		
+		double a = abc[0];
+		double b = abc[1];
+		double c = abc[2];
 
-		Vector yA = null;
-		boolean vOrthogonalVa = true;
-		try {
-			Vector xA = vA.scale(v.dotProduct(vA));
-			vOrthogonalVa = false;
+		double[] rootArray = quadratic(a, b, c);
+		if (rootArray == null) 
+			return null;
+			
+		if (rootArray.length == 2) {
+			double t1 = rootArray[0];
+			double t2 = rootArray[1];
 
-			yA = v.subtract(xA);
-		} catch (IllegalArgumentException e) {
-			if (vOrthogonalVa)
-				yA = v;
-			else
-				return null;
+			Point3D p1 = roundPoint(ray.getPoint(t1));
+			Point3D p2 = roundPoint(ray.getPoint(t2));
+
+			return List.of(p1, p2);
 		}
-		A = yA.dotProduct(yA);
+		
+		if (rootArray.length == 1) {
+			double t = rootArray[0];
 
-		if (p.equals(pA)) {
-			B = 0;
-			C = -radius * radius;
-		} else {
-			boolean vAOrthogonalDeltaP = true;
-			Vector deltaP = p.subtract(pA);
-			Vector yB = null;
+			Point3D p1 = roundPoint(ray.getPoint(t));
 
-			try {
-				Vector xB = vA.scale(deltaP.dotProduct(vA));
-				vAOrthogonalDeltaP = false;
-
-				yB = deltaP.subtract(xB);
-			} catch (IllegalArgumentException e) {
-				if (vAOrthogonalDeltaP) {
-					yB = deltaP;
-				} else {
-					B = 0;
-					C = -radius * radius;
-
-					double[] rootArray = quadratic(A, B, C);
-					if (rootArray != null) {
-						if (rootArray.length == 2) {
-							double t1 = rootArray[0];
-							double t2 = rootArray[1];
-				
-							Point3D p1 = roundPoint(ray.getPoint(t1));
-							Point3D p2 = roundPoint(ray.getPoint(t2));
-				
-							return List.of(p1, p2);
-						} else if (rootArray.length == 1) {
-							double t = rootArray[0];
-				
-							Point3D p1 = roundPoint(ray.getPoint(t));
-				
-							return List.of(p1);
-						}
-					}
-
-					return null;
-				}
-			}
-
-			B = yA.dotProduct(yB) * 2;
-			C = yB.dotProduct(yB) - radius * radius;
+			return List.of(p1);
 		}
-
-		double[] rootArray = quadratic(A, B, C);
-		if (rootArray != null) {
-			if (rootArray.length == 2) {
-				double t1 = rootArray[0];
-				double t2 = rootArray[1];
-	
-				Point3D p1 = roundPoint(ray.getPoint(t1));
-				Point3D p2 = roundPoint(ray.getPoint(t2));
-	
-				return List.of(p1, p2);
-			} else if (rootArray.length == 1) {
-				double t = rootArray[0];
-	
-				Point3D p1 = roundPoint(ray.getPoint(t));
-	
-				return List.of(p1);
-			}
-		}
+		
 		return null;
 	}
 
@@ -156,6 +167,62 @@ public class Tube implements Geometry {
 	
 	// ---------- help functions for find intersection
 
+	/**
+	 * 
+	 * @param vA
+	 * @param pA
+	 * @param v
+	 * @param p
+	 * @return
+	 */
+	private double[] findABC(Ray ray) {
+		Vector vA = axisRay.getDir();
+		Point3D pA = axisRay.getP0();
+		Vector v = ray.getDir();
+		Point3D p = ray.getP0();
+		
+		Vector xA, yA, xB, yB;
+		double[] abc = new double[3];	
+		double rSqueredMinus = - radius * radius;
+		
+		double vDotVa = v.dotProduct(vA);
+		if (isZero(vDotVa)) 
+			yA = v;
+		else {
+			xA = vA.scale(vDotVa);
+			if (v.equals(xA))
+				return null;
+			yA = v.subtract(xA);
+		}
+		abc[0] = yA.dotProduct(yA);
+
+		if (p.equals(pA)) {
+			abc[1] = 0;
+			abc[2] = rSqueredMinus;
+			return abc;
+		}
+		
+		Vector deltaP = p.subtract(pA);
+		double deltaPDotVa = deltaP.dotProduct(vA); 
+		if (isZero(deltaPDotVa))
+			yB = deltaP;
+		else {
+			xB = vA.scale(deltaPDotVa);
+			if (deltaP.equals(xB)) {
+				abc[1] = 0;
+				abc[2] = rSqueredMinus;
+				return abc;
+			}
+				
+			yB = deltaP.subtract(xB);
+		}
+		
+		abc[1] = yA.dotProduct(yB) * 2;
+		abc[2] = yB.dotProduct(yB) + rSqueredMinus;
+		
+		return abc;
+	}
+	
 	/**
 	 * solve a quadratic equation.
 	 * 
@@ -187,6 +254,7 @@ public class Tube implements Geometry {
 	
 	/**
 	 * round x, y and z of point tow digits after the decimal point.
+	 * 
 	 * @param point - point to round.
 	 * @return rounded point.
 	 */

@@ -1,7 +1,4 @@
-/**
- * 
- */
-package unittests;
+package unittests.elements;
 
 import static org.junit.Assert.*;
 
@@ -12,17 +9,13 @@ import geometries.*;
 import primitives.*;
 
 /**
- * Testing Camera method
+ * Integration test - Camera and Ray
  * 
  * @author user1
  *
  */
 public class CameraRayConstructionTest {
 
-	/**
-	 * Test method for construct ray through pixel
-	 * {@link elements.Camera#constructRayThroughPixel(int, int, int, int)}.
-	 */
 	@Test
 	public void testSphere() {
 		// TC01: 3X3 case of ray-sphere 2 point intersections
@@ -92,7 +85,7 @@ public class CameraRayConstructionTest {
 	 * @param sum    - sum the Cutting point
 	 * @return - sum
 	 */
-	public int countIntersections(Camera camera, Intersectable shape) {
+	private int countIntersections(Camera camera, Intersectable shape) {
 		int sum = 0;
 		
 		for (int i = 0; i < 3; i++) {

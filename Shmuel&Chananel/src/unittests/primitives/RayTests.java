@@ -1,7 +1,4 @@
-/**
- * 
- */
-package unittests;
+package unittests.primitives;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +11,7 @@ import primitives.*;
  * @author user1
  *
  */
-public class rayTests {
+public class RayTests {
 
 	/**
 	 * Test method for {@link primitives.Ray#getClosestPoint(java.util.List)}.
@@ -33,7 +30,7 @@ public class rayTests {
 		points.add(0, secondPoint);
 		points.add(1, firstPoint);
 		points.add(2, thirdPoint);
-		
+
 		assertEquals("point in the middel", firstPoint, ray.getClosestPoint(points));
 
 		// ============ Boundary Values Tests ==============
@@ -41,7 +38,7 @@ public class rayTests {
 		// TC10: the list is null
 		points = null;
 		assertNull("list is null", ray.getClosestPoint(points));
-		
+
 		// TC11: the close point is in the beginning
 		points = new ArrayList<Point3D>();
 		points.add(0, firstPoint);
@@ -49,15 +46,14 @@ public class rayTests {
 		points.add(2, thirdPoint);
 
 		assertEquals("point in the middel", firstPoint, ray.getClosestPoint(points));
-		
+
 		// TC12: the list is in the end
 		points.clear();
 		points.add(0, thirdPoint);
 		points.add(1, secondPoint);
 		points.add(2, firstPoint);
-		
-		assertEquals("min point in the middel", firstPoint, ray.getClosestPoint(points));
 
+		assertEquals("min point in the middel", firstPoint, ray.getClosestPoint(points));
 	}
 
 }

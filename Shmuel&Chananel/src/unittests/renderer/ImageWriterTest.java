@@ -1,7 +1,7 @@
 /**
  * 
  */
-package unittests;
+package unittests.renderer;
 
 import org.junit.Test;
 
@@ -34,5 +34,4 @@ public class ImageWriterTest {
 
 		imageWriter.writeToImage();
 	}
-
 }

@@ -1,4 +1,4 @@
-package unittests;
+package unittests.renderer;
 
 import java.io.IOException;
 import java.util.ArrayList;

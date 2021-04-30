@@ -48,9 +48,8 @@ public class Sphere implements Geometry {
 
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
-		if (center.equals(ray.getP0())) {
+		if (center.equals(ray.getP0()))
 			return List.of(ray.getPoint(radius));
-		}
 
 		Vector u = center.subtract(ray.getP0());
 		double tm = ray.getDir().dotProduct(u); // tm is never greater than d
@@ -58,17 +57,15 @@ public class Sphere implements Geometry {
 		double dSquared = u.lengthSquared() - tm * tm;
 		double thSquared = alignZero(rSquared - dSquared);
 
-		if (thSquared <= 0) {
+		if (thSquared <= 0)
 			return null;
-		}
 
 		double th = Math.sqrt(thSquared);
 		double t1 = alignZero(tm + th);
 		double t2 = alignZero(tm - th);
 
-		if (t1 > 0) {
+		if (t1 > 0)
 			return (t2 > 0) ? List.of(ray.getPoint(t1), ray.getPoint(t2)) : List.of(ray.getPoint(t1));
-		}
 
 		return null;
 	}

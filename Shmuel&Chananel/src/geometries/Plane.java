@@ -12,8 +12,8 @@ import static primitives.Util.*;
  *
  */
 public class Plane implements Geometry {
-	private Point3D p0; // point in the plane
-	private Vector normal; // vector normal to the plane
+	private Point3D p0; // point on the plane
+	private Vector normal; // normal vector to the plane
 
 	/**
 	 * Constructor that calculate the normal and build a plain object
@@ -40,7 +40,7 @@ public class Plane implements Geometry {
 	 */
 	public Plane(Point3D point, Vector vector) {
 		p0 = point;
-		normal = vector.normalize(); //
+		normal = vector.normalize();	//
 	}
 
 	/**

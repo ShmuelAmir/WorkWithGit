@@ -6,10 +6,15 @@ package primitives;
  * @author user1
  */
 public class Point3D {
-	final Coordinate x; //  Will save the position relative to the x axis  
-	final Coordinate y; //  Will save the position relative to the y axis 
-	final Coordinate z; //  Will save the position relative to the z axis 
+	// x, y and z position of the point
+	final Coordinate x;
+	final Coordinate y;
+	final Coordinate z;
 
+	/**
+	 * The starting point of the axes
+	 */
+	public static final Point3D ZERO = new Point3D(0, 0, 0);
 	
 	/**
 	 * @return the x
@@ -31,11 +36,6 @@ public class Point3D {
 	public double getZ() {
 		return z.coord;
 	}
-
-	/**
-	 * The starting point of the axes
-	 */
-	public static final Point3D ZERO = new Point3D(0, 0, 0);
 
 	/**
 	 * constructor that get three Coordinate and build Point3D

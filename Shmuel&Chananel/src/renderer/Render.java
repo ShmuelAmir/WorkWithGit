@@ -1,6 +1,3 @@
-/**
- * 
- */
 package renderer;
 
 import java.util.MissingResourceException;
@@ -10,8 +7,9 @@ import primitives.Color;
 import scene.Scene;
 
 /**
+ * 
+ * 
  * @author shmulik
- *
  */
 public class Render {
 	private Scene scene;

@@ -1,4 +1,4 @@
-package unittests;
+package unittests.primitives;
 
 import static org.junit.Assert.*;
 
@@ -48,6 +48,5 @@ public class Point3DTests {
 		Point3D p1 = new Point3D(1, 0, 0);
 		Point3D p2 = new Point3D(2, 0, 0);
 		assertTrue("Bad normal to trinagle", isZero(1.0 - p1.distance(p2)));
-
 	}
 }

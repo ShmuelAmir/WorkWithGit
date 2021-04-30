@@ -1,6 +1,3 @@
-/**
- * 
- */
 package elements;
 
 import static primitives.Util.*;
@@ -27,8 +24,6 @@ public class Camera {
 	private double distance;
 
 	/**
-	 * get method
-	 * 
 	 * @return the p0
 	 */
 	public Point3D getP0() {
@@ -36,8 +31,6 @@ public class Camera {
 	}
 
 	/**
-	 * get method
-	 * 
 	 * @return the vUp
 	 */
 	public Vector getvUp() {
@@ -45,8 +38,6 @@ public class Camera {
 	}
 
 	/**
-	 * get method
-	 * 
 	 * @return the vTo
 	 */
 	public Vector getvTo() {
@@ -54,8 +45,6 @@ public class Camera {
 	}
 
 	/**
-	 * get method
-	 * 
 	 * @return the vRight
 	 */
 	public Vector getvRight() {
@@ -128,7 +117,6 @@ public class Camera {
 
 		// pIJ = pC + vRight*xJ + vUp*yI
 		Point3D pIJ = pCenter;
-		// this if need to prevent scale vector by zero
 		if (xJ != 0)
 			pIJ = pIJ.add(vRight.scale(xJ));
 		if (yI != 0)

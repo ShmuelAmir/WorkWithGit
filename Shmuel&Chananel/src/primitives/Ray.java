@@ -9,11 +9,12 @@ import java.util.List;
  */
 public class Ray {
 	private Point3D p0; // the starting point
-	private Vector dir; // the vector from the Starting point
-	
+	private Vector dir; // the direction vector from the Starting point
+
 	/**
 	 * Constructor that get point and vector and create ray
-	 * @param point - starting point
+	 * 
+	 * @param point  - starting point
 	 * @param vector - direction vector
 	 */
 	public Ray(Point3D point, Vector vector) {
@@ -35,25 +36,38 @@ public class Ray {
 		return dir;
 	}
 
+	/**
+	 * calculate point on the direction vector in distance t from p0
+	 * 
+	 * @param t - distance
+	 * @return the point
+	 */
 	public Point3D getPoint(double t) {
 		return p0.add(dir.scale(t));
 	}
-	
-	public Point3D getClosestPoint (List<Point3D> points) {
-		if(points == null)
+
+	/**
+	 * find the closes point to p0 from list
+	 * 
+	 * @param points - list of point
+	 * @return - the closes point to p0
+	 */
+	public Point3D getClosestPoint(List<Point3D> points) {
+		if (points == null)
 			return null;
-		Point3D minPoint = points.get(0);
-		double  minDistance = minPoint.distance(p0);
+
+		Point3D closesPoint = points.get(0);
+		double minDistance = closesPoint.distance(p0);
 		for (Point3D point : points) {
 			if (point.distance(p0) < minDistance) {
-				minPoint = point;
+				closesPoint = point;
 				minDistance = point.distance(p0);
 			}
 		}
-		
-		return minPoint;
+
+		return closesPoint;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -65,7 +79,7 @@ public class Ray {
 		Ray other = (Ray) obj;
 		return this.p0.equals(other.p0) && this.dir.equals(other.dir);
 	}
-	
+
 	@Override
 	public String toString() {
 		return p0.toString() + " " + dir.toString();

@@ -17,6 +17,9 @@ public class Color {
 	private final double g;
 	private final double b;
 
+	/**
+	 * default background color - black
+	 */
 	public static final Color BLACK = new Color();
 
 	/**
