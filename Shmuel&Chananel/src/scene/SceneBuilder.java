@@ -14,13 +14,24 @@ import primitives.Color;
 import primitives.Point3D;
 
 /**
+ * SceneBuilder is a class that initialize a scene according to the XML fill
+ * we chose to use Document Object Model so the architecture of this way to open XML fill
+ *include create scene object
+ * 
  * @author shmulik
  *
  */
 public class SceneBuilder {
+	// will save the string thar represent scene
 	SceneDescriptor descriptor;
-	Scene scene = new Scene("XML Test scene");	
+	// will save the scene
+	Scene scene = new Scene("XML Test scene");
 	
+	/**
+	 * this method initialize the scene object from the XML fill
+	 * @param fileName - the name of the fill in the workspace
+	 * @return scene object
+	 */
 	public Scene getScaneFromeXml(String fileName) {
 		descriptor = new SceneDescriptor();
 		descriptor.getStringFromXml(fileName);
@@ -41,9 +52,9 @@ public class SceneBuilder {
 	
 	
 	/**
-	 * 
-	 * @param str
-	 * @return
+	 * get point from string
+	 * @param str - the string that represent point
+	 * @return Point3D object
 	 */
 	public Point3D getPoint(String str) {
 		ArrayList<Double> doubles = getdouble(str);
@@ -52,9 +63,9 @@ public class SceneBuilder {
 	}
 
 	/**
-	 * 
-	 * @param str
-	 * @return
+	 * get Color from string
+	 * @param str - the string that represent Color
+	 * @return Color
 	 */
 	public Color getColor(String str) {
 		ArrayList<Double> doubles = getdouble(str);
@@ -63,9 +74,9 @@ public class SceneBuilder {
 	}
 
 	/**
-	 * 
-	 * @param str
-	 * @return
+	 * get double from string
+	 * @param str - the string that represent double
+	 * @return List of number
 	 */
 	public ArrayList<Double> getdouble(String str) {
 		ArrayList<Double> numList = new ArrayList<>();
