@@ -455,74 +455,74 @@ public class TubeTests {
 		result = tube2.findIntersections(ray);
 		assertNull("Bad intersections", result);
 
-//		// **** Group: Ray's line is neither parallel nor orthogonal to the axis and
-//		// does not begin against axis head
-//		double sqrt2 = Math.sqrt(2);
-//		double denomSqrt2 = 1 / sqrt2;
-//		double value1 = 1 - denomSqrt2;
-//		double value2 = 1 + denomSqrt2;
-//		// TC71: Ray's crosses the tube and the axis
-//		ray = new Ray(new Point3D(0, 0, 2), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 2 intersections", 2, result.size());
-//		if (result.get(0).getY() > result.get(1).getY())
-//			result = List.of(result.get(1), result.get(0));
-//		assertEquals("Bad intersections",
-//				List.of(new Point3D(value1, value1, 2 + value1), new Point3D(value2, value2, 2 + value2)), result);
-//		// TC72: Ray's crosses the tube and the axis head
-//		ray = new Ray(new Point3D(0, 0, 0), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 2 intersections", 2, result.size());
-//		if (result.get(0).getY() > result.get(1).getY())
-//			result = List.of(result.get(1), result.get(0));
-//		assertEquals("Bad intersections",
-//				List.of(new Point3D(value1, value1, value1), new Point3D(value2, value2, value2)), result);
-//		// TC73: Ray's begins at the surface and goes inside
-//		// TC74: Ray's begins at the surface and goes inside crossing the axis
-//		ray = new Ray(new Point3D(value1, value1, 2 + value1), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 1 intersections", 1, result.size());
-//		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
-//		// TC75: Ray's begins at the surface and goes inside crossing the axis head
-//		ray = new Ray(new Point3D(value1, value1, value1), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 1 intersections", 1, result.size());
-//		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, value2)), result);
-//		// TC76: Ray's begins inside and the line crosses the axis
-//		ray = new Ray(new Point3D(0.5, 0.5, 2.5), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 1 intersections", 1, result.size());
-//		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
-//		// TC77: Ray's begins inside and the line crosses the axis head
-//		ray = new Ray(new Point3D(0.5, 0.5, 0.5), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 1 intersections", 1, result.size());
-//		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, value2)), result);
-//		// TC78: Ray's begins at the axis
-//		ray = new Ray(new Point3D(1, 1, 3), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNotNull("must be intersections", result);
-//		assertEquals("must be 1 intersections", 1, result.size());
-//		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
-//		// TC79: Ray's begins at the surface and goes outside
-//		ray = new Ray(new Point3D(2, 1, 2), new Vector(2, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNull("Bad intersections", result);
-//		// TC80: Ray's begins at the surface and goes outside and the line crosses the
-//		// axis
-//		ray = new Ray(new Point3D(value2, value2, 2 + value2), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNull("Bad intersections", result);
-//		// TC81: Ray's begins at the surface and goes outside and the line crosses the
-//		// axis head
-//		ray = new Ray(new Point3D(value2, value2, value2), new Vector(1, 1, 1));
-//		result = tube2.findIntersections(ray);
-//		assertNull("Bad intersections", result);
+		// **** Group: Ray's line is neither parallel nor orthogonal to the axis and
+		// does not begin against axis head
+		double sqrt2 = Math.sqrt(2);
+		double denomSqrt2 = 1 / sqrt2;
+		double value1 = 1 - denomSqrt2;
+		double value2 = 1 + denomSqrt2;
+		// TC71: Ray's crosses the tube and the axis
+		ray = new Ray(new Point3D(0, 0, 2), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 2 intersections", 2, result.size());
+		if (result.get(0).getY() > result.get(1).getY())
+			result = List.of(result.get(1), result.get(0));
+		assertEquals("Bad intersections",
+				List.of(new Point3D(value1, value1, 2 + value1), new Point3D(value2, value2, 2 + value2)), result);
+		// TC72: Ray's crosses the tube and the axis head
+		ray = new Ray(new Point3D(0, 0, 0), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 2 intersections", 2, result.size());
+		if (result.get(0).getY() > result.get(1).getY())
+			result = List.of(result.get(1), result.get(0));
+		assertEquals("Bad intersections",
+				List.of(new Point3D(value1, value1, value1), new Point3D(value2, value2, value2)), result);
+		// TC73: Ray's begins at the surface and goes inside
+		// TC74: Ray's begins at the surface and goes inside crossing the axis
+		ray = new Ray(new Point3D(value1, value1, 2 + value1), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 1 intersections", 1, result.size());
+		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
+		// TC75: Ray's begins at the surface and goes inside crossing the axis head
+		ray = new Ray(new Point3D(value1, value1, value1), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 1 intersections", 1, result.size());
+		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, value2)), result);
+		// TC76: Ray's begins inside and the line crosses the axis
+		ray = new Ray(new Point3D(0.5, 0.5, 2.5), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 1 intersections", 1, result.size());
+		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
+		// TC77: Ray's begins inside and the line crosses the axis head
+		ray = new Ray(new Point3D(0.5, 0.5, 0.5), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 1 intersections", 1, result.size());
+		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, value2)), result);
+		// TC78: Ray's begins at the axis
+		ray = new Ray(new Point3D(1, 1, 3), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 1 intersections", 1, result.size());
+		assertEquals("Bad intersections", List.of(new Point3D(value2, value2, 2 + value2)), result);
+		// TC79: Ray's begins at the surface and goes outside
+		ray = new Ray(new Point3D(2, 1, 2), new Vector(2, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNull("Bad intersections", result);
+		// TC80: Ray's begins at the surface and goes outside and the line crosses the
+		// axis
+		ray = new Ray(new Point3D(value2, value2, 2 + value2), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNull("Bad intersections", result);
+		// TC81: Ray's begins at the surface and goes outside and the line crosses the
+		// axis head
+		ray = new Ray(new Point3D(value2, value2, value2), new Vector(1, 1, 1));
+		result = tube2.findIntersections(ray);
+		assertNull("Bad intersections", result);
 	}
 }

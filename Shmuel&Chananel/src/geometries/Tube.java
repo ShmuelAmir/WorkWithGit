@@ -142,8 +142,10 @@ public class Tube implements Geometry {
 			double t1 = rootArray[0];
 			double t2 = rootArray[1];
 
-			Point3D p1 = roundPoint(ray.getPoint(t1));
-			Point3D p2 = roundPoint(ray.getPoint(t2));
+//			Point3D p1 = roundPoint(ray.getPoint(t1));
+//			Point3D p2 = roundPoint(ray.getPoint(t2));
+			Point3D p1 = (ray.getPoint(t1));
+			Point3D p2 = (ray.getPoint(t2));
 
 			return List.of(p1, p2);
 		}
@@ -151,7 +153,8 @@ public class Tube implements Geometry {
 		if (rootArray.length == 1) {
 			double t = rootArray[0];
 
-			Point3D p1 = roundPoint(ray.getPoint(t));
+//			Point3D p1 = roundPoint(ray.getPoint(t));
+			Point3D p1 = (ray.getPoint(t));
 
 			return List.of(p1);
 		}
