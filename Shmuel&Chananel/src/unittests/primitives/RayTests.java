@@ -7,7 +7,9 @@ import java.util.List;
 import org.junit.Test;
 import primitives.*;
 
-/**
+/** 
+ * test ray class
+ * 
  * @author user1
  *
  */

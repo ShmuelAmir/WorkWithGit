@@ -1,10 +1,6 @@
-/**
- * 
- */
 package parser;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,77 +17,36 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * SceneDescriptor class represents the scene that store in XML file.
+ * SceneDescriptor class represents the scene that store in XML file in
+ * collections.
+ * 
  * @author Shmulik & Chananel
  *
  */
 
 public class SceneDescriptor {
-	// the scene component - ambient-light , spheres , triangles
-	public Map<String, String> sceneAttributes  = new HashMap<String, String>();
-	public Map<String, String> ambientLightAttributes  = new HashMap<String, String>();
-	public List <Map <String,String>> spheres = new LinkedList<>();
-	public List <Map <String,String>> triangles = new LinkedList<>();
-	
-	
+	// the scene component - ambient-light, spheres, triangles
+	public Map<String, String> sceneAttributes = new HashMap<String, String>();
+	public Map<String, String> ambientLightAttributes = new HashMap<String, String>();
+	public List<Map<String, String>> spheres = new LinkedList<>();
+	public List<Map<String, String>> triangles = new LinkedList<>();
+
 	/**
-	 * this method get a fileName and enter the data to scene descriptor 
-	 * @param fileName
+	 * constructor that put the strings from xml file in the collections
+	 * 
+	 * @param fileName - the xml file
 	 */
-	public void  getStringFromXml(String fileName ) 
-	{
-		//Build the tools for accessing the file
+	public SceneDescriptor(String fileName) {
+		// Build the tools for accessing the file
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		String ambientLightColor = null, backgroundColor = null, c = null;
-		double r = 0;
-		List<String[]> ss = new ArrayList<>();     //                               זה?           את        צריך 
-		try {                                      // try to open the fill - may be some exception 
-			// access to the XML fill with parse function
+
+		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(fileName);
-            // Start reading the content from the XML file
-			// save the root of the fill
+
 			Element root = doc.getDocumentElement();
-			//get background-color
-			
-			backgroundColor = root.getAttribute("background-color");
-			// set the value in the map
-			sceneAttributes.put("backgroundColor", backgroundColor);
-			
-			//get ambient-light
-			NodeList n = root.getElementsByTagName("ambient-light");
-			Element alc = (Element) n.item(0);
-			ambientLightColor = alc.getAttribute("color");
-			// set the value in the map
-			ambientLightAttributes.put("Color", ambientLightColor);
-			
-			//get geometries
-			NodeList geList = root.getElementsByTagName("geometries");
-			Element geom = (Element) geList.item(0);
-			//get sphere
-			NodeList spList = geom.getElementsByTagName("sphere");
-			Element sp = (Element) spList.item(0);
-			Map<String, String> sphereMap  = new HashMap<String, String>();
-			// set the value in the map
-			sphereMap.put("radius", sp.getAttribute("radius"));
-			sphereMap.put("center", sp.getAttribute("center"));
-			spheres.add(sphereMap);
-		
-			//get triangle
-			NodeList triangleList = geom.getElementsByTagName("triangle");
-			//get all the points of triangle
-			for (int i = 0; i < triangleList.getLength(); i++) {
-				Node t = triangleList.item(i);
-				Map<String, String> triangleMap  = new HashMap<String, String>();
-				if (t.getNodeType() == Node.ELEMENT_NODE) {
-					Element tt = (Element) t;
-					// set the value in the map
-					triangleMap.put("p0", tt.getAttribute("p0"));
-					triangleMap.put("p1", tt.getAttribute("p1"));
-					triangleMap.put("p2", tt.getAttribute("p2"));
-				}
-				triangles.add(triangleMap);		
-			}
+			readFile(root);
+
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		} catch (SAXException e) {
@@ -99,12 +54,59 @@ public class SceneDescriptor {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
-			
-			
-			
-			
+
+	/**
+	 * parse the file elements to strings and save them in collections
+	 * 
+	 * @param root - the root element of the document
+	 */
+	private void readFile(Element root) {
+		// background-color
+		sceneAttributes.put("backgroundColor", root.getAttribute("background-color"));
+
+		// ambient-light
+		Element alc = getElementByTagName(root, "ambient-light");
+		ambientLightAttributes.put("Color", alc.getAttribute("color"));
+
+		// geometries
+		Map<String, String> sphereMap = new HashMap<String, String>();
+		Map<String, String> triangleMap;
+		Element geom = getElementByTagName(root, "geometries");
+
+		// sphere
+		Element sp = getElementByTagName(geom, "sphere");
+		sphereMap.put("radius", sp.getAttribute("radius"));
+		sphereMap.put("center", sp.getAttribute("center"));
+		spheres.add(sphereMap);
+
+		// triangles
+		NodeList triangleList = geom.getElementsByTagName("triangle");
+		for (int i = 0; i < triangleList.getLength(); i++) {
+			Node t = triangleList.item(i);
+			triangleMap = new HashMap<String, String>();
+			if (t.getNodeType() == Node.ELEMENT_NODE) {
+				Element tt = (Element) t;
+				triangleMap.put("p0", tt.getAttribute("p0"));
+				triangleMap.put("p1", tt.getAttribute("p1"));
+				triangleMap.put("p2", tt.getAttribute("p2"));
+			}
+			triangles.add(triangleMap);
+		}
+
+	}
+
+	/**
+	 * get the first element according to tagName
+	 * 
+	 * @param parent  - the parent element
+	 * @param tagName - the name of the element
+	 * @return - the child element
+	 */
+	private Element getElementByTagName(Element parent, String tagName) {
+		NodeList node = parent.getElementsByTagName(tagName);
+		return (Element) node.item(0);
+	}
 
 }
-
-

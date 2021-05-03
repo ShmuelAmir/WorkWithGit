@@ -7,19 +7,21 @@ import primitives.Color;
 import scene.Scene;
 
 /**
- * render class get the scene camera ImageWriter and RayTracerBase and create a image
+ * render class get the scene camera ImageWriter and RayTracerBase and create a
+ * image
  * 
  * @author shmulik
  */
 public class Render {
-	//all the component of the image
+	// all the component of the image
 	private Scene scene;
 	private Camera camera;
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
-	
+
 	/**
 	 * set to scene
+	 * 
 	 * @param scene the scene to set
 	 */
 	public Render setScene(Scene scene) {
@@ -29,6 +31,7 @@ public class Render {
 
 	/**
 	 * set to camera
+	 * 
 	 * @param camera the camera to set
 	 */
 	public Render setCamera(Camera camera) {
@@ -38,6 +41,7 @@ public class Render {
 
 	/**
 	 * set to imageWriter
+	 * 
 	 * @param imageWriter the imageWriter to set
 	 */
 	public Render setImageWriter(ImageWriter imageWriter) {
@@ -47,6 +51,7 @@ public class Render {
 
 	/**
 	 * set to rayTracer
+	 * 
 	 * @param rayTracer the rayTracer to set
 	 */
 	public Render setRayTracer(RayTracerBase rayTracer) {
@@ -58,7 +63,7 @@ public class Render {
 	 * this method initialize imageWriter by calculate the color of each pixel
 	 */
 	public void renderImage() {
-		//check if all the filed in Render is not null
+		// check if all the filed in Render is not null
 		if (scene == null)
 			throw new MissingResourceException("scene is null", "Render", "scene");
 		if (camera == null)
@@ -67,27 +72,29 @@ public class Render {
 			throw new MissingResourceException("imageWriter is null", "Render", "imageWriter");
 		if (rayTracer == null)
 			throw new MissingResourceException("scene is null", "Render", "rayTracer");
-		//get the number of the pixel in imageWriter
+		
+		// get the number of the pixel in imageWriter
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
-		
-		//go over each pixel in view plane and set its color
+
+		// go over each pixel in view plane and set its color
 		for (int j = 0; j < nX; j++) {
 			for (int i = 0; i < nY; i++) {
 				imageWriter.writePixel(j, i, rayTracer.traceRay(camera.constructRayThroughPixel(nX, nY, j, i)));
 			}
 		}
 	}
-	
+
 	/**
 	 * this method print the grid in the image
+	 * 
 	 * @param interval - the size of the grid
-	 * @param color - the color of the grid
+	 * @param color    - the color of the grid
 	 */
 	public void printGrid(int interval, Color color) {
 		if (imageWriter == null)
 			throw new MissingResourceException("imageWriter is null", "Render", "imageWriter");
-		
+
 		for (int j = 0; j < imageWriter.getNx(); j++) {
 			for (int i = 0; i < imageWriter.getNy(); i++) {
 				if (i % interval == 0 || j % interval == 0)
@@ -95,13 +102,14 @@ public class Render {
 			}
 		}
 	}
+
 	/**
-	 *  this method create the image as a png fill
+	 * this method create the image as a png fill
 	 */
 	public void writeToImage() {
 		if (imageWriter == null)
 			throw new MissingResourceException("imageWriter is null", "Render", "imageWriter");
-		
+
 		imageWriter.writeToImage();
 	}
 }

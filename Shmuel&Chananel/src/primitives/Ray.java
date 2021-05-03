@@ -47,7 +47,7 @@ public class Ray {
 	}
 
 	/**
-	 * find the closes point to p0 from list
+	 * find the closes point to p0 from a list
 	 * 
 	 * @param points - list of point
 	 * @return - the closes point to p0
@@ -58,6 +58,7 @@ public class Ray {
 
 		Point3D closesPoint = points.get(0);
 		double minDistance = closesPoint.distance(p0);
+		
 		for (Point3D point : points) {
 			if (point.distance(p0) < minDistance) {
 				closesPoint = point;

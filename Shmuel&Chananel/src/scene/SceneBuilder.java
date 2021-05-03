@@ -1,10 +1,8 @@
-/**
- * 
- */
 package scene;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import elements.AmbientLight;
 import geometries.Sphere;
@@ -14,77 +12,113 @@ import primitives.Color;
 import primitives.Point3D;
 
 /**
- * SceneBuilder is a class that initialize a scene according to the XML fill
- * we chose to use Document Object Model so the architecture of this way to open XML fill
- *include create scene object
+ * SceneBuilder is a class that initialize a scene according to the XML fill we
+ * chose to use Document Object Model so the architecture of this way to open
+ * XML fill include create scene object
  * 
  * @author shmulik
  *
  */
 public class SceneBuilder {
-	// will save the string thar represent scene
-	SceneDescriptor descriptor;
-	// will save the scene
-	Scene scene = new Scene("XML Test scene");
+	// the scene and his strings form 
+	private SceneDescriptor descriptor;
+	private Scene scene;
 	
 	/**
-	 * this method initialize the scene object from the XML fill
+	 * @return the scene
+	 */
+	public Scene getScene() {
+		return scene;
+	}
+
+	/**
+	 * constructor that build the scene from scene descriptor.
+	 */
+	public SceneBuilder(String sceneName ,String fileName) {
+		scene = new Scene(sceneName);
+		descriptor = new SceneDescriptor(fileName);
+		
+		buildScene();
+	}
+
+	/**
+	 * this method initialize the scene object from the XML file
+	 * 
 	 * @param fileName - the name of the fill in the workspace
 	 * @return scene object
 	 */
-	public Scene getScaneFromeXml(String fileName) {
-		descriptor = new SceneDescriptor();
-		descriptor.getStringFromXml(fileName);
-		
+	private void buildScene() {
 		scene.setAmbientLight(new AmbientLight(getColor(descriptor.ambientLightAttributes.get("Color")), 1))
-				.setBackground(getColor(descriptor.sceneAttributes.get("backgroundColor")));
+			.setBackground(getColor(descriptor.sceneAttributes.get("backgroundColor")));
 
-		scene.geometries.add(new Sphere(getPoint(descriptor.spheres.get(0).get("center")), Double.parseDouble(descriptor.spheres.get(0).get("radius"))),
-				new Triangle(getPoint(descriptor.triangles.get(0).get("p0")), getPoint(descriptor.triangles.get(0).get("p1")), getPoint(descriptor.triangles.get(0).get("p2"))), // ^ <
-				new Triangle(getPoint(descriptor.triangles.get(1).get("p0")), getPoint(descriptor.triangles.get(1).get("p1")), getPoint(descriptor.triangles.get(1).get("p2"))), // ^ >
-				new Triangle(getPoint(descriptor.triangles.get(2).get("p0")), getPoint(descriptor.triangles.get(2).get("p1")), getPoint(descriptor.triangles.get(2).get("p2"))), // v <
-				new Triangle(getPoint(descriptor.triangles.get(3).get("p0")), getPoint(descriptor.triangles.get(3).get("p1")), getPoint(descriptor.triangles.get(3).get("p2")))); // v >
+		scene.geometries.add(getSphere(descriptor.spheres.get(0)));
 		
-		return scene;
+		List<Map<String, String>> triangles = descriptor.triangles;
+		for (var triangle : triangles)
+			scene.geometries.add(getTriangle(triangle));
 	}
-	
-	
-	
-	
+
+	/**
+	 * parse string map to Triangle
+	 * 
+	 * @param map - the attributes of Triangle
+	 * @return Triangle
+	 */
+	private Triangle getTriangle(Map<String, String> map) {
+		return new Triangle(getPoint(map.get("p0")), 
+				getPoint(map.get("p1")),
+				getPoint(map.get("p2")));
+	}
+
+	/**
+	 * parse string map to Sphere
+	 * 
+	 * @param map - the attributes of Sphere
+	 * @return Sphere
+	 */
+	private Sphere getSphere(Map<String, String> map) {
+		return new Sphere(getPoint(map.get("center")),
+				Double.parseDouble(map.get("radius")));
+	}
+
 	/**
 	 * get point from string
+	 * 
 	 * @param str - the string that represent point
 	 * @return Point3D object
 	 */
-	public Point3D getPoint(String str) {
-		ArrayList<Double> doubles = getdouble(str);
+	private Point3D getPoint(String str) {
+		ArrayList<Double> doubles = getDouble(str);
 
 		return new Point3D(doubles.get(0), doubles.get(1), doubles.get(2));
 	}
 
 	/**
 	 * get Color from string
+	 * 
 	 * @param str - the string that represent Color
-	 * @return Color
+	 * @return the color
 	 */
-	public Color getColor(String str) {
-		ArrayList<Double> doubles = getdouble(str);
+	private Color getColor(String str) {
+		ArrayList<Double> doubles = getDouble(str);
 
 		return new Color(doubles.get(0), doubles.get(1), doubles.get(2));
 	}
 
 	/**
-	 * get double from string
+	 * get double from string (that in form "x1 x2 x3 x4")
+	 * 
 	 * @param str - the string that represent double
-	 * @return List of number
+	 * @return List of numbers
 	 */
-	public ArrayList<Double> getdouble(String str) {
+	private ArrayList<Double> getDouble(String str) {
 		ArrayList<Double> numList = new ArrayList<>();
 		String[] numText = str.split(" ");
-		for (int i = 0; i < numText.length; i++) {
+		
+		for (int i = 0; i < numText.length; i++)
 			numList.add(Double.parseDouble(numText[i]));
-		}
+		
 		return numList;
 	}
-	
+
 }
