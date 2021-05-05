@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.List;
+
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -22,11 +23,11 @@ public class Triangle extends Polygon {
 	public Triangle(Point3D p1, Point3D p2, Point3D p3) {
 		super(p1, p2, p3);
 	}
-
+	
 	@Override
-	public List<Point3D> findIntersections(Ray ray)
+	public List<GeoPoint> findGeoIntersections(Ray ray)
 	{
-		List<Point3D> result = plane.findIntersections(ray);
+		List<GeoPoint> result = plane.findGeoIntersections(ray);
 		if (result == null)
 			return null;
 		
@@ -41,6 +42,10 @@ public class Triangle extends Polygon {
 		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
 		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
 		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
+		
+		for (GeoPoint geoPoint : result) {
+			geoPoint.geometry = this;
+		}
 		
 		if (checkSign(vDotN1, vDotN2) && checkSign(vDotN1, vDotN3))
 			return result;

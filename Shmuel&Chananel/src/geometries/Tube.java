@@ -10,7 +10,7 @@ import primitives.*;
  * 
  * @author shmulik
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
 	protected Ray axisRay; // ray that defines the axis of the tube
 	protected double radius; // radius of the ray
 
@@ -55,7 +55,7 @@ public class Tube implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		double[] abc = findABC(ray);
 		if (abc == null)
 			return null;
@@ -75,7 +75,7 @@ public class Tube implements Geometry {
 			Point3D p1 = ray.getPoint(t1);
 			Point3D p2 = ray.getPoint(t2);
 
-			return List.of(p1, p2);
+			return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
 		}
 
 		if (rootArray.length == 1) {
@@ -83,12 +83,12 @@ public class Tube implements Geometry {
 
 			Point3D p1 = ray.getPoint(t);
 
-			return List.of(p1);
+			return List.of(new GeoPoint(this, p1));
 		}
 
 		return null;
 	}
-
+	
 	@Override
 	public String toString() {
 		return axisRay.toString() + " " + radius;

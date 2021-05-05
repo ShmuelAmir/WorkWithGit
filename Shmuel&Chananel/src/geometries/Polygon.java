@@ -2,6 +2,7 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
+
 import primitives.*;
 import static primitives.Util.*;
 
@@ -11,7 +12,7 @@ import static primitives.Util.*;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/**
 	 * List of polygon's vertices
 	 */
@@ -87,10 +88,10 @@ public class Polygon implements Geometry {
 	public Vector getNormal(Point3D point) {
 		return plane.getNormal();
 	}
-
+	
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		List<Point3D> result = plane.findIntersections(ray);
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
+		List<GeoPoint> result = plane.findGeoIntersections(ray);
 		
 		// Ray not intersects the plane
 		if (result == null)
@@ -130,6 +131,10 @@ public class Polygon implements Geometry {
 //			}
 //		}
 
+		for (GeoPoint geoPoint : result) {
+			geoPoint.geometry = this;
+		}
+		
 		// all v dot Ni have the same sign
 		return result;
 	}

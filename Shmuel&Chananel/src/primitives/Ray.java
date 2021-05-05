@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Ray - any of a set of straight lines passing through one point
  * 
@@ -69,6 +71,29 @@ public class Ray {
 		return closesPoint;
 	}
 
+	/**
+	 * find the closes point to p0 from a list
+	 * 
+	 * @param points - 
+	 * @return - the closes point to p0
+	 */
+	public GeoPoint getClosestGeoPoint(List<GeoPoint> points) {
+		if (points == null)
+			return null;
+
+		GeoPoint closesPoint = points.get(0);
+		double minDistance = closesPoint.point.distance(p0);
+		
+		for (GeoPoint goePoint : points) {
+			if (goePoint.point.distance(p0) < minDistance) {
+				closesPoint = goePoint;
+				minDistance = goePoint.point.distance(p0);
+			}
+		}
+
+		return closesPoint;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

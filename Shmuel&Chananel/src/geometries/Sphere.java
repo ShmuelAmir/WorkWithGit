@@ -10,7 +10,7 @@ import primitives.*;
  * 
  * @author shmulik
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 	private final Point3D center; // the center of the sphere
 	private final double radius; // the radius of the sphere
 	private final double rSquared;
@@ -47,9 +47,9 @@ public class Sphere implements Geometry {
 	}
 
 	@Override
-	public List<Point3D> findIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		if (center.equals(ray.getP0()))
-			return List.of(ray.getPoint(radius));
+			return List.of(new GeoPoint(this, ray.getPoint(radius)));
 
 		Vector u = center.subtract(ray.getP0());
 		double tm = ray.getDir().dotProduct(u); // tm is never greater than d
@@ -65,7 +65,8 @@ public class Sphere implements Geometry {
 		double t2 = alignZero(tm - th);
 
 		if (t1 > 0)
-			return (t2 > 0) ? List.of(ray.getPoint(t1), ray.getPoint(t2)) : List.of(ray.getPoint(t1));
+			return (t2 > 0) ? List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)))
+					: List.of(new GeoPoint(this, ray.getPoint(t1)));
 
 		return null;
 	}
