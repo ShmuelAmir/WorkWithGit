@@ -7,24 +7,14 @@ import primitives.*;
  * 
  * @author Shmulik & Chananel
  */
-public class AmbientLight {
-	// save the intensity of this light 
-	private Color intensity;
+public class AmbientLight extends Light  {
 
 	/**
 	 * this method calculate the intensity of ambient light
 	 * @param intensity
 	 */
 	public AmbientLight(Color intensity, double kA) {
-		this.intensity = intensity.scale(kA);
+		super(intensity.scale(kA));
 	}
 
-	/**
-	 * 
-	 *  get the value of the intensity
-	 * @return the intensity
-	 */
-	public Color getIntensity() {
-		return intensity;
-	}
 }
