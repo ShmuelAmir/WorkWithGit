@@ -12,26 +12,47 @@ import primitives.Vector;
  *
  */
 public class PointLight extends Light implements LightSource {
-
 	private Point3D position;
-	private double kC, kL ,kQ;
+	private double kC = 1, kL = 0, kQ = 0;
+	
+	/**
+	 * @param kC the kC to set
+	 */
+	public PointLight setkC(double kC) {
+		this.kC = kC;
+		return this;
+	}
+
+	/**
+	 * @param kL the kL to set
+	 */
+	public PointLight setkL(double kL) {
+		this.kL = kL;
+		return this;
+	}
+
+	/**
+	 * @param kQ the kQ to set
+	 */
+	public PointLight setkQ(double kQ) {
+		this.kQ = kQ;
+		return this;
+	}
+
 	/**
 	 * @param intensity
 	 */
-	public PointLight(Color intensity , Point3D position , double kC, double kL , double kQ) {
+	public PointLight(Color intensity, Point3D position) {
 		super(intensity);
-		this.kC = kC;
-		this.kL = kL;
-		this.kQ = kQ;
 		this.position = position;
 	}
 
 	@Override
 	public Color getIntensity(Point3D p) {
 		double distanceSquared = p.distanceSquared(position);
-		double denominator;     //save the mechne 
-		denominator = kC + kL*Math.sqrt(distanceSquared) + kQ*distanceSquared;
-				
+		double denominator; // save the mechne
+		denominator = kC + kL * Math.sqrt(distanceSquared) + kQ * distanceSquared;
+
 		return intensity.reduce(denominator);
 	}
 

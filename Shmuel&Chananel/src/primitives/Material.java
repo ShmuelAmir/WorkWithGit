@@ -8,9 +8,9 @@ package primitives;
  *
  */
 public class Material {
-	public double kD = 0;
-	public double kS = 0;
+	public double kD = 0, kS = 0;
 	public int nShininess = 0;
+
 	/**
 	 * @param kD the kD to set
 	 */
@@ -18,6 +18,7 @@ public class Material {
 		this.kD = kD;
 		return this;
 	}
+
 	/**
 	 * @param kS the kS to set
 	 */
@@ -25,6 +26,7 @@ public class Material {
 		this.kS = kS;
 		return this;
 	}
+
 	/**
 	 * @param nShininess the nShininess to set
 	 */

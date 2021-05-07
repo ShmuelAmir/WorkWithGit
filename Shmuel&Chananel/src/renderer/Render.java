@@ -4,7 +4,6 @@ import java.util.MissingResourceException;
 
 import elements.Camera;
 import primitives.Color;
-import scene.Scene;
 
 /**
  * render class get the scene camera ImageWriter and RayTracerBase and create a
@@ -14,20 +13,9 @@ import scene.Scene;
  */
 public class Render {
 	// all the component of the image
-	private Scene scene;
 	private Camera camera;
 	private ImageWriter imageWriter;
 	private RayTracerBase rayTracer;
-
-	/**
-	 * set to scene
-	 * 
-	 * @param scene the scene to set
-	 */
-	public Render setScene(Scene scene) {
-		this.scene = scene;
-		return this;
-	}
 
 	/**
 	 * set to camera
@@ -63,9 +51,6 @@ public class Render {
 	 * this method initialize imageWriter by calculate the color of each pixel
 	 */
 	public void renderImage() {
-		// check if all the filed in Render is not null
-		if (scene == null)
-			throw new MissingResourceException("scene is null", "Render", "scene");
 		if (camera == null)
 			throw new MissingResourceException("camera is null", "Render", "camera");
 		if (imageWriter == null)

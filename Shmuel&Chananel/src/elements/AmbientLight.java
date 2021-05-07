@@ -7,10 +7,18 @@ import primitives.*;
  * 
  * @author Shmulik & Chananel
  */
-public class AmbientLight extends Light  {
-
+public class AmbientLight extends Light {
+	
 	/**
-	 * this method calculate the intensity of ambient light
+	 * 
+	 */
+	public AmbientLight() {
+		super(Color.BLACK);
+	}
+	
+	/**
+	 * 
+	 * 
 	 * @param intensity
 	 */
 	public AmbientLight(Color intensity, double kA) {

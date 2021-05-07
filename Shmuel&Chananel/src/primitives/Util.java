@@ -69,4 +69,13 @@ public abstract class Util {
 		return Math.random() * (max - min) + min;
 	}
 
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public static double max(double x, double y) {
+		return x > y ? x : y;
+	}
 }
