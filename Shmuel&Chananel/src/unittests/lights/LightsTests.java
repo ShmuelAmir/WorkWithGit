@@ -140,5 +140,90 @@ public class LightsTests {
 		render.renderImage();
 		render.writeToImage();
 	}
+	
+	/**
+	 * Produce a picture of a sphere lighted by all the kind of the lights
+	 */
+	@Test
+	public void sphereMultiLight() {
+		scene1.geometries.add(sphere);
+		scene1.lights.add(new SpotLight(new Color(166, 100, 0), new Point3D(-50, 50, 50), new Vector(1, 1, -2)) //
+				.setkL(0.000000001).setkQ(0.0000000001));
+		scene1.lights.add(new DirectionalLight(new Color(333, 200, 0), new Vector(1, 1, -1)));
+		scene1.lights.add(new PointLight(new Color(500, 300, 0), new Point3D(50, -50, 50))//
+				.setkL(0.00000001).setkQ(0.000001));
+
+		ImageWriter imageWriter = new ImageWriter("sphere Multi Ligh", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera1) //
+				.setRayTracer(new RayTracerBasic(scene1));
+		render.renderImage();
+		render.writeToImage();
+	}
+	
+
+	/**
+	 * Produce a picture of a triangle lighted by all the kind of the lights
+	 */
+	@Test
+	public void trianglesMultiLight() {
+		scene2.geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)), //
+				triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
+		
+		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-2, -2, -1)) //
+				.setkL(0.0001).setkQ(0.000005));
+		
+		scene2.lights.add(new DirectionalLight(new Color(150, 150, 75), new Vector(0, 0, -1)));
+		scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(50, 50, -50)) //
+				.setkL(0.0005).setkQ(0.0005));
+		
+		
+		ImageWriter imageWriter = new ImageWriter("triangles Multi Light", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera2) //
+				.setRayTracer(new RayTracerBasic(scene2));
+		render.renderImage();
+		render.writeToImage();
+	}
+	
+	/**
+	 * Produce a picture of a sphere lighted by a spot light with narrow effect
+	 */
+	@Test
+	public void sphereNarrowSpot() {
+		scene1.geometries.add(sphere.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(200)));
+		scene1.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+				.setkL(0.00001).setkQ(0.00000001));
+
+		ImageWriter imageWriter = new ImageWriter("sphere Narrow Spot", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera1) //
+				.setRayTracer(new RayTracerBasic(scene1));
+		render.renderImage();
+		render.writeToImage();
+	}
+	
+	/**
+	 * Produce a picture of a two triangles lighted by a spot light with narrow effect
+	 */
+	@Test
+	public void trianglesNarrowSpot() {
+		scene2.geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(800)),
+				triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(800)));
+		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-20, -20, -10)) //
+				.setkL(0.0001).setkQ(0.000005));
+
+		ImageWriter imageWriter = new ImageWriter("triangles Narrow Spot", 500, 500);
+		Render render = new Render()//
+				.setImageWriter(imageWriter) //
+				.setCamera(camera2) //
+				.setRayTracer(new RayTracerBasic(scene2));
+		render.renderImage();
+		render.writeToImage();
+	}
+
 
 }
