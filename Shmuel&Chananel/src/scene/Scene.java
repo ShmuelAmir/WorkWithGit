@@ -18,8 +18,8 @@ public class Scene {
 	// this is the fields of scene : name, background color, AmbientLight, and geometries
 	public String name;
 	public Color background = Color.BLACK;
-	public AmbientLight ambientLight= new AmbientLight(Color.BLACK, 0);
-	public Geometries geometries = null;
+	public AmbientLight ambientLight= new AmbientLight();
+	public Geometries geometries = new Geometries();
 	public List<LightSource> lights = new LinkedList<LightSource>();
 	
 	/**
@@ -28,7 +28,6 @@ public class Scene {
 	 */
 	public Scene(String name) {
 		this.name = name;
-		geometries = new Geometries();
 	}
 	
 	public Scene setlights(List<LightSource> lights) {

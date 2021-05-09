@@ -74,7 +74,7 @@ public abstract class Util {
 	 * @param number
 	 * @return
 	 */
-	public static double opsitiveOrZero(double number) {
+	public static double positiveOrZero(double number) {
 		return number > 0 ? number : 0;
 	}
 }

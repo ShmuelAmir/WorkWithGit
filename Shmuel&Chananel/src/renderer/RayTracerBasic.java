@@ -50,44 +50,45 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
-		Vector v = ray.getDir(); 
+		Vector v = ray.getDir();
 		Vector n = intersection.geometry.getNormal(intersection.point);
-		
-		double nv = alignZero(n.dotProduct(v)); 
-		if (nv == 0) 
+
+		double nv = alignZero(n.dotProduct(v));
+		if (nv == 0)
 			return Color.BLACK;
-		
+
 		Material material = intersection.geometry.getMaterial();
 		int nShininess = material.nShininess;
 		double kd = material.kD, ks = material.kS;
-		
+
 		Color color = Color.BLACK;
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(intersection.point);
 			double nl = alignZero(n.dotProduct(l));
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
 				Color lightIntensity = lightSource.getIntensity(intersection.point);
-				color = color.add(lightIntensity.scale(calcDiffusive(kd, nl)+
-						calcSpecular(ks, l, n, v, nShininess ,nl)));
-				
+				color = color //
+						.add(lightIntensity.scale(calcDiffusive(kd, nl) + //
+								calcSpecular(ks, l, n, v, nShininess, nl)));
+
 			}
 		}
-		
+
 		return color;
 	}
 
-	private double calcDiffusive(double kd ,double nl ) {
+	private double calcDiffusive(double kd, double nl) {
 		double lDotN = Math.abs(nl);
-		
+
 		return kd * lDotN;
 	}
 
 	private double calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, double nl) {
-		double lDotN2 = nl* 2;
+		double lDotN2 = nl * 2;
 		Vector r = l.subtract(n.scale(lDotN2));
-		
-		double minusVDotR = opsitiveOrZero(v.scale(-1).dotProduct(r));
-		return Math.pow(minusVDotR, nShininess) * ks;
+
+		double minusVDotR = alignZero(-v.dotProduct(r));
+		return minusVDotR <= 0 ? 0 : Math.pow(minusVDotR, nShininess) * ks;
 	}
 
 }

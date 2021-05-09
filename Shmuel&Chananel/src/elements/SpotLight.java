@@ -6,15 +6,14 @@ package elements;
 import primitives.*;
 import static primitives.Util.*;
 
-
 /**
  * @author user1
  *
  */
 public class SpotLight extends PointLight {
 	private Vector direction;
-	int narrowBeam = 1; 
-	
+	int narrowBeam = 1;
+
 	/**
 	 * @param intensity
 	 */
@@ -23,14 +22,6 @@ public class SpotLight extends PointLight {
 		this.direction = direction.normalize();
 	}
 
-	
-//	@Override
-//	public Color getIntensity(Point3D p) {
-//		Color iL = super.getIntensity(p);
-//		double numerator = max(0, alignZero(direction.dotProduct(super.getL(p))));
-//		return iL.scale(numerator);
-//	}
-	
 	/**
 	 * @param narrowBeam the narrowBeam to set
 	 */
@@ -39,11 +30,13 @@ public class SpotLight extends PointLight {
 		return this;
 	}
 
-
 	@Override
 	public Color getIntensity(Point3D p) {
-		Color iL = super.getIntensity(p);
-		double numerator = opsitiveOrZero(alignZero(direction.dotProduct(super.getL(p))));
-		return iL.scale(Math.pow(numerator, narrowBeam));
+		double numerator = alignZero(direction.dotProduct(super.getL(p)));
+		if (numerator <= 0)
+			return Color.BLACK;
+		if (narrowBeam != 1)
+			numerator = Math.pow(numerator, narrowBeam);
+		return super.getIntensity(p).scale(numerator);
 	}
 }

@@ -65,8 +65,9 @@ public class Sphere extends Geometry {
 		double t2 = alignZero(tm - th);
 
 		if (t1 > 0)
-			return (t2 > 0) ? List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)))
-					: List.of(new GeoPoint(this, ray.getPoint(t1)));
+			return (t2 > 0) ? //
+					List.of(new GeoPoint(this, ray.getPoint(t2)), new GeoPoint(this, ray.getPoint(t1))) : //
+					List.of(new GeoPoint(this, ray.getPoint(t1)));
 
 		return null;
 	}

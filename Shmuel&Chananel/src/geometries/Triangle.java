@@ -43,18 +43,10 @@ public class Triangle extends Polygon {
 		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
 		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
 		
-		for (GeoPoint geoPoint : result) {
-			geoPoint.geometry = this;
-		}
-		
-		if (checkSign(vDotN1, vDotN2) && checkSign(vDotN1, vDotN3))
+		if (checkSign(vDotN1, vDotN2) && checkSign(vDotN1, vDotN3)) {
+			result.get(0).geometry = this;
 			return result;
-		
-//		if (vDotN1 > 0 && vDotN2 > 0 && vDotN3 > 0)
-//			return result;
-//		
-//		if (vDotN1 < 0 && vDotN2 < 0 && vDotN3 < 0)
-//			return result;
+		}
 
 		return null;
 	}
