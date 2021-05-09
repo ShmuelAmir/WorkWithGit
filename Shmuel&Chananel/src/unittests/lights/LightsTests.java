@@ -195,6 +195,7 @@ public class LightsTests {
 	public void sphereNarrowSpot() {
 		scene1.geometries.add(sphere.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(200)));
 		scene1.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+				.setNarrowBeam(5) //
 				.setkL(0.00001).setkQ(0.00000001));
 
 		ImageWriter imageWriter = new ImageWriter("sphere Narrow Spot", 500, 500);
@@ -211,9 +212,10 @@ public class LightsTests {
 	 */
 	@Test
 	public void trianglesNarrowSpot() {
-		scene2.geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(800)),
-				triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(800)));
+		scene2.geometries.add(triangle1.setMaterial(new Material().setkD(1).setkS(0).setnShininess(800)),
+				triangle2.setMaterial(new Material().setkD(1).setkS(0).setnShininess(800)));
 		scene2.lights.add(new SpotLight(new Color(500, 250, 250), new Point3D(10, -10, -130), new Vector(-20, -20, -10)) //
+				.setNarrowBeam(5) //
 				.setkL(0.0001).setkQ(0.000005));
 
 		ImageWriter imageWriter = new ImageWriter("triangles Narrow Spot", 500, 500);
