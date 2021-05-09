@@ -71,11 +71,10 @@ public abstract class Util {
 
 	/**
 	 * 
-	 * @param x
-	 * @param y
+	 * @param number
 	 * @return
 	 */
-	public static double max(double x, double y) {
-		return x > y ? x : y;
+	public static double opsitiveOrZero(double number) {
+		return number > 0 ? number : 0;
 	}
 }

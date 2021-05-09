@@ -86,7 +86,7 @@ public class RayTracerBasic extends RayTracerBase {
 		double lDotN2 = nl* 2;
 		Vector r = l.subtract(n.scale(lDotN2));
 		
-		double minusVDotR = max(0, v.scale(-1).dotProduct(r));
+		double minusVDotR = opsitiveOrZero(v.scale(-1).dotProduct(r));
 		return Math.pow(minusVDotR, nShininess) * ks;
 	}
 
