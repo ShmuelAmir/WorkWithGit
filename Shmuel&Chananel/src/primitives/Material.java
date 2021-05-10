@@ -1,23 +1,32 @@
-/**
- * 
- */
 package primitives;
 
 /**
- * Material class represent a material of a body in our scene. This class need to 
- * implement The Phong Reflectance Model  - that include 3 Components - specular diffuse and emission
+ * Material class represent a material of a body in our scene. This class need
+ * to implement The Phong Reflectance Model - that include 3 Components -
+ * specular, diffuse and emission
+ * 
  * @author Shmulik & Chananel
  *
  */
 public class Material {
-	// the coefficient in the formula of Phong Reflectance Model
-	//kD - for diffuse, kS for specular
-	public double kD = 0, kS = 0;
-	//nShininess - the Shininess of the material
+	/**
+	 * diffuse coefficient in the formula of Phong Model
+	 */
+	public double kD = 0;
+	/**
+	 * specular coefficient in the formula of Phong Model
+	 */
+	public double kS = 0;
+	/**
+	 * the Shininess of the material
+	 */
 	public int nShininess = 0;
 
 	/**
-	 * @param kD the kD to set
+	 * set kd
+	 * 
+	 * @param kD - the kD to set
+	 * @return this
 	 */
 	public Material setkD(double kD) {
 		this.kD = kD;
@@ -25,7 +34,10 @@ public class Material {
 	}
 
 	/**
-	 * @param kS the kS to set
+	 * set ks
+	 * 
+	 * @param kS - the kS to set
+	 * @return this
 	 */
 	public Material setkS(double kS) {
 		this.kS = kS;
@@ -33,7 +45,9 @@ public class Material {
 	}
 
 	/**
-	 * @param nShininess the nShininess to set
+	 * set nShininess
+	 * 
+	 * @param nShininess - the nShininess to set
 	 */
 	public Material setnShininess(int nShininess) {
 		this.nShininess = nShininess;

@@ -119,23 +119,8 @@ public class Polygon extends Geometry {
 			if (! checkSign(vN1, dir.dotProduct(n)))
 				return null;
 		
-//		if (vN1 > 0) {
-//			for (Vector n : nVectors) {
-//				if (dir.dotProduct(n) <= 0)
-//					return null;
-//			}
-//		} else if (vN1 < 0) {
-//			for (Vector n : nVectors) {
-//				if (dir.dotProduct(n) >= 0)
-//					return null;
-//			}
-//		}
-
-		for (GeoPoint geoPoint : result) {
-			geoPoint.geometry = this;
-		}
-		
 		// all v dot Ni have the same sign
+		result.get(0).geometry = this;
 		return result;
 	}
 }

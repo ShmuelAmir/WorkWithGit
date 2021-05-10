@@ -15,7 +15,7 @@ public class Point3D {
 	 * The starting point of the axes
 	 */
 	public static final Point3D ZERO = new Point3D(0, 0, 0);
-	
+
 	/**
 	 * @return the x
 	 */

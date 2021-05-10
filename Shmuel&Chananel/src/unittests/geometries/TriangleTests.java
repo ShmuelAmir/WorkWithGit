@@ -13,7 +13,6 @@ import primitives.*;
  * Testing Triangle
  * 
  * @author Shmulik & Chananel
- *
  */
 public class TriangleTests {
 	/**
@@ -22,16 +21,16 @@ public class TriangleTests {
 	@Test
 	public void testGetNormal() {
 		// ============ Equivalence Partitions Tests ==============
-		// TC01: Text normal for triangle
+		// TC01: Test normal for triangle
 		Triangle pl = new Triangle(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0));
 		double sqrt3 = Math.sqrt(1d / 3);
 		assertEquals("Bad normal to triangle", new Vector(sqrt3, sqrt3, sqrt3), pl.getNormal(new Point3D(0, 0, 1)));
 
-		/*
-		 * Vector vec = new Vector(sqrt3, sqrt3, sqrt3); Vector normal =
-		 * pl.getNormal(new Point3D(0, 0, 1)); assertTrue("Bad normal to triangle",
-		 * vec.equals(normal) || vec.scale(-1).equals(normal));
-		 */
+		// TC01: Test both sides
+		Vector vec = new Vector(sqrt3, sqrt3, sqrt3);
+		Vector normal = pl.getNormal(new Point3D(0, 0, 1));
+		assertTrue("Bad normal to triangle", vec.equals(normal) || vec.scale(-1).equals(normal));
+
 	}
 
 	/**

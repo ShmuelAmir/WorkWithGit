@@ -14,7 +14,7 @@ public final class Coordinate {
 	 * Coordinate value, intentionally "package-friendly" due to performance
 	 * constraints
 	 */
-	final double coord;  // save the Location of the point
+	final double coord; // save the Location of the point
 
 	/**
 	 * Coordinate constructor receiving a coordinate value

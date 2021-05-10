@@ -16,7 +16,8 @@ public class Geometries implements Intersectable {
 	/**
 	 * Default constructor that initializes an empty list.
 	 */
-	public Geometries() {}
+	public Geometries() {
+	}
 
 	/**
 	 * Constructor that initializes list with geometric shapes.
@@ -35,7 +36,7 @@ public class Geometries implements Intersectable {
 	public void add(Intersectable... geometries) {
 		geometriesList.addAll(List.of(geometries));
 	}
-	
+
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		List<GeoPoint> list = null;
@@ -47,10 +48,10 @@ public class Geometries implements Intersectable {
 
 			if (list == null)
 				list = new LinkedList<>();
-			
+
 			list.addAll(pointsOrNull);
 		}
-		
+
 		return list;
 	}
 }

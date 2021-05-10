@@ -27,11 +27,10 @@ public class PolygonTests {
 
 		// TC01: Correct concave quadrangular with vertices in correct order
 		try {
-            new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0),
-                    new Point3D(0, 1, 0), new Point3D(-1, 1, 1));
-        } catch (IllegalArgumentException e) {
-            fail("Failed constructing a correct polygon");
-        }
+			new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 0), new Point3D(0, 1, 0), new Point3D(-1, 1, 1));
+		} catch (IllegalArgumentException e) {
+			fail("Failed constructing a correct polygon");
+		}
 
 		// TC02: Wrong vertices order
 		assertThrows("Constructed a polygon with wrong order of vertices", IllegalArgumentException.class,
@@ -114,9 +113,9 @@ public class PolygonTests {
 		// TC12: Ray's line is On edge's continuation (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(2, 0, 0), new Vector(0, 0, 1)));
 		assertNull("Ray's line is On edge's continuation", result);
-		
-		
-		Polygon polygon = new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 1), new Point3D(1, 1, 1), new Point3D(0, 1, 1));
+
+		Polygon polygon = new Polygon(new Point3D(0, 0, 1), new Point3D(1, 0, 1), new Point3D(1, 1, 1),
+				new Point3D(0, 1, 1));
 
 		// ============ Equivalence Partitions Tests ==============
 

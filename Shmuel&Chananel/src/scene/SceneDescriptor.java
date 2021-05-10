@@ -1,4 +1,4 @@
-package parser;
+package scene;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,14 +21,24 @@ import org.xml.sax.SAXException;
  * collections.
  * 
  * @author Shmulik & Chananel
- *
  */
 
 public class SceneDescriptor {
-	// the scene component - ambient-light, spheres, triangles
+	/**
+	 * map for scene attributes
+	 */
 	public Map<String, String> sceneAttributes = new HashMap<String, String>();
+	/**
+	 * map for ambient light attributes
+	 */
 	public Map<String, String> ambientLightAttributes = new HashMap<String, String>();
+	/**
+	 * list of maps for spheres attributes
+	 */
 	public List<Map<String, String>> spheres = new LinkedList<>();
+	/**
+	 * list of maps for triangles attributes
+	 */
 	public List<Map<String, String>> triangles = new LinkedList<>();
 
 	/**

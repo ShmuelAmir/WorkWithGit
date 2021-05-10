@@ -10,7 +10,7 @@ import scene.Scene;
 
 /**
  * RayTracerBasic class extends RayTracerBase, this class determine the color of
- * the image in a particular pixel - according to the ray that come frome the
+ * the image in a particular pixel - according to the ray that come from the
  * camera
  * 
  * @author shmulik
@@ -24,7 +24,6 @@ public class RayTracerBasic extends RayTracerBase {
 	public RayTracerBasic(Scene scene) {
 		super(scene);
 	}
-
 
 	@Override
 	public Color traceRay(Ray ray) {
@@ -40,7 +39,7 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * this method get intersection point (GeoPoint) and ray and calculate the color 
+	 * this method get intersection point (GeoPoint) and ray and calculate the color
 	 * in this point according to the Phong Reflectance Mode
 	 * 
 	 * @param point - the intersection point
@@ -52,10 +51,11 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Help method - this method calculate the color of a point 
-	 * considering all the light sources
+	 * Help method - this method calculate the color of a point considering all the
+	 * light sources
+	 * 
 	 * @param intersection - the intersection point
-	 * @param ray - the ray from the light
+	 * @param ray          - the ray from the light
 	 * @return - the color
 	 */
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
@@ -67,8 +67,6 @@ public class RayTracerBasic extends RayTracerBase {
 			return Color.BLACK;
 
 		Material material = intersection.geometry.getMaterial();
-		int nShininess = material.nShininess;
-		double kd = material.kD, ks = material.kS;
 
 		Color color = Color.BLACK;
 		for (LightSource lightSource : scene.lights) {
@@ -77,9 +75,8 @@ public class RayTracerBasic extends RayTracerBase {
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
 				Color lightIntensity = lightSource.getIntensity(intersection.point);
 				color = color //
-						.add(lightIntensity.scale(calcDiffusive(kd, nl) + //
-								calcSpecular(ks, l, n, v, nShininess, nl)));
-
+						.add(lightIntensity.scale(calcDiffusive(material.kD, nl) + //
+								calcSpecular(material.kS, l, n, v, material.nShininess, nl)));
 			}
 		}
 
@@ -87,32 +84,30 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Help method - this method calculate the diffusive component 
+	 * Help method - this method calculate the diffusive component
+	 * 
 	 * @param kd - coefficient in the formula
-	 * @param nl - dot product between l and the normal
-	 * When l and n are normalized, l · n is the cosine of the angle between them
-	 * @return double that represent the diffusive 
+	 * @param nl - dot product between l and the normal When l and n are normalized,
+	 *           l · n is the cosine of the angle between them
+	 * @return double that represent the diffusive part
 	 */
 	private double calcDiffusive(double kd, double nl) {
-		double lDotN = Math.abs(nl);
-
-		return kd * lDotN;
+		return kd * Math.abs(nl);
 	}
 
 	/**
-	 *  Help method - this method calculate the Specular component 
-	 *  
-	 * @param ks - coefficient in the formula
-	 * @param l - vector between the light and the intersection point
-	 * @param n - normal of the body
-	 * @param v - the dirction of the camera
+	 * Help method - this method calculate the Specular component
+	 * 
+	 * @param ks         - coefficient in the formula
+	 * @param l          - vector between the light and the intersection point
+	 * @param n          - normal of the body
+	 * @param v          - the direction of the camera
 	 * @param nShininess - coefficient in the formula
-	 * @param nl - dot product between l and the normal
-	 * @return
+	 * @param nl         - dot product between l and the normal
+	 * @return double that represent the Specular part
 	 */
 	private double calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, double nl) {
-		double lDotN2 = nl * 2;
-		Vector r = l.subtract(n.scale(lDotN2));
+		Vector r = l.subtract(n.scale(nl * 2));
 
 		double minusVDotR = alignZero(-v.dotProduct(r));
 		return minusVDotR <= 0 ? 0 : Math.pow(minusVDotR, nShininess) * ks;

@@ -12,25 +12,34 @@ import primitives.*;
  * @author shmulik
  */
 public interface Intersectable {
-	
+
 	/**
+	 * class for save point and geometry together for the color in intersection
+	 * point
 	 * 
 	 * @author shmulik
-	 *
 	 */
 	public static class GeoPoint {
-	    public Geometry geometry;
-	    public Point3D point;
-	    
 		/**
-		 * @param geometry
-		 * @param point
+		 * the geometry
+		 */
+		public Geometry geometry;
+		/**
+		 * the point
+		 */
+		public Point3D point;
+
+		/**
+		 * constructor for the files
+		 * 
+		 * @param geometry - the geometry
+		 * @param point    - the point
 		 */
 		public GeoPoint(Geometry geometry, Point3D point) {
 			this.geometry = geometry;
 			this.point = point;
 		}
-	    
+
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -44,7 +53,6 @@ public interface Intersectable {
 		}
 	}
 
-	
 	/**
 	 * find all intersection points between ray and shape.
 	 * 
@@ -52,17 +60,15 @@ public interface Intersectable {
 	 * @return list of intersection points
 	 */
 	default List<Point3D> findIntersections(Ray ray) {
-	    var geoList = findGeoIntersections(ray);
-	    return geoList == null ? null
-	                           : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
+		var geoList = findGeoIntersections(ray);
+		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 	}
 
-	
 	/**
 	 * find all intersection points between ray and shape.
 	 * 
 	 * @param ray - the ray you want its points of intersection with the shape.
-	 * @return 
+	 * @return list of intersection goePoints
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray);
 }

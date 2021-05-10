@@ -1,26 +1,24 @@
-/**
- * 
- */
 package elements;
 
 import primitives.*;
 import static primitives.Util.*;
 
 /**
- *  SpotLight is a class that represents Spot - a sours of light that light in 180 deg
- *  this class  extends Light class and implements LightSource interface
+ * SpotLight is a class that represents Spot - a sours of light that light in
+ * 180 deg this class extends Light class and implements LightSource interface
+ * 
  * @author Shmulik & Chananel
  *
  */
 public class SpotLight extends PointLight {
-	
-	//  direction - save the general direction of the spot
+	// the general direction of the spot
 	private Vector direction;
 	// narrowBeam this factor cause the beam to be in more focus
-	int narrowBeam = 1;
+	private int narrowBeam = 1;
 
 	/**
 	 * constructor of spot light
+	 * 
 	 * @param intensity
 	 */
 	public SpotLight(Color intensity, Point3D position, Vector direction) {
@@ -36,15 +34,12 @@ public class SpotLight extends PointLight {
 		return this;
 	}
 
-	/**
-	 * get Intensity - get point and return the intensity in this point
-	 * @param p  -  intensity in this point
-	 */
 	@Override
 	public Color getIntensity(Point3D p) {
 		double numerator = alignZero(direction.dotProduct(super.getL(p)));
 		if (numerator <= 0)
 			return Color.BLACK;
+
 		if (narrowBeam != 1)
 			numerator = Math.pow(numerator, narrowBeam);
 		return super.getIntensity(p).scale(numerator);

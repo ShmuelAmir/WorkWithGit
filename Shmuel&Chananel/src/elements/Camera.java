@@ -68,7 +68,7 @@ public class Camera {
 		this.p0 = p0;
 		this.vTo = vTo.normalized();
 		this.vUp = vUp.normalized();
-		this.vRight = vTo.crossProduct(vUp).normalized();	// vRight = vTo x vUp
+		this.vRight = vTo.crossProduct(vUp).normalized(); // vRight = vTo x vUp
 	}
 
 	/**
@@ -110,7 +110,7 @@ public class Camera {
 		// calculate the width and height ratio
 		double rX = width / nX;
 		double rY = height / nY;
-		
+
 		// calculate the location in x and y axis
 		double xJ = (j - (nX - 1) / 2.0) * rX;
 		double yI = ((nY - 1) / 2.0 - i) * rY;

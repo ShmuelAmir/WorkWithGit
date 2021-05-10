@@ -19,7 +19,7 @@ public class Vector {
 	 */
 	public Vector(Coordinate x, Coordinate y, Coordinate z) {
 		this.head = new Point3D(x, y, z);
-		
+
 		if (this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
 	}
@@ -33,7 +33,7 @@ public class Vector {
 	 */
 	public Vector(double x, double y, double z) {
 		this.head = new Point3D(x, y, z);
-		
+
 		if (this.head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
 	}
@@ -46,7 +46,7 @@ public class Vector {
 	public Vector(Point3D head) {
 		if (head.equals(Point3D.ZERO))
 			throw new IllegalArgumentException("The zero vector is not defined");
-		
+
 		this.head = head;
 	}
 

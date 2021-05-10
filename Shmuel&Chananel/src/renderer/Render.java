@@ -57,7 +57,7 @@ public class Render {
 			throw new MissingResourceException("imageWriter is null", "Render", "imageWriter");
 		if (rayTracer == null)
 			throw new MissingResourceException("scene is null", "Render", "rayTracer");
-		
+
 		// get the number of the pixel in imageWriter
 		int nX = imageWriter.getNx();
 		int nY = imageWriter.getNy();
@@ -80,8 +80,11 @@ public class Render {
 		if (imageWriter == null)
 			throw new MissingResourceException("imageWriter is null", "Render", "imageWriter");
 
-		for (int j = 0; j < imageWriter.getNx(); j++) {
-			for (int i = 0; i < imageWriter.getNy(); i++) {
+		int nX = imageWriter.getNx();
+		int nY = imageWriter.getNy();
+
+		for (int j = 0; j < nX; j++) {
+			for (int i = 0; i < nY; i++) {
 				if (i % interval == 0 || j % interval == 0)
 					imageWriter.writePixel(j, i, color);
 			}

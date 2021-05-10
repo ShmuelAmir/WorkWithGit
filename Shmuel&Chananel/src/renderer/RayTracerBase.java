@@ -9,9 +9,11 @@ import scene.*;
  * determine the color of the image in a particular pixel
  * 
  * @author shmulik
- *
  */
 public abstract class RayTracerBase {
+	/**
+	 * the scene to trace rays on
+	 */
 	protected Scene scene;
 
 	/**
@@ -24,8 +26,9 @@ public abstract class RayTracerBase {
 	}
 
 	/**
-	 * get ray and determine his color (ray = pixel)
-	 * Calculate the color in the intersection point between the geometries and a certain ray
+	 * get ray and determine his color (ray = pixel) Calculate the color in the
+	 * intersection point between the geometries and a certain ray
+	 * 
 	 * @param ray - the ray
 	 * @return - the color in this pixel
 	 */

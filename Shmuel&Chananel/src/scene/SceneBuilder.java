@@ -7,7 +7,6 @@ import java.util.Map;
 import elements.AmbientLight;
 import geometries.Sphere;
 import geometries.Triangle;
-import parser.SceneDescriptor;
 import primitives.Color;
 import primitives.Point3D;
 

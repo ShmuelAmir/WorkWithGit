@@ -1,24 +1,24 @@
-/**
- * 
- */
 package elements;
 
 import primitives.*;
 
 /**
- * LightSource is interface that represents behavior of light - intensity and L (the direction)
+ * LightSource is interface that represents behavior of light - intensity from
+ * the light on geometry and L the direction of the geometry
  * 
  * @author Shmulik & Chananel
  */
 public interface LightSource {
 	/**
 	 * get the intensity
+	 * 
 	 * @param p - intensity in this point
 	 */
 	public Color getIntensity(Point3D p);
 
 	/**
-	 *  L vector - represents the direction of the light - to certain point
+	 * L vector - represents the direction of the light - to certain point
+	 * 
 	 * @param p -certain point
 	 * @return
 	 */

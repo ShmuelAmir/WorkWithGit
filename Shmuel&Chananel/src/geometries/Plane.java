@@ -40,7 +40,7 @@ public class Plane extends Geometry {
 	 */
 	public Plane(Point3D point, Vector vector) {
 		p0 = point;
-		normal = vector.normalize();	//
+		normal = vector.normalize();
 	}
 
 	/**
@@ -61,12 +61,12 @@ public class Plane extends Geometry {
 	public Vector getNormal(Point3D point) {
 		return normal;
 	}
-	
+
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		Point3D rayP0 = ray.getP0();
 		Vector dir = ray.getDir();
-		
+
 		double nv = normal.dotProduct(dir);
 
 		// Check if ray is contained within the plane

@@ -9,7 +9,7 @@ import org.junit.Test;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
-/** 
+/**
  * test ray class
  * 
  * @author Shmulik & Chananel

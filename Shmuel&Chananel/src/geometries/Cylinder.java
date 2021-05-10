@@ -13,7 +13,7 @@ import primitives.Vector;
  * @author Shmulik & Chananel
  */
 public class Cylinder extends Tube {
-	private double height; // save the height of the cylinder
+	private double height;
 
 	/**
 	 * constructor with ray, radius and height
@@ -60,7 +60,6 @@ public class Cylinder extends Tube {
 	@Override
 	public List<Point3D> findIntersections(Ray ray) {
 		List<Point3D> result = super.findIntersections(ray);
-		
 		
 		return result;
 	}

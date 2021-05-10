@@ -69,12 +69,4 @@ public abstract class Util {
 		return Math.random() * (max - min) + min;
 	}
 
-	/**
-	 * help method - if the number is positive return the num else return 0
-	 * @param number
-	 * @return
-	 */
-	public static double positiveOrZero(double number) {
-		return number > 0 ? number : 0;
-	}
 }
