@@ -12,9 +12,10 @@ import primitives.*;
  * @author shmulik
  */
 public interface Intersectable {
+	
 	/**
 	 * 
-	 * 
+	 * @author shmulik
 	 *
 	 */
 	public static class GeoPoint {

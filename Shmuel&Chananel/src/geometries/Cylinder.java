@@ -10,7 +10,7 @@ import primitives.Vector;
 /**
  * Class Cylinder represents a cylinder (Tube with height)
  * 
- * @author shmulik
+ * @author Shmulik & Chananel
  */
 public class Cylinder extends Tube {
 	private double height; // save the height of the cylinder
@@ -34,6 +34,9 @@ public class Cylinder extends Tube {
 		return height;
 	}
 
+	/**
+	 * get normal to Cylinder
+	 */
 	@Override
 	public Vector getNormal(Point3D point) {
 		Point3D p0 = axisRay.getP0();

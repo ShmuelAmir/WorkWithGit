@@ -25,6 +25,7 @@ public class RayTracerBasic extends RayTracerBase {
 		super(scene);
 	}
 
+
 	@Override
 	public Color traceRay(Ray ray) {
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
@@ -39,9 +40,10 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Calculate the color in a point
+	 * this method get intersection point (GeoPoint) and ray and calculate the color 
+	 * in this point according to the Phong Reflectance Mode
 	 * 
-	 * @param point - the point
+	 * @param point - the intersection point
 	 * @return the color
 	 */
 	private Color calcColor(GeoPoint intersection, Ray ray) {
@@ -49,6 +51,13 @@ public class RayTracerBasic extends RayTracerBase {
 				.add(calcLocalEffects(intersection, ray));
 	}
 
+	/**
+	 * Help method - this method calculate the color of a point 
+	 * considering all the light sources
+	 * @param intersection - the intersection point
+	 * @param ray - the ray from the light
+	 * @return - the color
+	 */
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
 		Vector v = ray.getDir();
 		Vector n = intersection.geometry.getNormal(intersection.point);
@@ -77,12 +86,30 @@ public class RayTracerBasic extends RayTracerBase {
 		return color;
 	}
 
+	/**
+	 * Help method - this method calculate the diffusive component 
+	 * @param kd - coefficient in the formula
+	 * @param nl - dot product between l and the normal
+	 * When l and n are normalized, l · n is the cosine of the angle between them
+	 * @return double that represent the diffusive 
+	 */
 	private double calcDiffusive(double kd, double nl) {
 		double lDotN = Math.abs(nl);
 
 		return kd * lDotN;
 	}
 
+	/**
+	 *  Help method - this method calculate the Specular component 
+	 *  
+	 * @param ks - coefficient in the formula
+	 * @param l - vector between the light and the intersection point
+	 * @param n - normal of the body
+	 * @param v - the dirction of the camera
+	 * @param nShininess - coefficient in the formula
+	 * @param nl - dot product between l and the normal
+	 * @return
+	 */
 	private double calcSpecular(double ks, Vector l, Vector n, Vector v, int nShininess, double nl) {
 		double lDotN2 = nl * 2;
 		Vector r = l.subtract(n.scale(lDotN2));

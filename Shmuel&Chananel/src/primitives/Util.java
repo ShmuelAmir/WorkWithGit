@@ -70,7 +70,7 @@ public abstract class Util {
 	}
 
 	/**
-	 * 
+	 * help method - if the number is positive return the num else return 0
 	 * @param number
 	 * @return
 	 */

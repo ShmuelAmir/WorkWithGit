@@ -9,7 +9,7 @@ import primitives.*;
 /**
  * Testing Cylinder
  * 
- * @author user1
+ * @author Shmulik & Chananel
  */
 public class CylinderTests {
 	/**

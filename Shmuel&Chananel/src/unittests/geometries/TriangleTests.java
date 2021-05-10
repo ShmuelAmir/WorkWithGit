@@ -12,7 +12,7 @@ import primitives.*;
 /**
  * Testing Triangle
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class TriangleTests {

@@ -12,7 +12,7 @@ import primitives.*;
 /** 
  * test ray class
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class RayTests {

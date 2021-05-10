@@ -53,7 +53,7 @@ public class Ray {
 	 * find the closes point to p0 from a list
 	 * 
 	 * @param points - list of point
-	 * @return - the closes point to p0
+	 * @return - the closes point to p0 - Point3D
 	 */
 	public Point3D getClosestPoint(List<Point3D> points) {
 		return (points == null) ? null
@@ -65,7 +65,7 @@ public class Ray {
 	 * find the closes point to p0 from a list
 	 * 
 	 * @param points -
-	 * @return - the closes point to p0
+	 * @return - the closes point to p0 - GeoPoint
 	 */
 	public GeoPoint getClosestGeoPoint(List<GeoPoint> points) {
 		if (points == null)

@@ -11,7 +11,7 @@ import primitives.*;
 /**
  * Integration test - Camera and Ray
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class CameraRayConstructionTest {

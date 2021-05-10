@@ -12,7 +12,7 @@ import primitives.*;
 /**
  * Testing Sphere
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class SphereTests {

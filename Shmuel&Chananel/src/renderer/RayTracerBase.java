@@ -25,7 +25,7 @@ public abstract class RayTracerBase {
 
 	/**
 	 * get ray and determine his color (ray = pixel)
-	 * 
+	 * Calculate the color in the intersection point between the geometries and a certain ray
 	 * @param ray - the ray
 	 * @return - the color in this pixel
 	 */

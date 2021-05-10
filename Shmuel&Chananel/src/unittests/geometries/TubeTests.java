@@ -12,7 +12,7 @@ import primitives.*;
 /**
  * Testing Tube
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class TubeTests {

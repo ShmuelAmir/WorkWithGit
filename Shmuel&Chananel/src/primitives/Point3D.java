@@ -3,7 +3,7 @@ package primitives;
 /**
  * Class Point3D represents three-dimensional point With three coordinates.
  * 
- * @author user1
+ * @author Shmulik & Chananel
  */
 public class Point3D {
 	// x, y and z position of the point

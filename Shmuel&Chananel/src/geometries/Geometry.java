@@ -3,7 +3,7 @@ package geometries;
 import primitives.*;
 
 /**
- * Geometry interface represents Some geometric body
+ * Geometry abstract class represents Some geometric body this class implement intersectable interface
  * 
  * @author shmulik
  */
@@ -23,6 +23,7 @@ public abstract class Geometry implements Intersectable {
 	}
 	
 	/**
+	 * get emission
 	 * @return the emission
 	 */
 	public Color getEmission() {
@@ -30,7 +31,8 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
-	 * @param material the material to set
+	 * set material
+	 * @param material - the material to set
 	 */
 	public Geometry setMaterial(Material material) {
 		this.material = material;
@@ -38,6 +40,7 @@ public abstract class Geometry implements Intersectable {
 	}
 
 	/**
+	 * get material
 	 * @return the material
 	 */
 	public Material getMaterial() {

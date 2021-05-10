@@ -10,7 +10,7 @@ import static primitives.Util.*;
 /**
  * Testing Point3D
  * 
- * @author user1
+ * @author Shmulik & Chananel
  *
  */
 public class Point3DTests {
