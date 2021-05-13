@@ -141,12 +141,58 @@ public class LightsTests {
 		render.writeToImage();
 	}
 
+//	/**
+//	 * Produce a picture of a sphere lighted by all the kind of the lights
+//	 */
+//	@Test
+//	public void sphereMultiLight() {
+//		scene1.geometries.add(sphere);
+//		
+//		scene1.lights.add(new DirectionalLight(new Color(200, 200, 50), new Vector(1, -1, 0)));
+//		scene1.lights.add(new PointLight(new Color(600, 300, 600), new Point3D(50, 0, 10))//
+//			.setkL(0.0000001).setkQ(0.00000001));
+//		scene1.lights.add(new SpotLight(new Color(750, 500, 250), new Point3D(-50, -50, 50), new Vector(-1, -1, -1.5)) //
+//				.setkL(0.000001).setkQ(0.000000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("sphere Multi Ligh", 500, 500);
+//		Render render = new Render()//
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera1) //
+//				.setRayTracer(new RayTracerBasic(scene1));
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//
+//	/**
+//	 * Produce a picture of a triangle lighted by all the kind of the lights
+//	 */
+//	@Test
+//	public void trianglesMultiLight() {
+//		scene2.geometries.add(triangle1.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)), //
+//				triangle2.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(300)));
+//
+//		scene2.lights.add(new DirectionalLight(new Color(100, 200, 175), new Vector(1, 1, -1)));
+//		scene2.lights.add(new PointLight(new Color(500, 250, 250), new Point3D(70, -70, -120)) //
+//				.setkL(0.0005).setkQ(0.0005));
+//		scene2.lights.add(new SpotLight(new Color(1000, 500, 500), new Point3D(-50, 50, -100), new Vector(-5, -5, 0)) //
+//				.setkL(0.00001).setkQ(0.0000005));
+//
+//		ImageWriter imageWriter = new ImageWriter("triangles Multi Light", 500, 500);
+//		Render render = new Render()//
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera2) //
+//				.setRayTracer(new RayTracerBasic(scene2));
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+	
 	/**
 	 * Produce a picture of a sphere lighted by all the kind of the lights
 	 */
 	@Test
 	public void sphereMultiLight() {
 		scene1.geometries.add(sphere);
+		
 		scene1.lights.add(new SpotLight(new Color(166, 100, 0), new Point3D(-50, 50, 50), new Vector(1, 1, -2)) //
 				.setkL(0.000000001).setkQ(0.0000000001));
 		scene1.lights.add(new DirectionalLight(new Color(200, 100, 100), new Vector(1, 1, -1)));
@@ -172,7 +218,6 @@ public class LightsTests {
 
 		scene2.lights.add(new SpotLight(new Color(200, 100, 100), new Point3D(10, -10, -130), new Vector(-28.2, 2.4, 0)) //
 				.setkL(0.0001).setkQ(0.000005));
-
 		scene2.lights.add(new DirectionalLight(new Color(100, 200, 100), new Vector(0, 0, -1)));
 		scene2.lights.add(new PointLight(new Color(100, 100, 200), new Point3D(50, -20, -130)) //
 				.setkL(0.0005).setkQ(0.0005));
