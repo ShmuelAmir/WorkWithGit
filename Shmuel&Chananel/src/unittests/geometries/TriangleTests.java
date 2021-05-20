@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -69,5 +70,22 @@ public class TriangleTests {
 		// TC12: Ray's line is On edge's continuation (0 points)
 		result = triangle.findIntersections(new Ray(new Point3D(2, 0, 0), new Vector(0, 0, 1)));
 		assertNull("Ray's line is On edge's continuation", result);
+	}
+	
+	/**
+	 * Test method for
+	 * {@link geometries.Triangle#findGeoIntersections(primitives.Ray, double)}.
+	 */
+	@Test
+	public void testFindGeoIntersections() {
+		List<GeoPoint> result;
+		Triangle triangle = new Triangle(new Point3D(5, 1, 4), new Point3D(-8, 4, 4), new Point3D(-9, -7, 4));
+		Ray ray = new Ray(new Point3D(0, 0, 8), new Vector(0, 0, -1));
+		
+		result = triangle.findGeoIntersections(ray, 5);
+		assertEquals("", List.of(new GeoPoint(triangle, new Point3D(0, 0, 4))), result);
+		
+		result = triangle.findGeoIntersections(ray, 3);
+		assertNull("", result);
 	}
 }

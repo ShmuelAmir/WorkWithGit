@@ -1,7 +1,5 @@
 package geometries;
 
-import java.util.List;
-
 import static primitives.Util.*;
 import primitives.Point3D;
 import primitives.Ray;
@@ -55,13 +53,6 @@ public class Cylinder extends Tube {
 
 		// The point is in the casing
 		return super.getNormal(point);
-	}
-	
-	@Override
-	public List<Point3D> findIntersections(Ray ray) {
-		List<Point3D> result = super.findIntersections(ray);
-		
-		return result;
 	}
 
 	@Override

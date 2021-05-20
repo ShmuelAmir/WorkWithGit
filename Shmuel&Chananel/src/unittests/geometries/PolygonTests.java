@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -144,5 +145,23 @@ public class PolygonTests {
 		// TC12: Ray's line is On edge's continuation (0 points)
 		result = polygon.findIntersections(new Ray(new Point3D(2, 0, 0), new Vector(0, 0, 1)));
 		assertNull("Ray's line is On edge's continuation", result);
+	}
+
+	/**
+	 * Test method for
+	 * {@link geometries.Polygon#findGeoIntersections(primitives.Ray, double)}.
+	 */
+	@Test
+	public void testFindGeoIntersections() {
+		List<GeoPoint> result;
+		Polygon polygon = new Polygon(new Point3D(5, 1, 4), new Point3D(4, -4, 4), new Point3D(-9, -7, 4),
+				new Point3D(-8, 4, 4));
+		Ray ray = new Ray(new Point3D(0, 0, 8), new Vector(0, 0, -1));
+
+		result = polygon.findGeoIntersections(ray, 5);
+		assertEquals("", List.of(new GeoPoint(polygon, new Point3D(0, 0, 4))), result);
+
+		result = polygon.findGeoIntersections(ray, 3);
+		assertNull("", result);
 	}
 }

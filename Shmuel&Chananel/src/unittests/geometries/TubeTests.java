@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -363,5 +364,32 @@ public class TubeTests {
 		ray = new Ray(new Point3D(value2, value2, value2), new Vector(1, 1, 1));
 		result = tube2.findIntersections(ray);
 		assertNull("Bad intersections", result);
+	}
+	
+	/**
+	 * Test method for
+	 * {@link geometries.Tube#findGeoIntersections(primitives.Ray, double)}.
+	 */
+	@Test
+	public void testFindGeoIntersections() {
+		List<GeoPoint> result;
+		Tube tube = new Tube(new Ray(new Point3D(1, 1, 1), new Vector(0, 0, 1)), 1d);
+		Ray ray = new Ray(new Point3D(0, 0, 0), new Vector(2, 1, 1));
+		
+		GeoPoint p1 = new GeoPoint(tube, new Point3D(0.4, 0.2, 0.2));
+		GeoPoint p2 = new GeoPoint(tube, new Point3D(2, 1, 1));
+		
+		result = tube.findGeoIntersections(ray, 5);
+		assertNotNull("must be intersections", result);
+		assertEquals("must be 2 intersections", 2, result.size());
+		if (result.get(0).point.getY() > result.get(1).point.getY())
+			result = List.of(result.get(1), result.get(0));
+		assertEquals("", List.of(p1, p2), result);
+		
+		result = tube.findGeoIntersections(ray, 1);
+		assertEquals("", List.of(p1), result);
+		
+		result = tube.findGeoIntersections(ray, 0.25);
+		assertNull("", result);
 	}
 }

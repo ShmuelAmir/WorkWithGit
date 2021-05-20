@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -120,4 +121,39 @@ public class SphereTests {
 				sphere.findIntersections(new Ray(new Point3D(1, -2, 0), new Vector(1, 0, 0))));
 	}
 
+	/**
+	 * Test method for
+	 * {@link geometries.Sphere#findGeoIntersections(primitives.Ray, double)}.
+	 */
+	@Test
+	public void testFindGeoIntersections() {
+		List<GeoPoint> result;
+		Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
+		Ray ray = new Ray(new Point3D(-1, 0, 0), new Vector(1, 0, 0));
+		
+		GeoPoint p1 = new GeoPoint(sphere, new Point3D(0, 0, 0));
+		GeoPoint p2 = new GeoPoint(sphere, new Point3D(2, 0, 0));
+
+		
+		result = sphere.findGeoIntersections(ray, 4);
+		assertEquals("Wrong number of points", 2, result.size());
+		if (result.get(0).point.getX() > result.get(1).point.getX())
+			result = List.of(result.get(1), result.get(0));
+		assertEquals("", List.of(p1, p2), result);
+		
+		result = sphere.findGeoIntersections(ray, 3);
+		assertEquals("Wrong number of points", 2, result.size());
+		if (result.get(0).point.getX() > result.get(1).point.getX())
+			result = List.of(result.get(1), result.get(0));
+		assertEquals("", List.of(p1, p2), result);
+		
+		result = sphere.findGeoIntersections(ray, 1);
+		assertEquals("", List.of(p1), result);
+		
+		result = sphere.findGeoIntersections(ray, 2);
+		assertEquals("", List.of(p1), result);
+		
+		result = sphere.findGeoIntersections(ray, 0.5);
+		assertNull("", result);
+	}
 }

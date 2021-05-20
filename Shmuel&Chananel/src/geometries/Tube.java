@@ -53,9 +53,9 @@ public class Tube extends Geometry {
 
 		return point.subtract(center).normalize();
 	}
-
+	
 	@Override
-	public List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 		double[] abc = findABC(ray);
 		if (abc == null)
 			return null;
@@ -72,18 +72,31 @@ public class Tube extends Geometry {
 			double t1 = rootArray[0];
 			double t2 = rootArray[1];
 
-			Point3D p1 = ray.getPoint(t1);
-			Point3D p2 = ray.getPoint(t2);
-
-			return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
+			if (alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0) {
+				Point3D p1 = ray.getPoint(t1);
+				Point3D p2 = ray.getPoint(t2);
+	
+				return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
+			}
+			
+			if (alignZero(t1 - maxDistance) <= 0) {
+				Point3D p1 = ray.getPoint(t1);
+				return List.of(new GeoPoint(this, p1));
+			}
+			
+			if (alignZero(t2 - maxDistance) <= 0) {
+				Point3D p2 = ray.getPoint(t2);
+				return List.of(new GeoPoint(this, p2));
+			}
 		}
 
 		if (rootArray.length == 1) {
 			double t = rootArray[0];
 
-			Point3D p1 = ray.getPoint(t);
-
-			return List.of(new GeoPoint(this, p1));
+			if (alignZero(t - maxDistance) <= 0) {
+				Point3D p1 = ray.getPoint(t);
+				return List.of(new GeoPoint(this, p1));
+			}
 		}
 
 		return null;
