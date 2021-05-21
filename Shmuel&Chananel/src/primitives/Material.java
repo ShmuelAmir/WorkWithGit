@@ -21,6 +21,18 @@ public class Material {
 	 * the Shininess of the material
 	 */
 	public int nShininess = 0;
+	
+	/**
+	 * The Refraction  - //in hebrow shkifot
+	 */
+	public double kT = 0.0;
+	
+	/**
+	 * Reflection   -  //in hebrow histakfot
+	 */
+	public double kR = 0.0;
+	
+	
 
 	/**
 	 * set kd
@@ -53,5 +65,30 @@ public class Material {
 		this.nShininess = nShininess;
 		return this;
 	}
+	
+	/**
+	 * 
+	 * @param kD
+	 * @return
+	 */
+	public Material setkT(double kT) {
+		this.kT = kT;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param kD
+	 * @return
+	 */
+	public Material setkR(double kR) {
+		this.kR = kR;
+		return this;
+	}
+	
+	
+		
+		
+		
 
 }
