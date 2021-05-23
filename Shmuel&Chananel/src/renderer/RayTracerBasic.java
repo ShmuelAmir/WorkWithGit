@@ -17,7 +17,8 @@ import scene.Scene;
  */
 public class RayTracerBasic extends RayTracerBase {
 	/**
-	 * fixed value - how many light loose in the event that the beam spite to tow spared ray
+	 * fixed value - how many light loose in the event that the beam spite to tow
+	 * spared ray
 	 */
 	private static final double INITIAL_K = 1.0;
 	/**
@@ -25,7 +26,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	/**
-	 * Stop conditions - mine amount of light 
+	 * Stop conditions - minimum amount of light
 	 */
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
@@ -45,11 +46,12 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 *  this method get intersection point (GeoPoint) and ray and calculate the color
-	 * in this point according to the Phong Reflectance Mode
+	 * calculate the color in this point according to the Phong Reflectance Model
+	 * (ambient light)
 	 * 
 	 * @param geopoint - the intersection point with the ray
-	 * @return the color
+	 * @param ray      - the ray
+	 * @return the color for this ray
 	 */
 	private Color calcColor(GeoPoint geopoint, Ray ray) {
 		return calcColor(geopoint, ray, MAX_CALC_COLOR_LEVEL, INITIAL_K) //
@@ -57,12 +59,15 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * this method get intersection point (GeoPoint) and ray and calculate the color
-	 * in this point according to the Phong Reflectance Mode.
-	 * In addition this method check the stop condition 
+	 * calculate the color in this point according to the Phong Reflectance Model.
+	 * (local effects - diffusive and Specular, global effects - reflection and
+	 * refraction)
 	 * 
-	 * @param point - the intersection point
-	 * @return the color
+	 * @param intersection - the intersection point with the ray
+	 * @param ray          - the ray
+	 * @param level        - current level of the recursion
+	 * @param k            - for the intensity
+	 * @return the color for this ray
 	 */
 	private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
 		Color color = intersection.geometry.getEmission();
@@ -71,12 +76,12 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Help method - this method calculate the color of a point considering all the
-	 * light sources
+	 * calculate the local effects in the point considering all the light sources
 	 * 
 	 * @param intersection - the intersection point
-	 * @param ray          - the ray from the light
-	 * @return - the color
+	 * @param ray-         the ray from the light
+	 * @param k
+	 * @return the color
 	 */
 	private Color calcLocalEffects(GeoPoint intersection, Ray ray, double k) {
 		Vector v = ray.getDir();
@@ -107,7 +112,7 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Help method - this method calculate the diffusive component
+	 * calculate the diffusive component
 	 * 
 	 * @param kd - coefficient in the formula
 	 * @param nl - dot product between l and the normal When l and n are normalized,
@@ -119,7 +124,7 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Help method - this method calculate the Specular component
+	 * calculate the Specular component
 	 * 
 	 * @param ks         - coefficient in the formula
 	 * @param l          - vector between the light and the intersection point
@@ -137,12 +142,14 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * Calculate global effect of the light on the color - with all the ray that Split from the main ray
+	 * Calculate global effect of the light on the color - with all the ray that
+	 * split from the main ray
 	 *
 	 * @param geopoint the point
-	 * @param ray    the ray
-	 * @param level  number of iterations in the mutual recursion
-	 * @param k -  how many light loose in the event that the beam spite to tow spared ray
+	 * @param ray      the ray
+	 * @param level    number of iterations in the mutual recursion
+	 * @param k        - how many light loose in the event that the beam spite to
+	 *                 tow spared ray
 	 * @return the color
 	 */
 	private Color calcGlobalEffects(GeoPoint geopoint, Ray ray, int level, double k) {
@@ -173,7 +180,9 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * find the value that represent the transparency of specific ray according to all the shape that the ray intersect
+	 * find the value that represent the transparency of specific ray according to
+	 * all the shape that the ray intersect
+	 * 
 	 * @param light
 	 * @param l
 	 * @param n
@@ -184,33 +193,30 @@ public class RayTracerBasic extends RayTracerBase {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(geopoint.point, lightDirection, n);
 		var intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
-		if (intersections == null)
-			return 1.0;
-		double ktr = 1.0;
-		for (GeoPoint gp : intersections) {
 
-			ktr *= gp.geometry.getMaterial().kT;
-			if (ktr < MIN_CALC_COLOR_K)
-				return 0.0;
+		double ktr = 1.0;
+		if (intersections != null) {
+			for (GeoPoint gp : intersections) {
+				ktr *= gp.geometry.getMaterial().kT;
+				if (ktr < MIN_CALC_COLOR_K)
+					return 0.0;
+			}
 		}
 
 		return ktr;
 	}
 
 	/**
-	 * this metod calculate the closest intersection point to the source light
+	 * calculate the closest intersection point to the source light
+	 * 
 	 * @param ray
 	 * @return
 	 */
-	private GeoPoint findClosestIntersection(Ray ray) { 
+	private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
 
-		// if there is no intersection - return null
-		if (intersections == null)
-			return null;
-
 		// if there is intersections - the color determine by the close point
-		return ray.getClosestGeoPoint(intersections);
+		return intersections == null ? null : ray.getClosestGeoPoint(intersections);
 	}
 
 }

@@ -82,9 +82,11 @@ public class TriangleTests {
 		Triangle triangle = new Triangle(new Point3D(5, 1, 4), new Point3D(-8, 4, 4), new Point3D(-9, -7, 4));
 		Ray ray = new Ray(new Point3D(0, 0, 8), new Vector(0, 0, -1));
 		
+		// TC01: point inside the distance (1 points)
 		result = triangle.findGeoIntersections(ray, 5);
 		assertEquals("", List.of(new GeoPoint(triangle, new Point3D(0, 0, 4))), result);
 		
+		// TC01: point outside the distance (0 points)
 		result = triangle.findGeoIntersections(ray, 3);
 		assertNull("", result);
 	}

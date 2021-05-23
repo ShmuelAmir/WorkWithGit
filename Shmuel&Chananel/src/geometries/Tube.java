@@ -53,7 +53,7 @@ public class Tube extends Geometry {
 
 		return point.subtract(center).normalize();
 	}
-	
+
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 		double[] abc = findABC(ray);
@@ -64,44 +64,26 @@ public class Tube extends Geometry {
 		double b = abc[1];
 		double c = abc[2];
 
-		double[] rootArray = quadratic(a, b, c);
+		double[] rootArray = quadratic(a, b, c, maxDistance);
 		if (rootArray == null)
 			return null;
 
 		if (rootArray.length == 2) {
-			double t1 = rootArray[0];
-			double t2 = rootArray[1];
+			Point3D p1 = ray.getPoint(rootArray[0]);
+			Point3D p2 = ray.getPoint(rootArray[1]);
 
-			if (alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0) {
-				Point3D p1 = ray.getPoint(t1);
-				Point3D p2 = ray.getPoint(t2);
-	
-				return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
-			}
-			
-			if (alignZero(t1 - maxDistance) <= 0) {
-				Point3D p1 = ray.getPoint(t1);
-				return List.of(new GeoPoint(this, p1));
-			}
-			
-			if (alignZero(t2 - maxDistance) <= 0) {
-				Point3D p2 = ray.getPoint(t2);
-				return List.of(new GeoPoint(this, p2));
-			}
+			return List.of(new GeoPoint(this, p1), new GeoPoint(this, p2));
 		}
 
 		if (rootArray.length == 1) {
-			double t = rootArray[0];
-
-			if (alignZero(t - maxDistance) <= 0) {
-				Point3D p1 = ray.getPoint(t);
-				return List.of(new GeoPoint(this, p1));
-			}
+			Point3D p1 = ray.getPoint(rootArray[0]);
+			
+			return List.of(new GeoPoint(this, p1));
 		}
 
 		return null;
 	}
-	
+
 	@Override
 	public String toString() {
 		return axisRay.toString() + " " + radius;
@@ -165,14 +147,16 @@ public class Tube extends Geometry {
 	}
 
 	/**
-	 * solve a quadratic equation.
+	 * solve a quadratic equation, and return only positive and small from
+	 * maxDistance solutions.
 	 * 
-	 * @param a - the first coefficient
-	 * @param b - the second coefficient
-	 * @param c - the third coefficient
+	 * @param maxDistance - the max size of the solutions to return.
+	 * @param a           - the first coefficient
+	 * @param b           - the second coefficient
+	 * @param c           - the third coefficient
 	 * @return if 0 or 1 roots - null, otherwise array with roots bigger than 0.
 	 */
-	private double[] quadratic(double a, double b, double c) {
+	private double[] quadratic(double a, double b, double c, double maxDistance) {
 		double t1, t2;
 		double[] rootArray = null;
 
@@ -180,14 +164,14 @@ public class Tube extends Geometry {
 		if (d > 0) {
 			t1 = (-b + Math.sqrt(d)) / (2.0 * a);
 			t2 = (-b - Math.sqrt(d)) / (2.0 * a);
-			if (t1 > 0 && t2 > 0) {
+			if (t1 > 0 && t2 > 0 && alignZero(t1 - maxDistance) <= 0 && alignZero(t2 - maxDistance) <= 0) {
 				rootArray = new double[2];
 				rootArray[0] = t1;
 				rootArray[1] = t2;
-			} else if (t1 > 0) {
+			} else if (t1 > 0 && alignZero(t1 - maxDistance) <= 0) {
 				rootArray = new double[1];
 				rootArray[0] = t1;
-			} else if (t2 > 0) {
+			} else if (t2 > 0 && alignZero(t2 - maxDistance) <= 0) {
 				rootArray = new double[1];
 				rootArray[0] = t2;
 			}

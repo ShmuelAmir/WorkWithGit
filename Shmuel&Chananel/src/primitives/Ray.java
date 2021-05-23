@@ -11,15 +11,14 @@ import geometries.Intersectable.GeoPoint;
  * @author shmulik
  */
 public class Ray {
-	
 	/**
-	 * This is a fixed value that represent a little number .
-	 * It help us to prevent unwanted image that caused by accuracy problem.   
+	 * This is a fixed value that represent a little number. It help us to prevent
+	 * unwanted image that caused by accuracy problem.
 	 */
 	private static final double DELTA = 0.1;
-	
+
 	private Point3D p0; // the starting point
-	private Vector dir; // the direction vector from the Starting point
+	private Vector dir; // the direction vector
 
 	/**
 	 * Constructor that get point and vector and create ray
@@ -31,31 +30,36 @@ public class Ray {
 		p0 = point;
 		dir = vector.normalized();
 	}
-	
+
 	/**
-	 * We need this method to prevent unwanted image that caused by accuracy problem.
-	 * We want to move the intersection point to safe place according to the direction of the normal.
-	 * @param head - the point that we want to move according to the direction of the normal.
-	 * @param direction the direction of the ray
-	 * @param normal - the normal in the point
+	 * We need this Constructor to prevent unwanted image that caused by accuracy
+	 * problem. We want to move the intersection point to safe place according to
+	 * the direction of the normal.
+	 * 
+	 * @param head      - the point that we want to move according to the direction
+	 *                  of the normal.
+	 * @param direction - the direction of the ray
+	 * @param normal    - To know in which direction to move the point
 	 */
 	public Ray(Point3D head, Vector direction, Vector normal) {
-		double sign = normal.dotProduct(direction) > 0 ? DELTA : -DELTA;
-		p0 = head.add(normal.scale(sign));
+		double signedDelta = normal.dotProduct(direction) > 0 ? DELTA : -DELTA;
+		p0 = head.add(normal.scale(signedDelta));
 		dir = direction.normalized();
 	}
 
 	/**
-	 * get method
-	 * @return the p0
+	 * get p0
+	 * 
+	 * @return the starting point
 	 */
 	public Point3D getP0() {
 		return p0;
 	}
 
 	/**
-	 * get method
-	 * @return the dir
+	 * get direction vector
+	 * 
+	 * @return the direction vector
 	 */
 	public Vector getDir() {
 		return dir;
@@ -72,10 +76,10 @@ public class Ray {
 	}
 
 	/**
-	 * find the closes point to p0 from a list
+	 * find the closes point to p0 from a list of points
 	 * 
 	 * @param points - list of points
-	 * @return - the closes point to p0 - Point3D
+	 * @return - the closes point to p0
 	 */
 	public Point3D getClosestPoint(List<Point3D> points) {
 		return (points == null) ? null
@@ -84,10 +88,10 @@ public class Ray {
 	}
 
 	/**
-	 * find the closes point to p0 from a list
+	 * find the closes point to p0 from a list of GeoPoints (point with geometry)
 	 * 
 	 * @param points - list of GeoPoints
-	 * @return - the closes point to p0 - GeoPoint
+	 * @return - the closes GeoPoint to p0
 	 */
 	public GeoPoint getClosestGeoPoint(List<GeoPoint> points) {
 		if (points == null)

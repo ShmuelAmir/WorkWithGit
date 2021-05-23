@@ -95,7 +95,7 @@ public class PlaneTests {
 		assertNull("Ray begins in the same point that appear in the plane",
 				plane.findIntersections(new Ray(new Point3D(1, 1, 1), new Vector(1, 0, 1))));
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link geometries.Plane#findGeoIntersections(primitives.Ray, double)}.
@@ -106,9 +106,11 @@ public class PlaneTests {
 		Plane plane = new Plane(new Point3D(1, 1, 1), new Point3D(2, 0, 1), new Point3D(3, 0, 1));
 		Ray ray = new Ray(new Point3D(0, 1, 2), new Vector(1, 1, -1));
 
+		// TC01: point inside the distance (1 points)
 		result = plane.findGeoIntersections(ray, 2);
 		assertEquals("", List.of(new GeoPoint(plane, new Point3D(1, 2, 1))), result);
 
+		// TC02: point outside the distance (0 points)
 		result = plane.findGeoIntersections(ray, 0.5);
 		assertNull("", result);
 	}

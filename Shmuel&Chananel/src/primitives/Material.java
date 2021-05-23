@@ -13,30 +13,30 @@ public class Material {
 	 * diffuse coefficient in the formula of Phong Model
 	 */
 	public double kD = 0;
+	
 	/**
 	 * Specular coefficient in the formula of Phong Model
 	 */
 	public double kS = 0;
+	
+	/**
+	 * The refraction coefficient in the formula of Phong Model Transparency
+	 * coefficient is the transmitted fraction where 𝒌𝑻 = 𝟏 when object is
+	 * translucent, 𝒌𝑻 = 𝟎 when the object is opaque.
+	 */
+	public double kT = 0.0;
+
+	/**
+	 * the reflection coefficient in the formula of Phong Model Perfect mirror has a
+	 * 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 0
+	 */
+	public double kR = 0.0;
+
 	/**
 	 * The shininess of the material
 	 */
 	public int nShininess = 0;
 	
-	/**
-	 * The refraction coefficient in the formula of Phong Model
-	 * Transparency coefficient is the transmitted fraction where 𝒌𝑻 = 𝟏 when
-	 * object is translucent, 𝒌𝑻 = 𝟎 when the object is opaque.
-	 */
-	public double kT = 0.0;
-	
-	/**
-	 * the reflection coefficient in the formula of Phong Model
-	 * Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 0
-	 */
-	public double kR = 0.0;
-	
-	
-
 	/**
 	 * set kd
 	 * 
@@ -63,35 +63,33 @@ public class Material {
 	 * set nShininess
 	 * 
 	 * @param nShininess - the nShininess to set
+	 * @return this
 	 */
 	public Material setnShininess(int nShininess) {
 		this.nShininess = nShininess;
 		return this;
 	}
-	
+
 	/**
-	 * set method
-	 * @param kD
-	 * @return
+	 * set kT
+	 * 
+	 * @param kT - the kT to set
+	 * @return this
 	 */
 	public Material setkT(double kT) {
 		this.kT = kT;
 		return this;
 	}
-	
+
 	/**
-	 * set method
-	 * @param kD
-	 * @return
+	 * set kR
+	 * 
+	 * @param kR - the kR to set
+	 * @return this
 	 */
 	public Material setkR(double kR) {
 		this.kR = kR;
 		return this;
 	}
-	
-	
-		
-		
-		
 
 }

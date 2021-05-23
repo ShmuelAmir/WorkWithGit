@@ -158,9 +158,11 @@ public class PolygonTests {
 				new Point3D(-8, 4, 4));
 		Ray ray = new Ray(new Point3D(0, 0, 8), new Vector(0, 0, -1));
 
+		// TC01: point inside the distance (1 points)
 		result = polygon.findGeoIntersections(ray, 5);
 		assertEquals("", List.of(new GeoPoint(polygon, new Point3D(0, 0, 4))), result);
 
+		// TC02: point outside the distance (0 points)
 		result = polygon.findGeoIntersections(ray, 3);
 		assertNull("", result);
 	}

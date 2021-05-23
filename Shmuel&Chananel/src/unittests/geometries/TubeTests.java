@@ -379,6 +379,7 @@ public class TubeTests {
 		GeoPoint p1 = new GeoPoint(tube, new Point3D(0.4, 0.2, 0.2));
 		GeoPoint p2 = new GeoPoint(tube, new Point3D(2, 1, 1));
 		
+		// TC01: tow points inside the distance (2 points)
 		result = tube.findGeoIntersections(ray, 5);
 		assertNotNull("must be intersections", result);
 		assertEquals("must be 2 intersections", 2, result.size());
@@ -386,9 +387,11 @@ public class TubeTests {
 			result = List.of(result.get(1), result.get(0));
 		assertEquals("", List.of(p1, p2), result);
 		
+		// TC02: one point inside the distance (1 points)
 		result = tube.findGeoIntersections(ray, 1);
 		assertEquals("", List.of(p1), result);
 		
+		// TC03: the points outside the distance (0 points)
 		result = tube.findGeoIntersections(ray, 0.25);
 		assertNull("", result);
 	}

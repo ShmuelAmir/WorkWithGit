@@ -1,11 +1,10 @@
 package geometries;
 
-
 import primitives.*;
 
 /**
  * Geometry abstract class represents Some geometric body with color and
- * material
+ * material, and we can get the normal vector from a point on geometry.
  * 
  * @author shmulik
  */

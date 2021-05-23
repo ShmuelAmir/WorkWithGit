@@ -130,30 +130,38 @@ public class SphereTests {
 		List<GeoPoint> result;
 		Sphere sphere = new Sphere(new Point3D(1, 0, 0), 1d);
 		Ray ray = new Ray(new Point3D(-1, 0, 0), new Vector(1, 0, 0));
-		
+
 		GeoPoint p1 = new GeoPoint(sphere, new Point3D(0, 0, 0));
 		GeoPoint p2 = new GeoPoint(sphere, new Point3D(2, 0, 0));
 
-		
+		// ============ Equivalence Partitions Tests ==============
+
+		// TC01: tow points inside the distance (2 points)
 		result = sphere.findGeoIntersections(ray, 4);
 		assertEquals("Wrong number of points", 2, result.size());
 		if (result.get(0).point.getX() > result.get(1).point.getX())
 			result = List.of(result.get(1), result.get(0));
 		assertEquals("", List.of(p1, p2), result);
-		
+
+		// TC02: one point inside the distance (1 points)
+		result = sphere.findGeoIntersections(ray, 1);
+		assertEquals("", List.of(p1), result);
+
+		// TC03: the points outside the distance (0 points)
+		result = sphere.findGeoIntersections(ray, 0.5);
+		assertNull("", result);
+
+		// =============== Boundary Values Tests ==================
+
+		// TC10: the second point right in the distance (2 points)
 		result = sphere.findGeoIntersections(ray, 3);
 		assertEquals("Wrong number of points", 2, result.size());
 		if (result.get(0).point.getX() > result.get(1).point.getX())
 			result = List.of(result.get(1), result.get(0));
 		assertEquals("", List.of(p1, p2), result);
-		
-		result = sphere.findGeoIntersections(ray, 1);
-		assertEquals("", List.of(p1), result);
-		
+
+		// TC20: the first point right in the distance (1 points)
 		result = sphere.findGeoIntersections(ray, 2);
 		assertEquals("", List.of(p1), result);
-		
-		result = sphere.findGeoIntersections(ray, 0.5);
-		assertNull("", result);
 	}
 }
