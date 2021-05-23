@@ -30,7 +30,7 @@ public class Ray {
 	public Ray(Point3D head, Vector direction, Vector normal) {
 		double sign = normal.dotProduct(direction) > 0 ? DELTA : -DELTA;
 		p0 = head.add(normal.scale(sign));
-		dir = direction;
+		dir = direction.normalized();
 	}
 
 	/**
