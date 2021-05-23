@@ -14,21 +14,24 @@ public class Material {
 	 */
 	public double kD = 0;
 	/**
-	 * specular coefficient in the formula of Phong Model
+	 * Specular coefficient in the formula of Phong Model
 	 */
 	public double kS = 0;
 	/**
-	 * the Shininess of the material
+	 * The shininess of the material
 	 */
 	public int nShininess = 0;
 	
 	/**
-	 * The Refraction  - //in hebrow shkifot
+	 * The refraction coefficient in the formula of Phong Model
+	 * Transparency coefficient is the transmitted fraction where 𝒌𝑻 = 𝟏 when
+	 * object is translucent, 𝒌𝑻 = 𝟎 when the object is opaque.
 	 */
 	public double kT = 0.0;
 	
 	/**
-	 * Reflection   -  //in hebrow histakfot
+	 * the reflection coefficient in the formula of Phong Model
+	 * Perfect mirror has a 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 0
 	 */
 	public double kR = 0.0;
 	
@@ -67,7 +70,7 @@ public class Material {
 	}
 	
 	/**
-	 * 
+	 * set method
 	 * @param kD
 	 * @return
 	 */
@@ -77,7 +80,7 @@ public class Material {
 	}
 	
 	/**
-	 * 
+	 * set method
 	 * @param kD
 	 * @return
 	 */

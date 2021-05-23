@@ -74,7 +74,12 @@ public interface Intersectable {
     	return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
 	
-	
+	/**
+	 * this method calculate all intersection points between ray and shape in a specific scope
+	 * @param ray - the ray that we want to calculate his intersections
+	 * @param maxDistance - the scope
+	 * @return list of GeoPoint
+	 */
 	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 
 }

@@ -27,6 +27,7 @@ public class SpotLight extends PointLight {
 	}
 
 	/**
+	 * set value to narrowBeam
 	 * @param narrowBeam the narrowBeam to set
 	 */
 	public SpotLight setNarrowBeam(int narrowBeam) {

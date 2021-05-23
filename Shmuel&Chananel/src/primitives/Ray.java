@@ -11,6 +11,11 @@ import geometries.Intersectable.GeoPoint;
  * @author shmulik
  */
 public class Ray {
+	
+	/**
+	 * This is a fixed value that represent a little number .
+	 * It help us to prevent unwanted image that caused by accuracy problem.   
+	 */
 	private static final double DELTA = 0.1;
 	
 	private Point3D p0; // the starting point
@@ -27,6 +32,13 @@ public class Ray {
 		dir = vector.normalized();
 	}
 	
+	/**
+	 * We need this method to prevent unwanted image that caused by accuracy problem.
+	 * We want to move the intersection point to safe place according to the direction of the normal.
+	 * @param head - the point that we want to move according to the direction of the normal.
+	 * @param direction the direction of the ray
+	 * @param normal - the normal in the point
+	 */
 	public Ray(Point3D head, Vector direction, Vector normal) {
 		double sign = normal.dotProduct(direction) > 0 ? DELTA : -DELTA;
 		p0 = head.add(normal.scale(sign));
@@ -34,6 +46,7 @@ public class Ray {
 	}
 
 	/**
+	 * get method
 	 * @return the p0
 	 */
 	public Point3D getP0() {
@@ -41,6 +54,7 @@ public class Ray {
 	}
 
 	/**
+	 * get method
 	 * @return the dir
 	 */
 	public Vector getDir() {
