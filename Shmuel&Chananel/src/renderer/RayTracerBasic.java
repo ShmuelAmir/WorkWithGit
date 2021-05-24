@@ -193,7 +193,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * all the shape that the ray intersect
 	 * 
 	 * @param light    - lightSource for the distance.
-	 * @param l        - vctor from the light to the point
+	 * @param l        - vector from the light to the point
 	 * @param n        - normal vector to the geometry in the point
 	 * @param geopoint - the point on the geometry
 	 * @return transparency between 0 to 1
