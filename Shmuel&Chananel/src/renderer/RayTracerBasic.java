@@ -192,11 +192,11 @@ public class RayTracerBasic extends RayTracerBase {
 	 * find the value that represent the transparency of specific ray according to
 	 * all the shape that the ray intersect
 	 * 
-	 * @param light
-	 * @param l
-	 * @param n
-	 * @param geopoint
-	 * @return
+	 * @param light    - lightSource for the distance.
+	 * @param l        - vctor from the light to the point
+	 * @param n        - normal vector to the geometry in the point
+	 * @param geopoint - the point on the geometry
+	 * @return transparency between 0 to 1
 	 */
 	private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
 		Vector lightDirection = l.scale(-1); // from point to light source
@@ -218,7 +218,7 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * calculate the closest intersection point to the source light
 	 * 
-	 * @param ray -
+	 * @param ray - ray to intersect
 	 * @return the closest intersection
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {

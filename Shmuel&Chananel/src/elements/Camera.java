@@ -2,8 +2,6 @@ package elements;
 
 import static primitives.Util.*;
 
-import java.util.function.DoubleToLongFunction;
-
 import primitives.*;
 
 /**
@@ -126,80 +124,97 @@ public class Camera {
 
 		return new Ray(p0, pIJ.subtract(p0));
 	}
-	
-	public void moveCamera (Point3D locationPoint, Point3D destinationPoint) {
-		  this.p0 = locationPoint;
-		  Vector oldVto = this.vTo;
-		  this.vTo = destinationPoint.subtract(locationPoint).normalize();
-		  Vector pivot ;
-		  
-		  try {
-			  pivot = oldVto.crossProduct(vTo).normalize();
-			  double sinChange = vTo.crossProduct(oldVto).length();
-			  double cosChange = vTo.dotProduct(oldVto);
-			  update(sinChange,cosChange,pivot);
-		  }
-		  catch(IllegalArgumentException e) {	  
-			  if(vTo.dotProduct(oldVto) < 0) {
-				  vRight = vRight.scale(-1);
-				  vUp = vUp.scale(-1);
-			  }
-		  }
+
+	/**
+	 * move the camera to new point.
+	 * 
+	 * @param locationPoint    - the new location of the camera
+	 * @param destinationPoint - where the camera is looking
+	 */
+	public void moveCamera(Point3D locationPoint, Point3D destinationPoint) {
+		this.p0 = locationPoint;
+
+		Vector oldVto = this.vTo;
+		this.vTo = destinationPoint.subtract(locationPoint).normalize();
+
+		Vector pivot; // Axis of rotation
+		try {
+			pivot = oldVto.crossProduct(vTo).normalize();
+
+			double sinChange = vTo.crossProduct(oldVto).length();
+			double cosChange = vTo.dotProduct(oldVto);
+
+			updateVectors(sinChange, cosChange, pivot);
+		} catch (IllegalArgumentException e) { // if old vTo and new vTo are parallel.
+
+			if (vTo.dotProduct(oldVto) < 0) {
+				vRight = vRight.scale(-1);
+				vUp = vUp.scale(-1);
+			}
+		}
 	}
 
-	private void update(double sinChange, double cosChange, Vector pivot) {
+	/**
+	 * calculate the new vRight and vUp vectors according to Rodrigues' rotation
+	 * formula (vRot = v cos(a) + (k x v) sin(a) + k (k * v)(1- cos(a))).
+	 * 
+	 * @param sinChange - sin(a) in the formula
+	 * @param cosChange - cos(a) in the formula
+	 * @param pivot     - Axis of rotation
+	 */
+	private void updateVectors(double sinChange, double cosChange, Vector pivot) {
 		Vector newVRight;
 
 		double pDotVright = pivot.dotProduct(this.vRight);
-		
+
 		if (isZero(cosChange)) {
 			try {
-				newVRight = pivot.crossProduct(this.vRight).scale(sinChange);
-			}
-			catch (IllegalArgumentException e) {
+				newVRight = pivot.crossProduct(this.vRight).scale(sinChange); // (k x v) sin(a)
+			} catch (IllegalArgumentException e) {
 				newVRight = pivot;
 			}
-			
-			if(!isZero(pDotVright))
-				newVRight = newVRight.add(pivot.scale(pDotVright));
-		}
-		else 	{
-				newVRight = vRight.scale(cosChange);
-				try {
-					newVRight = newVRight.add(pivot.crossProduct(this.vRight).scale(sinChange));
-	
-				}
-				catch (IllegalArgumentException e) {
-					newVRight = pivot;	
-				}
-				
-				if((!isZero(pDotVright)) && !(isZero(1-cosChange)))
-					newVRight = newVRight.add(pivot.scale(pDotVright).scale(1-cosChange));
-					
+
+			if (!isZero(pDotVright))
+				newVRight = newVRight.add(pivot.scale(pDotVright)); // k (k * v)
+
+		} else {
+			newVRight = vRight.scale(cosChange); // v cos(a)
+			try {
+				newVRight = newVRight.add(pivot.crossProduct(this.vRight).scale(sinChange)); // (k x v) sin(a)
+
+			} catch (IllegalArgumentException e) {
+				newVRight = pivot;
 			}
-		
+
+			if ((!isZero(pDotVright)) && !(isZero(1 - cosChange)))
+				newVRight = newVRight.add(pivot.scale(pDotVright).scale(1 - cosChange)); // k (k * v)(1- cos(a))
+		}
+
 		this.vRight = newVRight.normalize();
-		this.vUp = vRight.crossProduct(vTo); //? is good? we can erase the normalize?
-		
+		this.vUp = vRight.crossProduct(vTo);
 	}
-	
-	public void CameraRotation (double angle) {
-		double cosChange = Math.cos((angle*Math.PI)/180);
-		double sinChange = Math.sin((angle*Math.PI)/180);
+
+	/**
+	 * Rotate the camera Counterclockwise.
+	 * 
+	 * @param angle - the angle to Rotate the camera.
+	 */
+	public void CameraRotation(double angle) {
+		double cosChange = Math.cos((angle * Math.PI) / 180);
+		double sinChange = Math.sin((angle * Math.PI) / 180);
 		
 		Vector newVRight;
-		
-		if(isZero(cosChange))
-			newVRight = vTo.crossProduct(vRight).scale(sinChange);
+
+		if (isZero(cosChange))
+			newVRight = vTo.crossProduct(vRight).scale(sinChange); // (k x v) sin(a)
 		else {
-			newVRight = vRight.scale(cosChange);
-			if(!isZero(sinChange))
-				newVRight = newVRight.add(vTo.crossProduct(vRight).scale(sinChange));
+			newVRight = vRight.scale(cosChange); // v cos(a)
+			if (!isZero(sinChange))
+				newVRight = newVRight.add(vTo.crossProduct(vRight).scale(sinChange)); // (k x v) sin(a)
 		}
+
 		vRight = newVRight.normalize();
 		vUp = vRight.crossProduct(vTo);
-		
 	}
-	
 
 }
