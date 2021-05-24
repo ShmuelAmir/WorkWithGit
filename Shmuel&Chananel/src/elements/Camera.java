@@ -124,5 +124,36 @@ public class Camera {
 
 		return new Ray(p0, pIJ.subtract(p0));
 	}
+	
+	public Camera moveCamera (Point3D locationPoint, Point3D destinationPoint) {
+		  this.p0 = locationPoint;
+		  Vector oldVto = this.vTo;
+		  this.vTo = destinationPoint.subtract(locationPoint).normalize();
+		  Vector pivot ;
+		  
+		  try {
+			  pivot = oldVto.crossProduct(vTo).normalize();
+			  double sinChange = vTo.crossProduct(oldVto).length();
+			  double cosChange = vTo.dotProduct(oldVto);
+			  update(sinChange,cosChange,pivot);
+		  }
+		  catch(IllegalArgumentException e) {	  
+			  if(vTo.dotProduct(oldVto) < 0) {
+				  vRight = vRight.scale(-1);
+				  vUp = vUp.scale(-1);
+			  }
+			  return this;
+		  }
+		  
+		  
+		  
+		
+		return this;
+	}
+
+//	private void update(double sinChange, double cosChange, Vector pivot) {
+//		Vector
+//		
+//	}
 
 }
