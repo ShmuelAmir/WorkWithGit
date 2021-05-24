@@ -42,7 +42,7 @@ public class RayTracerBasic extends RayTracerBase {
 	@Override
 	public Color traceRay(Ray ray) {
 		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint == null ? Color.BLACK : calcColor(closestPoint, ray);
+		return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * calculate the local effects in the point considering all the light sources
 	 * 
 	 * @param intersection - the intersection point
-	 * @param ray-         the ray from the light
+	 * @param ray          - the ray from the light
 	 * @param k
 	 * @return the color
 	 */
@@ -146,7 +146,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * split from the main ray
 	 *
 	 * @param geopoint the point
-	 * @param ray      the ray
+	 * @param ray      the ray to draw
 	 * @param level    number of iterations in the mutual recursion
 	 * @param k        - how many light loose in the event that the beam spite to
 	 *                 tow spared ray
@@ -162,21 +162,30 @@ public class RayTracerBasic extends RayTracerBase {
 		if (kkr > MIN_CALC_COLOR_K) {
 			double nl = normal.dotProduct(v);
 			Vector r = v.subtract(normal.scale(nl * 2)).normalized();
-			Ray reflectedRay = new Ray(geopoint.point, r, normal);
-			GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-			if (reflectedPoint != null)
-				color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
+
+			color = calcGlobalEffect(new Ray(geopoint.point, r, normal), level, kr, kkr);
 		}
 
 		double kt = material.kT, kkt = k * kt;
 		if (kkt > MIN_CALC_COLOR_K) {
-			Ray refractedRay = new Ray(geopoint.point, v, normal);
-			GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-			if (refractedPoint != null)
-				color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
+			color = calcGlobalEffect(new Ray(geopoint.point, v, normal), level, kt, kkt);
 		}
 
 		return color;
+	}
+
+	/**
+	 * help method - calculate a global effect on the closest point.
+	 * 
+	 * @param ray   - the ray to draw
+	 * @param level - number of iterations in the mutual recursion
+	 * @param kx    - how many light loose
+	 * @param kkx   - kx * k
+	 * @return the color of the ray
+	 */
+	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
+		GeoPoint gp = findClosestIntersection(ray);
+		return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)).scale(kx);
 	}
 
 	/**
@@ -209,8 +218,8 @@ public class RayTracerBasic extends RayTracerBase {
 	/**
 	 * calculate the closest intersection point to the source light
 	 * 
-	 * @param ray
-	 * @return
+	 * @param ray -
+	 * @return the closest intersection
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
