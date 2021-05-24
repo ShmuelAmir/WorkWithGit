@@ -2,6 +2,8 @@ package elements;
 
 import static primitives.Util.*;
 
+import java.util.function.DoubleToLongFunction;
+
 import primitives.*;
 
 /**
@@ -151,9 +153,33 @@ public class Camera {
 		return this;
 	}
 
-//	private void update(double sinChange, double cosChange, Vector pivot) {
-//		Vector
-//		
-//	}
+	private void update(double sinChange, double cosChange, Vector pivot) {
+		Vector newVRight;
+		double pDotVright = pivot.dotProduct(vRight);
+		
+		if (isZero(cosChange)) {
+			try {
+				newVRight = pivot.crossProduct(this.vRight).scale(sinChange);
+			}
+			catch (IllegalArgumentException e) {
+				newVRight = pivot;
+			}
+			
+			if(!isZero(pDotVright))
+				newVRight = newVRight.add(pivot.scale(pDotVright));
+		}
+		else 	{
+				newVRight = vRight.scale(cosChange);
+				try {
+					newVRight = newVRight.add(pivot.crossProduct(this.vRight).scale(sinChange));
+	
+				}
+				catch (IllegalArgumentException e) {
+					newVRight = pivot;	
+				}
+			}
+		
+		
+	}
 
 }
