@@ -44,7 +44,7 @@ public class ShadowTests {
 	}
 
 	/**
-	 * 
+	 * Produce a picture of a sphere and triangle after changing Triangle position
 	 */
 	@Test
 	public void sphereTriangleMoveTriangle1() {
@@ -69,7 +69,7 @@ public class ShadowTests {
 	}
 	
 	/**
-	 * 
+	 * Produce a picture of a sphere and triangle after changing Triangle position
 	 */
 	@Test
 	public void sphereTriangleMoveTriangle2() {
@@ -94,7 +94,7 @@ public class ShadowTests {
 	}
 	
 	/**
-	 * 
+	 *  Produce a picture of a sphere and triangle after changing light position
 	 */
 	@Test
 	public void sphereTriangleMoveLight1() {
@@ -119,7 +119,7 @@ public class ShadowTests {
 	}
 	
 	/**
-	 * 
+	 * Produce a picture of a sphere and triangle after changing light position
 	 */
 	@Test
 	public void sphereTriangleMoveLight2() {
@@ -174,7 +174,7 @@ public class ShadowTests {
 
 	
 	/**
-	 *   only try
+	 * help test - Produce a picture of a sphere and triangle after we move the camera.
 	 */
 	@Test
 	public void sphereTriangleMoveLight1B() {

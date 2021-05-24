@@ -123,7 +123,7 @@ public class ReflectionRefractionTests {
 	}
 
 	/**
-	 * 
+	 * Produce a spectacular picture Which includes all the features learned.ï
 	 */
 	@Test
 	public void AllNewEffects() {
