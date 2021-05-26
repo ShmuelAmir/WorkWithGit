@@ -185,6 +185,19 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx) {
 		GeoPoint gp = findClosestIntersection(ray);
+		
+//		if (kB != 0) {
+//			Color ff;
+//			RaysBeam raysBeam = new RaysBeam(ray);
+//			List<Ray> rays = raysBeam.generateRays();
+//			for (Ray r : rays) {
+//				if() {
+//					ff.add(calcColor(gp, r, level - 1, kkx)).scale(kx));				
+//				}
+//			}
+//			ff.reduce();
+//		}
+		
 		return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)).scale(kx);
 	}
 

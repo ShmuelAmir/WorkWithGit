@@ -31,7 +31,7 @@ public class Material {
 	 * 𝒌𝑹 = 𝟏 and matt surface has a 𝒌𝑹 = 0
 	 */
 	public double kR = 0.0;
-
+	
 	/**
 	 * The shininess of the material
 	 */
