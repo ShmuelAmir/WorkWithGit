@@ -127,14 +127,4 @@ public class Ray {
 		return p0.toString() + " " + dir.toString();
 	}
 	
-	////---------------------------------------------------////
-	
-	public Point3D getDirHead() {
-		return dir.getHead();
-	}
-	
-//	public Ray getOrthogonalRay() {
-//		dir.getHead();
-//		return null;
-//	}
 }
