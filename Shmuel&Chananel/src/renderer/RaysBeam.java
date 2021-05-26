@@ -7,13 +7,24 @@ import java.util.Random;
 import primitives.*;
 
 /**
- * RaysBeam class represent beam that generate due to intersect of ray with uneven
+ * RaysBeam class represent beam that generate due to intersect of a ray with uneven material. 
+ * This class will generate the list of the rays that rayTracerBasic class will use to determine the color of  a particular pixel
  * @author Shmulik & Chananel
  *
  */
 public class RaysBeam {
 	 
+	/**
+	  * BlackBoard class represent a circle that location in a fix place from the intersection point.
+	  * This shape will help us to determine the scattering of the beam
+	  * 
+	  * @author Shmulik & Chananel
+	  */
 	public class BlackBoard {
+		/**
+		 * this is a fix value that represent the distance between the intersection point and
+		 * the BlackBoard
+		 */
 		private static final double DISTANCE = 100;
 		
 		private Point3D center;
