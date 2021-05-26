@@ -9,7 +9,7 @@ import primitives.Color;
  * render class get the scene camera ImageWriter and RayTracerBase and create a
  * image
  * 
- * @author shmulik
+ * @author Shmulik & Chananel
  */
 public class Render {
 	// all the component of the image

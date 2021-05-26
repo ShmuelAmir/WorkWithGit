@@ -15,7 +15,7 @@ import primitives.Point3D;
  * chose to use Document Object Model so the architecture of this way to open
  * XML fill include create scene object
  * 
- * @author shmulik
+ * @author Shmulik & Chananel
  *
  */
 public class SceneBuilder {

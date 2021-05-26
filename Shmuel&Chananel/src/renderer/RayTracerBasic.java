@@ -13,7 +13,7 @@ import scene.Scene;
  * the image in a particular pixel - according to the ray that come from the
  * camera
  * 
- * @author shmulik
+ * @author Shmulik & Chananel
  */
 public class RayTracerBasic extends RayTracerBase {
 	/**

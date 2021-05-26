@@ -8,7 +8,7 @@ import scene.*;
  * RayTracerBase class is a abstract class that have tow methods which help
  * determine the color of the image in a particular pixel
  * 
- * @author shmulik
+ * @author Shmulik & Chananel
  */
 public abstract class RayTracerBase {
 	/**

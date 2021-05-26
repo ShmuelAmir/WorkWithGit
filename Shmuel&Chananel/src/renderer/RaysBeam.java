@@ -7,7 +7,8 @@ import java.util.Random;
 import primitives.*;
 
 /**
- * @author shmulik
+ * RaysBeam class represent beam that generate due to intersect of ray with uneven
+ * @author Shmulik & Chananel
  *
  */
 public class RaysBeam {
