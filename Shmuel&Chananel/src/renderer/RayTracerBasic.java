@@ -198,7 +198,7 @@ public class RayTracerBasic extends RayTracerBase {
 		for (Ray r : rays) {
 //			if(ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
 				gp = findClosestIntersection(r);
-				ff.add(gp == null ? scene.background : calcColor(gp, r, level - 1, kkx)).scale(kx);				
+				ff = ff.add(gp == null ? scene.background : calcColor(gp, r, level - 1, kkx)).scale(kx);				
 //			}
 		}
 		return ff.reduce(rays.size());
