@@ -69,9 +69,6 @@ public class RaysBeam {
 			
 			yAxis = xAxis.crossProduct(vTo);
 			
-			// the length of the vectors
-			xAxis.scale(halfEdge);
-			yAxis.scale(halfEdge);
 		}
 		
 	}
@@ -105,8 +102,8 @@ public class RaysBeam {
 		Point3D point;
 		while (rays.size() < NUM_OF_RAYS) {
 			// move the center point along the axes of the blackBoard
-			point = blackBoard.center.add(blackBoard.xAxis.scale(rand.nextDouble()))
-					.add(blackBoard.yAxis.scale(rand.nextDouble()));
+			point = blackBoard.center.add(blackBoard.xAxis.scale(rand.nextDouble()*blackBoard.halfEdge))
+					.add(blackBoard.yAxis.scale(rand.nextDouble()*blackBoard.halfEdge));
 			
 			// construct a new ray
 //			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
