@@ -109,7 +109,7 @@ public class RaysBeam {
 					.add(blackBoard.yAxis.scale(rand.nextDouble()));
 			
 			// construct a new ray
-			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
+//			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
 				rays.add(new Ray(p0, point.subtract(p0)));
 			
 		}

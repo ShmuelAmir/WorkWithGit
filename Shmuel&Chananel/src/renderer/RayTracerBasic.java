@@ -163,12 +163,12 @@ public class RayTracerBasic extends RayTracerBase {
 			double nl = normal.dotProduct(v);
 			Vector r = v.subtract(normal.scale(nl * 2)).normalized();
 
-			color = calcGlobalEffect(new Ray(geopoint.point, r, normal), level, kr, kkr, material.kG);
+			color = calcGlobalEffect(new Ray(geopoint.point, r, normal), level, kr, kkr, material.kG, normal);
 		}
 
 		double kt = material.kT, kkt = k * kt;
 		if (kkt > MIN_CALC_COLOR_K) {
-			color = calcGlobalEffect(new Ray(geopoint.point, v, normal), level, kt, kkt, material.kB);
+			color = calcGlobalEffect(new Ray(geopoint.point, v, normal), level, kt, kkt, material.kB, normal);
 		}
 
 		return color;
@@ -183,7 +183,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param kkx   - kx * k
 	 * @return the color of the ray
 	 */
-	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx, double ky) {
+	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx, double ky, Vector normal) {
 		GeoPoint gp = findClosestIntersection(ray);
 		if (gp == null)
 			return scene.background;	// .scale(kx)
@@ -191,15 +191,15 @@ public class RayTracerBasic extends RayTracerBase {
 		if (ky == 0) 
 			return calcColor(gp, ray, level - 1, kkx).scale(kx);
 		
-		Vector normal = gp.geometry.getNormal(gp.point);
-
-		Color ff = Color.BLACK;
+//		Color ff = Color.BLACK;
+		Color ff  = new Color(0, 0, 0);
 		RaysBeam raysBeam = new RaysBeam(ray, ky);
 		List<Ray> rays = raysBeam.generateRays();
 		for (Ray r : rays) {
-			if(ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
-				ff.add(calcColor(gp, r, level - 1, kkx)).scale(kx);				
-			}
+//			if(ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
+				gp = findClosestIntersection(r);
+				ff.add(gp == null ? scene.background : calcColor(gp, r, level - 1, kkx)).scale(kx);				
+//			}
 		}
 		return ff.reduce(rays.size());
 	}
