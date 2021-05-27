@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import primitives.*;
+import static primitives.Util.*;
 
 /**
  * RaysBeam class represent beam that generate due to intersect of a ray with uneven material. 
@@ -31,17 +32,17 @@ public class RaysBeam {
 		private Vector xAxis;
 		private Vector yAxis;
 		
-		private double edge;
+		private double halfEdge; // 
 
 		
 		/**
-		 * construct the BlackBoard - center point, edge size and axes.
+		 * construct the BlackBoard - center point, halfEdge size and axes.
 		 * 
-		 * @param r - distance between center to edge
+		 * @param r - distance between center to halfEdge
 		 * @param ray - for direction and center point
 		 */
 		public BlackBoard(double r, Ray ray) {
-			this.edge = 2 * r * DISTANCE;
+			this.halfEdge = r * DISTANCE;
 			
 			center = ray.getPoint(DISTANCE);
 			
@@ -69,8 +70,8 @@ public class RaysBeam {
 			yAxis = xAxis.crossProduct(vTo);
 			
 			// the length of the vectors
-			xAxis.scale(edge / 2);
-			yAxis.scale(edge / 2);
+			xAxis.scale(halfEdge);
+			yAxis.scale(halfEdge);
 		}
 		
 	}
@@ -90,9 +91,9 @@ public class RaysBeam {
 	 * 
 	 * @param ray
 	 */
-	public RaysBeam(Ray ray) {
+	public RaysBeam(Ray ray, double ky) {
 		p0 = ray.getP0();
-		blackBoard = new BlackBoard(0, ray);
+		blackBoard = new BlackBoard(ky, ray);
 	}
 	
 	/**
@@ -108,7 +109,8 @@ public class RaysBeam {
 					.add(blackBoard.yAxis.scale(rand.nextDouble()));
 			
 			// construct a new ray
-			rays.add(new Ray(p0, point.subtract(p0)));
+			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
+				rays.add(new Ray(p0, point.subtract(p0)));
 			
 		}
 		

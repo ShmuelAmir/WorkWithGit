@@ -6,10 +6,7 @@ package unittests.lights;
 import org.junit.Test;
 
 import elements.*;
-import geometries.Polygon;
-import geometries.Sphere;
-import geometries.Triangle;
-import geometries.Tube;
+import geometries.*;
 import primitives.*;
 import renderer.*;
 import scene.Scene;

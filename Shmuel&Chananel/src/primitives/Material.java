@@ -33,6 +33,16 @@ public class Material {
 	public double kR = 0.0;
 	
 	/**
+	 * 
+	 */
+	public double kG = 0.0;
+	
+	/**
+	 * 
+	 */
+	public double kB = 0.0;
+	
+	/**
 	 * The shininess of the material
 	 */
 	public int nShininess = 0;
@@ -60,17 +70,6 @@ public class Material {
 	}
 
 	/**
-	 * set nShininess
-	 * 
-	 * @param nShininess - the nShininess to set
-	 * @return this
-	 */
-	public Material setnShininess(int nShininess) {
-		this.nShininess = nShininess;
-		return this;
-	}
-
-	/**
 	 * set kT
 	 * 
 	 * @param kT - the kT to set
@@ -92,4 +91,36 @@ public class Material {
 		return this;
 	}
 
+	/**
+	 * set kg
+	 * 
+	 * @param kG 
+	 * @return this
+	 */
+	public Material setkG(double kG) {
+		this.kG = kG;
+		return this;
+	}
+
+	/**
+	 * set kb
+	 * 
+	 * @param kB
+	 * @return this
+	 */
+	public Material setkB(double kB) {
+		this.kB = kB;
+		return this;
+	}
+	
+	/**
+	 * set nShininess
+	 * 
+	 * @param nShininess - the nShininess to set
+	 * @return this
+	 */
+	public Material setnShininess(int nShininess) {
+		this.nShininess = nShininess;
+		return this;
+	}
 }
