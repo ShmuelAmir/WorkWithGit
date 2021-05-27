@@ -63,6 +63,9 @@ public class RaysBeam {
 					xAxis = new Vector(-y, x, 0).normalize();
 			}
 			
+			if(x != 0 && y != 0 && z != 0)
+				xAxis = new Vector(-y, x, 0).normalize();
+			
 			yAxis = xAxis.crossProduct(vTo);
 			
 			// the length of the vectors
