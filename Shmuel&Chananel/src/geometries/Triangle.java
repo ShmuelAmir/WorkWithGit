@@ -23,36 +23,41 @@ public class Triangle extends Polygon {
 	public Triangle(Point3D p1, Point3D p2, Point3D p3) {
 		super(p1, p2, p3);
 	}
-	
+
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> result = plane.findGeoIntersections(ray, maxDistance);
 		if (result == null)
 			return null;
 
-		Vector v1 = vertices.get(0).subtract(ray.getP0());
-		Vector v2 = vertices.get(1).subtract(ray.getP0());
-		Vector v3 = vertices.get(2).subtract(ray.getP0());
+		Vector v = ray.getDir();
+		Point3D p0 = ray.getP0();
 
+		Vector v1 = vertices.get(0).subtract(p0);
+		Vector v2 = vertices.get(1).subtract(p0);
 		Vector n1 = v1.crossProduct(v2).normalize();
+		double vDotN1 = alignZero(v.dotProduct(n1));
+		if (vDotN1 == 0)
+			return null;
+
+		Vector v3 = vertices.get(2).subtract(p0);
 		Vector n2 = v2.crossProduct(v3).normalize();
+		double vDotN2 = alignZero(v.dotProduct(n2));
+		if (vDotN1 * vDotN2 <= 0)
+			return null;
+
 		Vector n3 = v3.crossProduct(v1).normalize();
+		double vDotN3 = alignZero(v.dotProduct(n3));
+		if (vDotN1 * vDotN3 <= 0)
+			return null;
 
-		double vDotN1 = alignZero(ray.getDir().dotProduct(n1));
-		double vDotN2 = alignZero(ray.getDir().dotProduct(n2));
-		double vDotN3 = alignZero(ray.getDir().dotProduct(n3));
-
-		if (checkSign(vDotN1, vDotN2) && checkSign(vDotN1, vDotN3)) {
-			result.get(0).geometry = this;
-			return result;
-		}
-
-		return null;
+		result.get(0).geometry = this;
+		return result;
 	}
 
 	@Override
 	public String toString() {
-		return this.vertices.get(0).toString() + " " + this.vertices.get(1).toString() + " "
-				+ this.vertices.get(2).toString() + " " + this.plane.toString();
+		return this.vertices.get(0) + " " + this.vertices.get(1) + " "
+				+ this.vertices.get(2) + " " + this.plane;
 	}
 }

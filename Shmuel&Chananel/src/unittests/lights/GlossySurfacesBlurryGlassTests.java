@@ -1,36 +1,53 @@
-/**
- * 
- */
-package unittests.lights;
-
-import org.junit.Test;
-
-import elements.*;
-import geometries.*;
-import primitives.*;
-import renderer.*;
-import scene.Scene;
-
-/**
- * @author shmulik
- *
- */
-public class GlossySurfacesBlurryGlassTests {
-	private Scene scene = new Scene("Test scene") //
-			.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
-
-	private Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-			.setViewPlaneSize(200, 200).setDistance(1000);
+///**
+// * 
+// */
+//package unittests.lights;
+//
+//import org.junit.Test;
+//
+//import elements.*;
+//import geometries.*;
+//import primitives.*;
+//import renderer.*;
+//import scene.Scene;
+//
+///**
+// * @author shmulik
+// *
+// */
+//public class GlossySurfacesBlurryGlassTests {
+//	private Scene scene = new Scene("Test scene") //
+//			.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.15));
+//
 //	private Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
-//			.setViewPlaneSize(1, 1).setDistance(1000);
-	
-//	@Test
+//			.setViewPlaneSize(200, 200).setDistance(1000);
+////	private Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+////			.setViewPlaneSize(1, 1).setDistance(1000);
+//	
+////	@Test
 //	public void GlossySurfacesTest() {
 //
 //		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
 //				.setkL(0.00001).setkQ(0.000005));
 //
-//		ImageWriter imageWriter = new ImageWriter("GlossySurfaces", 600, 600);
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(-950, -900, -1000), 400) //
+//						.setEmission(new Color(0, 0, 100)) //
+//						.setMaterial(new Material().setkD(0.25).setkS(0.25).setnShininess(20).setkT(0.5)),
+//				new Sphere(new Point3D(-950, -900, -1000), 200) //
+//						.setEmission(new Color(100, 20, 20)) //
+//						.setMaterial(new Material().setkD(0.25).setkS(0.25).setnShininess(20)),
+//				new Triangle(new Point3D(1500, -1500, -1500), new Point3D(-1500, 1500, -1500),
+//						new Point3D(670, 670, 3000)) //
+//								.setEmission(new Color(20, 20, 20)) //
+//								.setMaterial(new Material().setkR(1).setkG(0.2)),
+//				new Triangle(new Point3D(1500, -1500, -1500), new Point3D(-1500, 1500, -1500),
+//						new Point3D(-1500, -1500, -2000)) //
+//								.setEmission(new Color(20, 20, 20)) //
+//								.setMaterial(new Material().setkR(0.5).setkG(0.2)));
+//
+//		
+//		ImageWriter imageWriter = new ImageWriter("GlossySurfaces", 500, 500);
 //		Render render = new Render() //
 //				.setImageWriter(imageWriter) //
 //				.setCamera(camera) //
@@ -39,136 +56,135 @@ public class GlossySurfacesBlurryGlassTests {
 //		render.renderImage();
 //		render.writeToImage();
 //	}
-
-	@Test
-	public void BlurryGlassTest0() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 25) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
-				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
-						new Point3D(50, -70, 0)) //
-							.setEmission(new Color(java.awt.Color.RED)) //
-							.setMaterial(new Material().setkT(1).setkB(0.0)));
-
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-				.setkL(0.00001).setkQ(0.00000001));
-
-		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.0 ", 600, 600);
-		Render render = new Render() //
-				.setImageWriter(imageWriter) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-
-		render.renderImage();
-		render.writeToImage();
-	}
-	
-	@Test
-	public void BlurryGlassTest1() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 25) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
-				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
-						new Point3D(50, -70, 0)) //
-							.setEmission(new Color(java.awt.Color.RED)) //
-							.setMaterial(new Material().setkT(1).setkB(0.05)));
-
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-				.setkL(0.00001).setkQ(0.00000001));
-
-		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.05 ", 600, 600);
-		Render render = new Render() //
-				.setImageWriter(imageWriter) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-
-		render.renderImage();
-		render.writeToImage();
-	}
-	
-	@Test
-	public void BlurryGlassTest2() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 25) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
-				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
-						new Point3D(50, -70, 0)) //
-							.setEmission(new Color(java.awt.Color.RED)) //
-							.setMaterial(new Material().setkT(1).setkB(0.1)));
-
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-				.setkL(0.00001).setkQ(0.00000001));
-
-		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.1 ", 600, 600);
-		Render render = new Render() //
-				.setImageWriter(imageWriter) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-
-		render.renderImage();
-		render.writeToImage();
-	}
-	
-	@Test
-	public void BlurryGlassTest3() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 25) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
-				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
-						new Point3D(50, -70, 0)) //
-							.setEmission(new Color(java.awt.Color.RED)) //
-							.setMaterial(new Material().setkT(1).setkB(0.2)));
-
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-				.setkL(0.00001).setkQ(0.00000001));
-
-		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.2 ", 600, 600);
-		Render render = new Render() //
-				.setImageWriter(imageWriter) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-
-		render.renderImage();
-		render.writeToImage();
-	}
-	
-	@Test
-	public void BlurryGlassTest4() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -50), 25) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
-				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
-						new Point3D(50, -70, 0)) //
-							.setEmission(new Color(java.awt.Color.RED)) //
-							.setMaterial(new Material().setkT(1).setkB(0.4)));
-
-		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
-				.setkL(0.00001).setkQ(0.000005));
-		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
-				.setkL(0.00001).setkQ(0.00000001));
-
-		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.4 ", 600, 600);
-		Render render = new Render() //
-				.setImageWriter(imageWriter) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-
-		render.renderImage();
-		render.writeToImage();
-	}
-	
-	
-}
+//
+//	@Test
+//	public void BlurryGlassTest0() {
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(0, 0, -50), 25) //
+//						.setEmission(new Color(java.awt.Color.BLUE)) //
+//						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
+//				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
+//						new Point3D(50, -70, 0)) //
+//							.setEmission(new Color(java.awt.Color.RED)) //
+//							.setMaterial(new Material().setkT(1).setkB(0.0)));
+//
+//		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
+//				.setkL(0.00001).setkQ(0.000005));
+//		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+//				.setkL(0.00001).setkQ(0.00000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.0 ", 600, 600);
+//		Render render = new Render() //
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera) //
+//				.setRayTracer(new RayTracerBasic(scene));
+//
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//	
+//	@Test
+//	public void BlurryGlassTest1() {
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(0, 0, -50), 25) //
+//						.setEmission(new Color(java.awt.Color.BLUE)) //
+//						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
+//				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
+//						new Point3D(50, -70, 0)) //
+//							.setEmission(new Color(java.awt.Color.BLACK)) //
+//							.setMaterial(new Material().setkT(1).setkB(0.15)));
+//
+//		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
+//				.setkL(0.00001).setkQ(0.000005));
+//		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+//				.setkL(0.00001).setkQ(0.00000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.05 ", 600, 600);
+//		Render render = new Render() //
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera) //
+//				.setRayTracer(new RayTracerBasic(scene));
+//
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//	
+//	@Test
+//	public void BlurryGlassTest2() {
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(0, 0, -50), 25) //
+//						.setEmission(new Color(java.awt.Color.BLUE)) //
+//						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
+//				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
+//						new Point3D(50, -70, 0)) //
+//							.setEmission(new Color(java.awt.Color.RED)) //
+//							.setMaterial(new Material().setkT(1).setkB(0.1)));
+//
+//		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
+//				.setkL(0.00001).setkQ(0.000005));
+//		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+//				.setkL(0.00001).setkQ(0.00000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.1 ", 600, 600);
+//		Render render = new Render() //
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera) //
+//				.setRayTracer(new RayTracerBasic(scene));
+//
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//	
+//	@Test
+//	public void BlurryGlassTest3() {
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(0, 0, -50), 25) //
+//						.setEmission(new Color(java.awt.Color.BLUE)) //
+//						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
+//				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
+//						new Point3D(50, -70, 0)) //
+//							.setEmission(new Color(java.awt.Color.RED)) //
+//							.setMaterial(new Material().setkT(1).setkB(0.2)));
+//
+//		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
+//				.setkL(0.00001).setkQ(0.000005));
+//		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+//				.setkL(0.00001).setkQ(0.00000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.2 ", 600, 600);
+//		Render render = new Render() //
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera) //
+//				.setRayTracer(new RayTracerBasic(scene));
+//
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//	
+//	@Test
+//	public void BlurryGlassTest4() {
+//		scene.geometries.add( //
+//				new Sphere(new Point3D(0, 0, -50), 25) //
+//						.setEmission(new Color(java.awt.Color.BLUE)) //
+//						.setMaterial(new Material().setkD(0.4).setkS(0.3).setnShininess(100).setkT(0.3)),
+//				new Polygon(new Point3D(50, 70, 0), new Point3D(-50, 70, 0), new Point3D(-50, -70, 0),
+//						new Point3D(50, -70, 0)) //
+//							.setEmission(new Color(java.awt.Color.RED)) //
+//							.setMaterial(new Material().setkT(1).setkB(0.4)));
+//
+//		scene.lights.add(new SpotLight(new Color(1020, 400, 400), new Point3D(-750, -750, -150), new Vector(-1, -1, -4)) //
+//				.setkL(0.00001).setkQ(0.000005));
+//		scene.lights.add(new SpotLight(new Color(500, 300, 0), new Point3D(-50, -50, 50), new Vector(1, 1, -2)) //
+//				.setkL(0.00001).setkQ(0.00000001));
+//
+//		ImageWriter imageWriter = new ImageWriter("BlurryGlass - 0.4 ", 600, 600);
+//		Render render = new Render() //
+//				.setImageWriter(imageWriter) //
+//				.setCamera(camera) //
+//				.setRayTracer(new RayTracerBasic(scene));
+//
+//		render.renderImage();
+//		render.writeToImage();
+//	}
+//	
+//}

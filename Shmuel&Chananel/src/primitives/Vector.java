@@ -11,6 +11,21 @@ public class Vector {
 	private Point3D head; // the ending point of the vector (start in zero point)
 
 	/**
+	 * X-axis unit vector
+	 */
+	public static final Vector X = new Vector(1, 0, 0);
+
+	/**
+	 * Y-axis unit vector
+	 */
+	public static final Vector Y = new Vector(0, 1, 0);
+
+	/**
+	 * Z-axis unit vector
+	 */
+	public static final Vector Z = new Vector(0, 0, 1);
+
+	/**
 	 * constructor with 3 coordinates
 	 * 
 	 * @param x - The x coordinate

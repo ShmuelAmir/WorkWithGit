@@ -84,6 +84,6 @@ public class Plane extends Geometry {
 
 	@Override
 	public String toString() {
-		return p0.toString() + " " + normal.toString();
+		return p0 + " " + normal;
 	}
 }

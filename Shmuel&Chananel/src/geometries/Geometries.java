@@ -47,9 +47,9 @@ public class Geometries implements Intersectable {
 				continue;
 
 			if (list == null)
-				list = new LinkedList<>();
-
-			list.addAll(pointsOrNull);
+				list = new LinkedList<>(pointsOrNull);
+			else
+				list.addAll(pointsOrNull);
 		}
 
 		return list;

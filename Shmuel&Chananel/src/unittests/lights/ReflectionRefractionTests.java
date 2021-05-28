@@ -183,7 +183,7 @@ public class ReflectionRefractionTests {
 		render.renderImage();
 		render.writeToImage();
 
-		camera.CameraRotation(270);
+		camera.rotate(270);
 		imageWriter = new ImageWriter("AllNewEffectsMove3", 600, 600);
 		render.setImageWriter(imageWriter) //
 		.setCamera(camera);
@@ -191,8 +191,8 @@ public class ReflectionRefractionTests {
 		render.renderImage();
 		render.writeToImage();
 
-		camera.CameraRotation(90);
-		camera.moveCamera(new Point3D(-300, 0, 800), new Point3D(0, 0, 0));
+		camera.rotate(90);
+		camera.move(new Point3D(-300, 0, 800), new Point3D(0, 0, 0));
 		imageWriter = new ImageWriter("AllNewEffectsMove1", 600, 600);
 		render.setImageWriter(imageWriter) //
 				.setCamera(camera);
@@ -200,8 +200,8 @@ public class ReflectionRefractionTests {
 		render.renderImage();
 		render.writeToImage();
 
-		camera.moveCamera(new Point3D(0, 300, 800), new Point3D(0, 0, 0));
-		camera.CameraRotation(30);
+		camera.move(new Point3D(0, 300, 800), new Point3D(0, 0, 0));
+		camera.rotate(30);
 		imageWriter = new ImageWriter("AllNewEffectsMove2", 600, 600);
 		render.setImageWriter(imageWriter) //
 				.setCamera(camera);

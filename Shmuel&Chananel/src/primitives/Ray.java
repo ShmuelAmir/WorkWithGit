@@ -97,13 +97,14 @@ public class Ray {
 		if (points == null)
 			return null;
 
-		GeoPoint closesPoint = points.get(0);
-		double minDistance = closesPoint.point.distance(p0);
+		GeoPoint closesPoint = null;
+		double minDistance = Double.POSITIVE_INFINITY;
 
 		for (GeoPoint goePoint : points) {
-			if (goePoint.point.distance(p0) < minDistance) {
+			double dist = goePoint.point.distanceSquared(p0);
+			if (dist < minDistance) {
 				closesPoint = goePoint;
-				minDistance = goePoint.point.distance(p0);
+				minDistance = dist;
 			}
 		}
 

@@ -62,19 +62,20 @@ public class Sphere extends Geometry {
 
 		double th = Math.sqrt(thSquared);
 		double t1 = alignZero(tm + th);
+		if (t1 <= 0)
+			return null;
+		boolean checkT1 = alignZero(t1 - maxDistance) <= 0;
+
 		double t2 = alignZero(tm - th);
+		if (alignZero(t2 - maxDistance) > 0)
+			return null;
 
-		if (t1 > 0) {
-			if (alignZero(t1 - maxDistance) <= 0)
-				return (t2 > 0) ? //
-						List.of(new GeoPoint(this, ray.getPoint(t2)), new GeoPoint(this, ray.getPoint(t1))) : //
-						List.of(new GeoPoint(this, ray.getPoint(t1)));
-			else
-				return (t2 > 0 && alignZero(t2 - maxDistance) <= 0) ? //
-						List.of(new GeoPoint(this, ray.getPoint(t2))) : null;
-		}
-
-		return null;
+		if (t2 <= 0)
+			return checkT1 ? List.of(new GeoPoint(this, ray.getPoint(t1))) : null;
+		else
+			return checkT1 ? //
+					List.of(new GeoPoint(this, ray.getPoint(t2)), new GeoPoint(this, ray.getPoint(t1))) : //
+					List.of(new GeoPoint(this, ray.getPoint(t2)));
 	}
 
 	@Override

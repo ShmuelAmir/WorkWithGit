@@ -187,7 +187,7 @@ public class ShadowTests {
 						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)) //
 		);
 		//camera.moveCamera(new Point3D(250,0, 500),  new Point3D(0, 0, -200));
-		camera.CameraRotation(180);
+		camera.rotate(180);
 		scene.lights.add( //
 				new SpotLight(new Color(400, 240, 0), new Point3D(-90, -90, 150), new Vector(1, 1, -3)) //
 						.setkL(1E-5).setkQ(1.5E-7));
