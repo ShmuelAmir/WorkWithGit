@@ -12,7 +12,7 @@ import renderer.*;
 import scene.Scene;
 
 /**
- * @author shmulik
+ * @author shmulik & chananel 
  *
  */
 public class GlossySurfacesBlurryGlassTests {
