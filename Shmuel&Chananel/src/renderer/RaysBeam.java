@@ -32,7 +32,7 @@ public class RaysBeam {
 		private Vector xAxis;
 		private Vector yAxis;
 		
-		private double halfEdge; // 
+		private double halfEdge;  
 
 		
 		/**
@@ -49,9 +49,9 @@ public class RaysBeam {
 			Vector vTo = ray.getDir();
 			
 			// finding orthogonal vectors
-			double x = vTo.dotProduct(new Vector(1, 0, 0));
-			double y = vTo.dotProduct(new Vector(0, 1, 0));
-			double z = vTo.dotProduct(new Vector(0, 0, 1));
+			double x = vTo.dotProduct(Vector.X);
+			double y = vTo.dotProduct(Vector.Y);
+			double z = vTo.dotProduct(Vector.Z);
 			
 			if (x == 0) {
 				xAxis = new Vector(0, -z, y).normalize();
@@ -102,11 +102,11 @@ public class RaysBeam {
 		Point3D point;
 		while (rays.size() < NUM_OF_RAYS) {
 			// move the center point along the axes of the blackBoard
-			point = blackBoard.center.add(blackBoard.xAxis.scale(rand.nextDouble()*blackBoard.halfEdge))
-					.add(blackBoard.yAxis.scale(rand.nextDouble()*blackBoard.halfEdge));
+			point = blackBoard.center.add(blackBoard.xAxis.scale((rand.nextDouble()*2-1)*blackBoard.halfEdge))
+					.add(blackBoard.yAxis.scale((rand.nextDouble()*2-1)*blackBoard.halfEdge));
 			
 			// construct a new ray
-//			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
+			if (alignZero(point.distance(blackBoard.center) - blackBoard.halfEdge) < 0)
 				rays.add(new Ray(p0, point.subtract(p0)));
 			
 		}
