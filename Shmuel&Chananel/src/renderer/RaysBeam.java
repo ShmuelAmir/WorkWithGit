@@ -81,7 +81,7 @@ public class RaysBeam {
 	/**
 	 * number of rays to generate and return
 	 */
-	private static final int NUM_OF_RAYS = 4;
+	private static final int NUM_OF_RAYS = 80;
 	
 	/**
 	 * construct the start point and the blackBoard according to the ray.

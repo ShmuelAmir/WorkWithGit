@@ -190,15 +190,14 @@ public class RayTracerBasic extends RayTracerBase {
 		if (ky == 0)
 			return calcColor(gp, ray.getDir(), level - 1, kkx).scale(kx);
 
-//		Color ff = Color.BLACK;
-		Color ff = new Color(0, 0, 0);
+		Color ff = Color.BLACK;
 		RaysBeam raysBeam = new RaysBeam(ray, ky);
 		List<Ray> rays = raysBeam.generateRays();
 		for (Ray r : rays) {
-//			if(ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
-			gp = findClosestIntersection(r);
-			ff = ff.add(gp == null ? scene.background : calcColor(gp, r.getDir(), level - 1, kkx)).scale(kx);
-//			}
+			if (ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
+				gp = findClosestIntersection(r);
+				ff = ff.add(gp == null ? scene.background : calcColor(gp, r.getDir(), level - 1, kkx)).scale(kx);
+			}
 		}
 		return ff.reduce(rays.size());
 	}
