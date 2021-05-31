@@ -53,13 +53,23 @@ public class RaysBeam {
 			yAxis = xAxis.crossProduct(vTo);
 		}
 
+		/**
+		 * this method help us to find the next ray in the beam.
+		 * We chose to calculate it with random library
+		 * @return
+		 */
 		public Point3D getNextPoint() {
 			Point3D point = center.add(xAxis.scale(movePoint()) //
 					.add(yAxis.scale(movePoint())));
 			
+			// we want the random point only if it inside a circle around the center. 
 			return (alignZero(point.distance(center) - halfEdge) < 0) ? point : null;
 		}
 
+		/**
+		 *  this method help getNextPoint to find the next ray in the beam.
+		 * @return
+		 */
 		public double movePoint() {
 			return (rand.nextDouble() * 2 - 1) * halfEdge;
 		}

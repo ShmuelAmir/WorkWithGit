@@ -184,4 +184,31 @@ public class VectorTests {
 		// TC10: normalizated need to create a new vector
 		assertNotSame("normalizated() function does not create a new vector", u, v);
 	}
+	
+	/**
+	 * est method for {@link primitives.Vector#getOrthogonal()}.
+	 */
+	@Test
+	public void testGetOrthogonal() {
+		Vector v = new Vector(1, 0, 3);
+		Vector u = new Vector(1, 0, 0);
+		Vector w = new Vector(0, 2, 3);
+		Vector x = new Vector(0, 2, 0);
+		Vector y = new Vector(1, 2, 3);
+		
+		// ============ Equivalence Partitions Tests ==============
+		// TC0: getOrthogonal need to create a new orthogonal vector
+		assertTrue("getOrthogonal() wrong result ", y.dotProduct(y.getOrthogonal()) == 0);
+		
+		// =============== Boundary Values Tests ==================
+		// TC1: getOrthogonal need to create a new orthogonal vector
+		assertTrue("getOrthogonal() wrong result ", v.dotProduct(v.getOrthogonal()) == 0);
+		// TC2: getOrthogonal need to create a new orthogonal vector
+		assertTrue("getOrthogonal() wrong result ", u.dotProduct(u.getOrthogonal()) == 0);
+		// TC3: getOrthogonal need to create a new orthogonal vector
+		assertTrue("getOrthogonal() wrong result ", w.dotProduct(w.getOrthogonal()) == 0);
+		// TC4: getOrthogonal need to create a new orthogonal vector
+		assertTrue("getOrthogonal() wrong result ", x.dotProduct(x.getOrthogonal()) == 0);
+
+	}
 }

@@ -105,7 +105,7 @@ public class Polygon extends Geometry {
 		for (Point3D point : vertices)
 			vectors.add(point.subtract(p0));
 
-		int sign;
+		int sign; //  This is marking variable - save the sign of the vector
 		Vector vNn = vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize(); // vn x v1
 		double dirDotVNn = alignZero(dir.dotProduct(vNn));
 		if (dirDotVNn == 0)

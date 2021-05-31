@@ -79,6 +79,7 @@ public class Plane extends Geometry {
 		double numerator = normal.dotProduct(p0.subtract(rayP0));
 		double t = alignZero(numerator / nv);
 
+		//return Geopoint only if it according to the distance limit
 		return (t > 0 && alignZero(t - maxDistance) <= 0) ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
 	}
 

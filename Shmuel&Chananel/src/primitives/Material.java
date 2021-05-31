@@ -33,12 +33,16 @@ public class Material {
 	public double kR = 0.0;
 	
 	/**
-	 * 
+	 * this value represent the opening angle of the cone - that we use in "Glossy surfaces".
+	 * 0 - no "Glossy surfaces" effect
+	 * 1 - max "Glossy surfaces" effect
 	 */
 	public double kG = 0.0;
 	
 	/**
-	 * 
+	 *  this value represent the opening angle of the cone - that we use in "Blurry Glass".
+	 * 0 - no "Blurry Glass" effect
+	 * 1 - max "Blurry Glass" effect
 	 */
 	public double kB = 0.0;
 	

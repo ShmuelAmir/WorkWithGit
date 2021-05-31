@@ -33,6 +33,7 @@ public class Triangle extends Polygon {
 		Vector v = ray.getDir();
 		Point3D p0 = ray.getP0();
 
+		// this vector help us to find the intersections according to the formula that we learn in class
 		Vector v1 = vertices.get(0).subtract(p0);
 		Vector v2 = vertices.get(1).subtract(p0);
 		Vector n1 = v1.crossProduct(v2).normalize();
