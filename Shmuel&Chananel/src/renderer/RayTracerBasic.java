@@ -185,21 +185,22 @@ public class RayTracerBasic extends RayTracerBase {
 	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx, double ky, Vector normal) {
 		GeoPoint gp = findClosestIntersection(ray);
 		if (gp == null)
-			return scene.background; // .scale(kx)
+			return scene.background.scale(kx);
 
 		if (ky == 0)
 			return calcColor(gp, ray.getDir(), level - 1, kkx).scale(kx);
 
-		Color ff = Color.BLACK;
+		Color sumColor = Color.BLACK;
 		RaysBeam raysBeam = new RaysBeam(ray, ky);
 		List<Ray> rays = raysBeam.generateRays();
 		for (Ray r : rays) {
-			if (ray.getDir().dotProduct(normal) * r.getDir().dotProduct(normal) > 0) {
+			Vector rDir = r.getDir();
+			if (ray.getDir().dotProduct(normal) * rDir.dotProduct(normal) > 0) {
 				gp = findClosestIntersection(r);
-				ff = ff.add(gp == null ? scene.background : calcColor(gp, r.getDir(), level - 1, kkx)).scale(kx);
+				sumColor = sumColor.add(gp == null ? scene.background : calcColor(gp, rDir, level - 1, kkx)).scale(kx);
 			}
 		}
-		return ff.reduce(rays.size());
+		return sumColor.reduce(rays.size());
 	}
 
 	/**

@@ -17,7 +17,7 @@ public class Polygon extends Geometry {
 	 * List of polygon's vertices
 	 */
 	protected List<Point3D> vertices;
-	
+
 	/**
 	 * Associated plane in which the polygon lays
 	 */
@@ -92,48 +92,34 @@ public class Polygon extends Geometry {
 	@Override
 	public List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> result = plane.findGeoIntersections(ray, maxDistance);
-		
+
 		// Ray not intersects the plane
 		if (result == null)
 			return null;
 
 		Point3D p0 = ray.getP0();
 		Vector dir = ray.getDir();
-		
+
 		// vi = pi - p0
 		List<Vector> vectors = new LinkedList<>();
 		for (Point3D point : vertices)
 			vectors.add(point.subtract(p0));
 
-		// ni = normalize(vi x vi+1)
-//		List<Vector> nVectors = new LinkedList<>();
-//		for (int i = 0; i < vectors.size() - 1; ++i)
-//			nVectors.add(vectors.get(i).crossProduct(vectors.get(i + 1)).normalize());
-//		nVectors.add(vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize()); // vn x v1
-		
 		int sign;
-		Vector vNn = vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize();
+		Vector vNn = vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize(); // vn x v1
 		double dirDotVNn = alignZero(dir.dotProduct(vNn));
 		if (dirDotVNn == 0)
 			return null;
-		 
 		sign = dirDotVNn > 0 ? 1 : -1;
-		
+
+		// ni = normalize(vi x vi+1)
 		for (int i = 0; i < vectors.size() - 1; ++i) {
-			Vector temp = vectors.get(i).crossProduct(vectors.get(i + 1)).normalize();
-			double dot = alignZero(dir.dotProduct(temp));
+			Vector currentN = vectors.get(i).crossProduct(vectors.get(i + 1)).normalize();
+			double dot = alignZero(dir.dotProduct(currentN));
 			if (dot == 0 || dot * sign < 0)
 				return null;
 		}
 
-//		double vN1 = alignZero(dir.dotProduct(nVectors.get(0)));
-//		if (vN1 == 0)
-//			return null;
-//
-//		for (Vector n : nVectors)
-//			if (! checkSign(vN1, dir.dotProduct(n)))
-//				return null;
-		
 		// all v dot Ni have the same sign
 		result.get(0).geometry = this;
 		return result;

@@ -165,6 +165,28 @@ public class Vector {
 	}
 
 	/**
+	 * finding orthogonal vectors
+	 * 
+	 * @return
+	 */
+	public Vector getOrthogonal() {
+		double x = head.getX();
+		double y = head.getY();
+		double z = head.getZ();
+
+		if (x == 0)
+			return new Vector(0, -z, y).normalize();
+
+		if (y == 0)
+			return new Vector(z, 0, -x).normalize();
+
+		if (z == 0)
+			return new Vector(-y, x, 0).normalize();
+
+		return new Vector(-y, x, 0).normalize();
+	}
+
+	/**
 	 * A vector normalization operation that will create a new vector
 	 * 
 	 * @return The new vector

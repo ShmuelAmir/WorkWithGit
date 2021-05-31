@@ -172,32 +172,4 @@ public class ShadowTests {
 		render.writeToImage();
 	}
 
-	
-	/**
-	 * help test - Produce a picture of a sphere and triangle after we move the camera.
-	 */
-	@Test
-	public void sphereTriangleMoveLight1B() {
-		scene.geometries.add( //
-				new Sphere(new Point3D(0, 0, -200), 60) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)), //
-				new Triangle(new Point3D(-70, -40, 0), new Point3D(-40, -70, 0), new Point3D(-68, -68, -4)) //
-						.setEmission(new Color(java.awt.Color.BLUE)) //
-						.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(30)) //
-		);
-		//camera.moveCamera(new Point3D(250,0, 500),  new Point3D(0, 0, -200));
-		camera.rotate(180);
-		scene.lights.add( //
-				new SpotLight(new Color(400, 240, 0), new Point3D(-90, -90, 150), new Vector(1, 1, -3)) //
-						.setkL(1E-5).setkQ(1.5E-7));
-
-		Render render = new Render(). //
-				setImageWriter(new ImageWriter("temp", 400, 400)) //
-				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
-		render.renderImage();
-		render.writeToImage();
-	}
-
 }
