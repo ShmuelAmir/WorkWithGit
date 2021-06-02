@@ -33,7 +33,7 @@ public class LightsTests {
 			.setMaterial(new Material().setkD(0.5).setkS(0.5).setnShininess(100));
 
 	/**
-	 * Produce a picture of a sphere lighted by a directional light
+	 * Produce a picture of a sphere lighted by a directional light //
 	 */
 	@Test
 	public void sphereDirectional() {
