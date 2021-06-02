@@ -7,8 +7,8 @@ import static primitives.Util.*;
  * 
  * @author Dan Zilberstein
  * 
- *         Shmuel Amir shmulik5777@gmail.com 316392323 Chananelz Zaguri
- *         chananelz@gmail.com 206275711
+ *         Shmuel Amir shmulik5777@gmail.com 316392323 //
+ *         Chananelz Zaguri chananelz@gmail.com 206275711
  */
 public final class Main {
 
