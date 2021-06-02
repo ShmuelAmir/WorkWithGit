@@ -42,7 +42,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 		render.renderImage();
 		render.writeToImage();
 	}
@@ -80,7 +80,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();
@@ -113,7 +113,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();
@@ -178,7 +178,7 @@ public class ReflectionRefractionTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();

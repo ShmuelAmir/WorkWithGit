@@ -165,9 +165,9 @@ public class Vector {
 	}
 
 	/**
-	 * finding orthogonal vectors
+	 * finding orthogonal vector
 	 * 
-	 * @return
+	 * @return an orthogonal vector (normalize)
 	 */
 	public Vector getOrthogonal() {
 		double x = head.getX();

@@ -12,8 +12,9 @@ import renderer.*;
 import scene.Scene;
 
 /**
+ * Tests for Glossy Surfaces and Blurry Glass
+ * 
  * @author shmulik & chananel
- *
  */
 public class GlossySurfacesBlurryGlassTests {
 
@@ -264,6 +265,9 @@ public class GlossySurfacesBlurryGlassTests {
 	private Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 			.setViewPlaneSize(200, 200).setDistance(1000);
 
+	/**
+	 * image for Glossy Surfaces and Blurry Glass - Without them (for comparison)
+	 */
 	@Test
 	public void mP1Image() {
 		scene.geometries.add( //
@@ -320,12 +324,15 @@ public class GlossySurfacesBlurryGlassTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();
 	}
 
+	/**
+	 * image for Glossy Surfaces and Blurry Glass
+	 */
 	@Test
 	public void mP1Image2() {
 		scene.geometries.add( //
@@ -382,7 +389,7 @@ public class GlossySurfacesBlurryGlassTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setRayTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene));
 
 		render.renderImage();
 		render.writeToImage();

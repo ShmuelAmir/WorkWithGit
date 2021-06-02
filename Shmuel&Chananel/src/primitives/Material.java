@@ -40,7 +40,7 @@ public class Material {
 	public double kG = 0.0;
 	
 	/**
-	 *  this value represent the opening angle of the cone - that we use in "Blurry Glass".
+	 * this value represent the opening angle of the cone - that we use in "Blurry Glass".
 	 * 0 - no "Blurry Glass" effect
 	 * 1 - max "Blurry Glass" effect
 	 */
@@ -52,9 +52,9 @@ public class Material {
 	public int nShininess = 0;
 	
 	/**
-	 * set kd
+	 * set diffuse factor
 	 * 
-	 * @param kD - the kD to set
+	 * @param kD - the diffuse factor
 	 * @return this
 	 */
 	public Material setkD(double kD) {
@@ -63,9 +63,9 @@ public class Material {
 	}
 
 	/**
-	 * set ks
+	 * set specular factor
 	 * 
-	 * @param kS - the kS to set
+	 * @param kS - the specular factor
 	 * @return this
 	 */
 	public Material setkS(double kS) {
@@ -74,9 +74,9 @@ public class Material {
 	}
 
 	/**
-	 * set kT
+	 * set transparency factor
 	 * 
-	 * @param kT - the kT to set
+	 * @param kT - the transparency factor
 	 * @return this
 	 */
 	public Material setkT(double kT) {
@@ -85,9 +85,9 @@ public class Material {
 	}
 
 	/**
-	 * set kR
+	 * set reflection factor
 	 * 
-	 * @param kR - the kR to set
+	 * @param kR - the reflection factor
 	 * @return this
 	 */
 	public Material setkR(double kR) {
@@ -96,9 +96,9 @@ public class Material {
 	}
 
 	/**
-	 * set kg
+	 * set glossy factor
 	 * 
-	 * @param kG 
+	 * @param kG - the glossy factor
 	 * @return this
 	 */
 	public Material setkG(double kG) {
@@ -107,9 +107,9 @@ public class Material {
 	}
 
 	/**
-	 * set kb
+	 * set blurry factor
 	 * 
-	 * @param kB
+	 * @param kB - the blurry factor
 	 * @return this
 	 */
 	public Material setkB(double kB) {

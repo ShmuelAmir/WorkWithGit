@@ -186,7 +186,7 @@ public class VectorTests {
 	}
 	
 	/**
-	 * est method for {@link primitives.Vector#getOrthogonal()}.
+	 * Test method for {@link primitives.Vector#getOrthogonal()}.
 	 */
 	@Test
 	public void testGetOrthogonal() {
