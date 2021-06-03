@@ -84,6 +84,22 @@ public interface Intersectable {
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 
+	/**
+	 * האם יש חיתוך של קרן עם קופסא
+	 * @param min
+	 * @param max
+	 * @param ray
+	 * @return
+	 */
+	static boolean checkRayCbrIntersection( Point3D min, Point3D max, Ray ray) {
+		return true;	
+	}
 	
+	/**
+	 * האם הקרן חותכת קופסא של גוף גיאומטרי
+	 * במימוש בכל אחד מהגופים משתמש בפונקציה שלמעלה
+	 * @param ray
+	 * @return
+	 */
 	boolean checkCbrIntersection(Ray ray); 
 }

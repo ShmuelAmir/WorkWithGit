@@ -81,7 +81,7 @@ public class GlossySurfacesBlurryGlassTests {
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
 				.setTracer(new RayTracerBasic(scene).setCBR(1));
-
+		
 		render.renderImage();
 		render.writeToImage();
 	}
