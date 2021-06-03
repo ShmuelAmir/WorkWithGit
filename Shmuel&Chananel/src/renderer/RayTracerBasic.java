@@ -237,8 +237,16 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the closest intersection
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
-		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray);
+		List<GeoPoint> intersections = null;
+		if (cbr == 1)
+			if (scene.geometries.findCbrIntersections(ray))
+				intersections = scene.geometries.findGeoIntersections(ray);
+			else return null;
+		else
+			intersections = scene.geometries.findGeoIntersections(ray);
 
+//		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray, cbr);
+		
 		// if there is intersections - the color determine by the close point
 		return intersections == null ? null : ray.getClosestGeoPoint(intersections);
 	}

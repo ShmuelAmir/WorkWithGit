@@ -16,6 +16,7 @@ public class Render {
 	private Camera camera;
 	private ImageWriter imageWriter;
 	private RayTracerBase tracer;
+	
 	private static final String RESOURCE_ERROR = "Renderer resource not set";
 	private static final String RENDER_CLASS = "Render";
 	private static final String IMAGE_WRITER_COMPONENT = "Image writer";
