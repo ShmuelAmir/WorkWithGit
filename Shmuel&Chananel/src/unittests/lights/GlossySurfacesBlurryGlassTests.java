@@ -80,7 +80,7 @@ public class GlossySurfacesBlurryGlassTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene).setCBR(1));
 
 		render.renderImage();
 		render.writeToImage();
