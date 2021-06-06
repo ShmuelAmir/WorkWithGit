@@ -54,4 +54,13 @@ public class Geometries implements Intersectable {
 
 		return list;
 	}
+
+	@Override
+	public boolean checkCbrIntersection(Ray ray) {
+		for(Intersectable intersectable : geometriesList) {
+			if (intersectable.checkCbrIntersection(ray))
+				return true;
+		}
+		return false;
+	}
 }

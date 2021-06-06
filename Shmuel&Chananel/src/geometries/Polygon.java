@@ -1,8 +1,8 @@
 package geometries;
 
+
 import java.util.LinkedList;
 import java.util.List;
-
 import primitives.*;
 import static primitives.Util.*;
 
@@ -123,5 +123,38 @@ public class Polygon extends Geometry {
 		// all v dot Ni have the same sign
 		result.get(0).geometry = this;
 		return result;
+	}
+
+	@Override
+	public boolean checkCbrIntersection(Ray ray) {
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
+		
+		
+		for(Point3D point : vertices) {
+			if (point.getX() > maxX)
+				maxX = point.getX();
+			if (point.getY() > maxY)
+				maxY = point.getY();
+			if (point.getZ() > maxZ)
+				maxZ = point.getZ();
+			
+			if (point.getX() < minX)
+				minX = point.getX();
+			if (point.getY() < minY)
+				minY = point.getY();
+			if (point.getZ() < minZ)
+				minZ = point.getZ();
+		}
+		
+		Point3D minPoint =  new Point3D(minX, minY, minZ);
+		Point3D maxPoint =  new Point3D(maxX, maxY, maxZ);
+	
+	
+		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
 	}
 }

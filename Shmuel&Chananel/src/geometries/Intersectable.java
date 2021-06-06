@@ -92,6 +92,26 @@ public interface Intersectable {
 	 * @return
 	 */
 	static boolean checkRayCbrIntersection( Point3D min, Point3D max, Ray ray) {
+		Point3D center = ray.getP0();
+		Vector dir = ray.getDir();
+		if(dir.equals(Vector.X)) {
+			if(center.getX() > max.getX() || center.getX() < min.getX())
+				return false;
+		}
+		if(dir.equals(Vector.Y)) {
+			if(center.getY() > max.getY() || center.getY() < min.getY())
+				return false;
+		}
+		if(dir.equals(Vector.Z)) {
+			if(center.getZ() > max.getZ() || center.getZ() < min.getZ())
+				return false;
+		}
+		
+		
+		//now calculate the interval for x axis
+		
+		
+		
 		return true;	
 	}
 	

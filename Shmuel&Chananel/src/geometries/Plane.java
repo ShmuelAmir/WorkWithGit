@@ -87,4 +87,28 @@ public class Plane extends Geometry {
 	public String toString() {
 		return p0 + " " + normal;
 	}
+
+	@Override
+	public boolean checkCbrIntersection(Ray ray) {
+		Point3D minPoint , maxPoint;
+		
+		if (normal.equals(Vector.X)) {
+			minPoint =  new Point3D(p0.getX(), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+			maxPoint =  new Point3D(p0.getX(), Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		}
+		else if (normal.equals(Vector.Y)) {
+			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, p0.getY(), Double.NEGATIVE_INFINITY);
+			maxPoint =  new Point3D(Double.POSITIVE_INFINITY ,p0.getY(), Double.POSITIVE_INFINITY);
+		}
+		else if (normal.equals(Vector.Z)) {
+			minPoint =  new Point3D( Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,p0.getZ());
+			maxPoint =  new Point3D( Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,p0.getZ());
+		}
+		else {
+
+			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		}
+		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+	}
 }

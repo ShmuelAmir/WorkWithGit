@@ -62,12 +62,5 @@ public class Triangle extends Polygon {
 				+ this.vertices.get(2) + " " + this.plane;
 	}
 	
-	@Override
-	boolean checkCbrIntersection(Ray ray) {
-		Point3D min = new Point3D(minX, minY, minZ);
-		Point3D max = new Point3D(maxX, maxY, maxZ);
-		
-		return checkRayCbrIntersection(min, max, ray);
-		
-	}
+
 }

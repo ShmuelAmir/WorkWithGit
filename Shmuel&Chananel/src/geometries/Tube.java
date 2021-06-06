@@ -180,4 +180,30 @@ public class Tube extends Geometry {
 		return rootArray;
 	}
 
+	@Override
+	public boolean checkCbrIntersection(Ray ray) {
+		Point3D minPoint , maxPoint;
+		Point3D center = axisRay.getP0();
+    
+		
+		if (axisRay.getDir().equals(Vector.X)) {
+			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, center.getY() - radius, center.getZ() - radius);
+			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, center.getY() + radius, center.getZ() + radius);
+		}
+		else if (axisRay.getDir().equals(Vector.Y)) {
+			minPoint =  new Point3D(center.getX() - radius, Double.NEGATIVE_INFINITY, center.getZ() - radius);
+			maxPoint =  new Point3D(center.getX() - radius, Double.POSITIVE_INFINITY, center.getZ() - radius);
+		}
+		else if (axisRay.getDir().equals(Vector.Z)) {
+			minPoint =  new Point3D(center.getX() - radius, center.getY() - radius ,Double.NEGATIVE_INFINITY);
+			maxPoint =  new Point3D(center.getX() - radius, center.getY() - radius ,Double.POSITIVE_INFINITY);
+		}
+		else {
+
+			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
+			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		}
+		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+	}
+
 }
