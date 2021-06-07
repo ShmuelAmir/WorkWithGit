@@ -79,7 +79,7 @@ public class Plane extends Geometry {
 		double numerator = normal.dotProduct(p0.subtract(rayP0));
 		double t = alignZero(numerator / nv);
 
-		//return Geopoint only if it according to the distance limit
+		// return Geopoint only if it according to the distance limit
 		return (t > 0 && alignZero(t - maxDistance) <= 0) ? List.of(new GeoPoint(this, ray.getPoint(t))) : null;
 	}
 
@@ -89,26 +89,24 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public boolean checkCbrIntersection(Ray ray) {
-		Point3D minPoint , maxPoint;
-		
-		if (normal.equals(Vector.X)) {
-			minPoint =  new Point3D(p0.getX(), Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-			maxPoint =  new Point3D(p0.getX(), Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
-		}
-		else if (normal.equals(Vector.Y)) {
-			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, p0.getY(), Double.NEGATIVE_INFINITY);
-			maxPoint =  new Point3D(Double.POSITIVE_INFINITY ,p0.getY(), Double.POSITIVE_INFINITY);
-		}
-		else if (normal.equals(Vector.Z)) {
-			minPoint =  new Point3D( Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,p0.getZ());
-			maxPoint =  new Point3D( Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY,p0.getZ());
-		}
-		else {
+	public double[] getMinMax() {
+		double minMax[] = { Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
+				Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY };
 
-			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		if (normal.equals(Vector.X)) {
+			double x = p0.getX();
+			minMax[0] = x;
+			minMax[3] = x;
+		} else if (normal.equals(Vector.Y)) {
+			double y = p0.getY();
+			minMax[1] = y;
+			minMax[4] = y;
+		} else if (normal.equals(Vector.Z)) {
+			double z = p0.getZ();
+			minMax[2] = z;
+			minMax[5] = z;
 		}
-		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+		
+		return minMax;
 	}
 }

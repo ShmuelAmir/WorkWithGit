@@ -77,7 +77,7 @@ public class Tube extends Geometry {
 
 		if (rootArray.length == 1) {
 			Point3D p1 = ray.getPoint(rootArray[0]);
-			
+
 			return List.of(new GeoPoint(this, p1));
 		}
 
@@ -181,29 +181,49 @@ public class Tube extends Geometry {
 	}
 
 	@Override
-	public boolean checkCbrIntersection(Ray ray) {
-		Point3D minPoint , maxPoint;
-		Point3D center = axisRay.getP0();
-    
-		
-		if (axisRay.getDir().equals(Vector.X)) {
-			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, center.getY() - radius, center.getZ() - radius);
-			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, center.getY() + radius, center.getZ() + radius);
-		}
-		else if (axisRay.getDir().equals(Vector.Y)) {
-			minPoint =  new Point3D(center.getX() - radius, Double.NEGATIVE_INFINITY, center.getZ() - radius);
-			maxPoint =  new Point3D(center.getX() - radius, Double.POSITIVE_INFINITY, center.getZ() - radius);
-		}
-		else if (axisRay.getDir().equals(Vector.Z)) {
-			minPoint =  new Point3D(center.getX() - radius, center.getY() - radius ,Double.NEGATIVE_INFINITY);
-			maxPoint =  new Point3D(center.getX() - radius, center.getY() - radius ,Double.POSITIVE_INFINITY);
-		}
-		else {
+	public double[] getMinMax() {
+		double minMax[] = { Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
+				Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY };
 
-			minPoint =  new Point3D(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY);
-			maxPoint =  new Point3D(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+		Vector dir = axisRay.getDir();
+		Point3D center = axisRay.getP0();
+
+		if (dir.equals(Vector.X)) {
+			double y = center.getY();
+			double z = center.getZ();
+			minMax[1] = y - radius;
+			minMax[2] = z - radius;
+			minMax[4] = y + radius;
+			minMax[5] = z + radius;
+		} else if (dir.equals(Vector.Y)) {
+			double x = center.getX();
+			double z = center.getZ();
+			minMax[0] = x - radius;
+			minMax[2] = z - radius;
+			minMax[3] = x + radius;
+			minMax[5] = z + radius;
+		} else if (dir.equals(Vector.Z)) {
+			double x = center.getX();
+			double y = center.getY();
+			minMax[0] = x - radius;
+			minMax[1] = y - radius;
+			minMax[3] = x + radius;
+			minMax[4] = y + radius;
+		} else if (isZero(dir.dotProduct(Vector.X))) {
+			double x = center.getX();
+			minMax[0] = x - radius;
+			minMax[3] = x + radius;
+		} else if (isZero(dir.dotProduct(Vector.Y))) {
+			double y = center.getY();
+			minMax[1] = y - radius;
+			minMax[4] = y + radius;
+		} else if (isZero(dir.dotProduct(Vector.Z))) {
+			double z = center.getZ();
+			minMax[2] = z - radius;
+			minMax[5] = z + radius;
 		}
-		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+
+		return minMax;
 	}
 
 }

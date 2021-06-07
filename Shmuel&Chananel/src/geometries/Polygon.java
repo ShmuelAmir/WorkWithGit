@@ -1,6 +1,5 @@
 package geometries;
 
-
 import java.util.LinkedList;
 import java.util.List;
 import primitives.*;
@@ -105,7 +104,7 @@ public class Polygon extends Geometry {
 		for (Point3D point : vertices)
 			vectors.add(point.subtract(p0));
 
-		int sign; //  This is marking variable - save the sign of the vector
+		int sign; // This is marking variable - save the sign of the vector
 		Vector vNn = vectors.get(vectors.size() - 1).crossProduct(vectors.get(0)).normalize(); // vn x v1
 		double dirDotVNn = alignZero(dir.dotProduct(vNn));
 		if (dirDotVNn == 0)
@@ -126,15 +125,14 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-	public boolean checkCbrIntersection(Ray ray) {
+	public double[] getMinMax() {
 		double minX = Double.POSITIVE_INFINITY;
 		double minY = Double.POSITIVE_INFINITY;
 		double minZ = Double.POSITIVE_INFINITY;
 		double maxX = Double.NEGATIVE_INFINITY;
 		double maxY = Double.NEGATIVE_INFINITY;
 		double maxZ = Double.NEGATIVE_INFINITY;
-		
-		
+
 		for(Point3D point : vertices) {
 			if (point.getX() > maxX)
 				maxX = point.getX();
@@ -150,11 +148,8 @@ public class Polygon extends Geometry {
 			if (point.getZ() < minZ)
 				minZ = point.getZ();
 		}
-		
-		Point3D minPoint =  new Point3D(minX, minY, minZ);
-		Point3D maxPoint =  new Point3D(maxX, maxY, maxZ);
-	
-	
-		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+
+		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
+		return minMax;
 	}
 }

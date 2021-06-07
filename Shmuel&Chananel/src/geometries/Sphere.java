@@ -84,12 +84,12 @@ public class Sphere extends Geometry {
 	}
 
 	@Override
-	public boolean checkCbrIntersection(Ray ray) {
-		Point3D minPoint , maxPoint;
-		
-		minPoint = new Point3D(center.getX() - radius, center.getY() - radius, center.getZ() - radius);
-		maxPoint = new Point3D(center.getX() + radius, center.getY() + radius, center.getZ() + radius);
-		
-		return Intersectable.checkRayCbrIntersection(minPoint, maxPoint, ray);
+	public double[] getMinMax() {
+		double x = center.getX();
+		double y = center.getY();
+		double z = center.getZ();
+
+		double minMax[] = { x - radius, y - radius, z - radius, x + radius, y + radius, z + radius };
+		return minMax;
 	}
 }
