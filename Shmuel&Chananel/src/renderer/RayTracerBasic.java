@@ -30,6 +30,16 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
+	private boolean cbr = false;
+	
+	/**
+	 * @param cbr the cbr to set
+	 */
+	public RayTracerBasic setCbr(boolean cbr) {
+		this.cbr = cbr;
+		return this;
+	}
+
 	/**
 	 * initialize scene
 	 * 
@@ -238,8 +248,8 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersections = null;
-		if (cbr == 1)
-			if (scene.geometries.findCbrIntersections(ray))
+		if (cbr)
+			if (scene.geometries.checkCbrIntersection(ray))
 				intersections = scene.geometries.findGeoIntersections(ray);
 			else return null;
 		else
