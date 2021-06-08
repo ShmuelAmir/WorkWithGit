@@ -234,13 +234,14 @@ public class Acceleration {
 						.setMaterial(new Material().setnShininess(60)),
 				new Triangle(new Point3D(32, 4.9, -730), new Point3D(0, 4.75, -730), new Point3D(30.5, 5, -700)) //
 						.setEmission(new Color(160, 82, 45)) //
-						.setMaterial(new Material().setnShininess(60))
+						.setMaterial(new Material().setnShininess(60)),
 
 		/**
 		 * end pool
 		 */
-
-//				// GROUND FOR FLOWERS
+				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19)).setMaterial(new Material()),
+				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19)).setMaterial(new Material())
+				// GROUND FOR FLOWERS
 //				new Cube(new Color(139, 69, 19), new Material(0, 0.8, 60, 0, 0), new Point3D(-40, 9, -600),
 //						new Point3D(-2, 10, -340))
 		);
