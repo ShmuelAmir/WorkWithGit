@@ -134,19 +134,24 @@ public class Polygon extends Geometry {
 		double maxZ = Double.NEGATIVE_INFINITY;
 
 		for(Point3D point : vertices) {
-			if (point.getX() > maxX)
-				maxX = point.getX();
-			if (point.getY() > maxY)
-				maxY = point.getY();
-			if (point.getZ() > maxZ)
-				maxZ = point.getZ();
+			double x = point.getX();
+			double y = point.getY();
+			double z = point.getZ();
 			
-			if (point.getX() < minX)
-				minX = point.getX();
-			if (point.getY() < minY)
-				minY = point.getY();
-			if (point.getZ() < minZ)
-				minZ = point.getZ();
+			if (x > maxX)
+				maxX = x;
+			if (x < minX)
+				minX = x;
+
+			if (y > maxY)
+				maxY = y;
+			if (y < minY)
+				minY = y;
+			
+			if (z > maxZ)
+				maxZ = z;
+			if (z < minZ)
+				minZ = z;
 		}
 
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
