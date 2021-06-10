@@ -228,10 +228,11 @@ public class RayTracerBasic extends RayTracerBase {
 		Ray lightRay = new Ray(geopoint.point, lightDirection, n);
 		
 		List<GeoPoint> intersections = null;
-		if (cbr)
+		if (cbr) {
 			if (scene.geometries.checkCbrIntersection(lightRay))
 				intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
-		else
+			else return 1.0;
+		} else
 			intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
 
 		double ktr = 1.0;
@@ -255,10 +256,11 @@ public class RayTracerBasic extends RayTracerBase {
 	private GeoPoint findClosestIntersection(Ray ray) {
 		List<GeoPoint> intersections = null;
 		if (cbr)
-			if (scene.geometries.checkCbrIntersection(ray))
-				intersections = scene.geometries.findGeoIntersections(ray);
-			else
-				return null;
+//			if (scene.geometries.checkCbrIntersection(ray))
+//				intersections = scene.geometries.findGeoIntersections(ray);
+//			else
+//				return null;
+			intersections = scene.geometries.findCbrGeoIntersections(ray, Double.POSITIVE_INFINITY);
 		else
 			intersections = scene.geometries.findGeoIntersections(ray);
 

@@ -270,7 +270,7 @@ public class Acceleration {
 										.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 						new Sphere(new Point3D(-60.5 + flowerX, 5 + flowerY, -250 + flowerZ), 2) //
-								.setEmission(new Color(java.awt.Color.BLACK)) //
+								.setEmission(new Color(java.awt.Color.YELLOW)) //
 								.setMaterial(new Material().setkD(0.2).setkS(0.5).setnShininess(30)),
 						new Sphere(new Point3D(-60.75 + flowerX, 3.5 + flowerY, -250 + flowerZ), 1) //
 								.setEmission(new Color(java.awt.Color.YELLOW)) //
