@@ -92,23 +92,31 @@ public class Plane extends Geometry {
 
 	@Override
 	public double[] getMinMax() {
-		double minMax[] = { Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
-				Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY };
 
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
+		
 		if (normal.equals(Vector.X)) {
 			double x = p0.getX();
-			minMax[0] = x;
-			minMax[3] = x;
-		} else if (normal.equals(Vector.Y)) {
+			minX = x;
+			maxX = x;
+		}
+		if (normal.equals(Vector.Y)) {
 			double y = p0.getY();
-			minMax[1] = y;
-			minMax[4] = y;
-		} else if (normal.equals(Vector.Z)) {
+			minY = y;
+			maxY = y;
+		}
+		if (normal.equals(Vector.Z)) {
 			double z = p0.getZ();
-			minMax[2] = z;
-			minMax[5] = z;
+			minZ = z;
+			maxZ = z;
 		}
 		
+		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 		return minMax;
 	}
 	

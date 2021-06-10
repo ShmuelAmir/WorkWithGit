@@ -24,7 +24,7 @@ public class GlossySurfacesBlurryGlassTests {
 	/**
 	 * image for Glossy Surfaces and Blurry Glass - Without them (for comparison)
 	 */
-	@Test
+	//@Test
 	public void mP1Image() {
 		scene.geometries.add( //
 				new Plane(new Point3D(0, 0, -250), new Vector(0, 0, 1)) //
@@ -145,7 +145,8 @@ public class GlossySurfacesBlurryGlassTests {
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setTracer(new RayTracerBasic(scene));
+				.setTracer(new RayTracerBasic(scene).setCbr(true))
+				.setMultithreading(3).setDebugPrint();
 
 		render.renderImage();
 		render.writeToImage();
