@@ -17,7 +17,7 @@ import scene.Scene;
  */
 public class Acceleration {
 
-	@Test
+//	@Test
 	public void accelerationTest() {
 
 		Scene scene = new Scene("Test scene") //
@@ -236,12 +236,14 @@ public class Acceleration {
 						.setEmission(new Color(160, 82, 45)) //
 						.setMaterial(new Material().setnShininess(60)),
 
-		/**
-		 * end pool
-		 */
-				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19)).setMaterial(new Material()),
-				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19)).setMaterial(new Material())
-				// GROUND FOR FLOWERS
+				/**
+				 * end pool
+				 */
+				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19))
+						.setMaterial(new Material()),
+				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19))
+						.setMaterial(new Material())
+		// GROUND FOR FLOWERS
 //				new Cube(new Color(139, 69, 19), new Material(0, 0.8, 60, 0, 0), new Point3D(-40, 9, -600),
 //						new Point3D(-2, 10, -340))
 		);
@@ -318,6 +320,57 @@ public class Acceleration {
 				.setMultithreading(3).setDebugPrint();
 
 		render.renderImage();
+		render.writeToImage();
+	}
+
+	@Test
+	public void hierarchyTest() {
+		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setDistance(500) //
+				.setViewPlaneSize(500, 500);
+
+		Scene scene = new Scene("Test scene")//
+				.setAmbientLight(new AmbientLight(new Color(255, 191, 191), 1)) //
+				.setBackground(new Color(75, 127, 90));
+
+		Geometries geos1 = new Geometries(new Sphere(new Point3D(330, 330, -100), 30),
+				new Sphere(new Point3D(390, 390, -100), 30), new Sphere(new Point3D(330, 390, -100), 30),
+				new Sphere(new Point3D(390, 330, -100), 30));
+
+		Geometries geos2 = new Geometries(new Sphere(new Point3D(-330, -330, -100), 30),
+				new Sphere(new Point3D(-390, -390, -100), 30), new Sphere(new Point3D(-330, -390, -100), 30),
+				new Sphere(new Point3D(-390, -330, -100), 30));
+
+		Geometries geos3 = new Geometries(new Sphere(new Point3D(330, -330, -100), 30),
+				new Sphere(new Point3D(390, -390, -100), 30), new Sphere(new Point3D(330, -390, -100), 30),
+				new Sphere(new Point3D(390, -330, -100), 30));
+
+		Geometries geos4 = new Geometries(new Sphere(new Point3D(-330, 330, -100), 30),
+				new Sphere(new Point3D(-390, 390, -100), 30), new Sphere(new Point3D(-330, 390, -100), 30),
+				new Sphere(new Point3D(-390, 330, -100), 30));
+
+		Geometries geos5 = new Geometries(
+				new Triangle(new Point3D(300, 200, -100), new Point3D(200, 300, -100), new Point3D(300, 300, -100)),
+				geos1);
+		Geometries geos6 = new Geometries(new Triangle(new Point3D(-300, -200, -100), new Point3D(-200, -300, -100),
+				new Point3D(-300, -300, -100)), geos2);
+		Geometries geos7 = new Geometries(
+				new Triangle(new Point3D(300, -200, -100), new Point3D(200, -300, -100), new Point3D(300, -300, -100)),
+				geos3);
+		Geometries geos8 = new Geometries(
+				new Triangle(new Point3D(-300, 200, -100), new Point3D(-200, 300, -100), new Point3D(-300, 300, -100)),
+				geos4);
+
+		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50), geos5, geos6, geos7, geos8);
+
+		ImageWriter imageWriter = new ImageWriter("hierarchy test", 1000, 1000);
+		Render render = new Render() //
+				.setImageWriter(imageWriter) //
+				.setCamera(camera) //
+				.setTracer(new RayTracerBasic(scene).setCbr(true));
+
+		render.renderImage();
+		render.printGrid(100, new Color(java.awt.Color.YELLOW));
 		render.writeToImage();
 	}
 
