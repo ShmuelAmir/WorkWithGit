@@ -33,9 +33,6 @@ public class AxisAlignedBox {
 
 	/**
 	 * האם יש חיתוך של קרן עם קופסא
-	 * 
-	 * @param min
-	 * @param max
 	 * @param ray
 	 * @return
 	 */
@@ -56,20 +53,17 @@ public class AxisAlignedBox {
 		if (dir.equals(Vector.Z) && (p0Z > maxZ || p0Z < minZ))
 			return false;
 
-		double rDX = rD.getX();
-		updateTStartTEnd(minX, maxX, p0X, rDX);
+		updateTStartTEnd(minX, maxX, p0X, 1/rD.getX());
 		// box is behind
 		if (tEnd < 0)
 			return false;
 
-		double rDY = rD.getY();
-		updateTStartTEnd(minY, maxY, p0Y, rDY);
+		updateTStartTEnd(minY, maxY, p0Y, 1/rD.getY());
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
 
-		double rDZ = rD.getZ();
-		updateTStartTEnd(minZ, maxZ, p0Z, rDZ);
+		updateTStartTEnd(minZ, maxZ, p0Z, 1/rD.getZ());
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
@@ -78,8 +72,8 @@ public class AxisAlignedBox {
 	}
 
 	private void updateTStartTEnd(double min, double max, double p0, double rD) {
-		double t1 = (min - p0) / rD;
-		double t2 = (max - p0) / rD;
+		double t1 = (min - p0) * rD;
+		double t2 = (max - p0) * rD;
 		if (t1 > t2) {
 			double temp = t1;
 			t1 = t2;

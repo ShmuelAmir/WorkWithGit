@@ -3,6 +3,7 @@ package geometries;
 import java.util.LinkedList;
 import java.util.List;
 
+import elements.AxisAlignedBox;
 import primitives.Ray;
 
 /**
@@ -55,20 +56,19 @@ public class Geometries implements Intersectable {
 		return list;
 	}
 
-////	@Override
+	// אולי עדיף ככה
+//	@Override
 //	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 //		List<GeoPoint> list = null;
 //
 //		for (Intersectable intersectable : geometriesList) {
-//			if (! intersectable.checkCbrIntersection(ray))
-//				continue;
-//			
-//			if(intersectable instanceof Geometries) {
-//				intersectable.findCbrGeoIntersections(Ray ray, double maxDistance);
+//
+//			if (intersectable instanceof Geometries) {
+//				AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+//				if (! box.checkIntersection(ray))
+//					continue;
 //			}
-//			
-//			
-//			
+//
 //			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
 //			if (pointsOrNull == null)
 //				continue;
@@ -105,21 +105,22 @@ public class Geometries implements Intersectable {
 		return list;
 	}
 
-	public boolean checkCbrIntersection(Ray ray) {
+	// מאריך כשיש היררכיה
+//	public boolean checkCbrIntersection(Ray ray) {
+////		for (Intersectable intersectable : geometriesList) {
+////			AxisAlignedBox box = new AxisAlignedBox(intersectable.getMinMax());
+////
+////			if (box.checkIntersection(ray))
+////				return true;
+////		}
+////
+////		return false;
 //		for (Intersectable intersectable : geometriesList) {
-//			AxisAlignedBox box = new AxisAlignedBox(intersectable.getMinMax());
-//
-//			if (box.checkIntersection(ray))
+//			if (intersectable.checkCbrIntersection(ray))
 //				return true;
 //		}
-//
 //		return false;
-		for (Intersectable intersectable : geometriesList) {
-			if (intersectable.checkCbrIntersection(ray))
-				return true;
-		}
-		return false;
-	}
+//	}
 
 	@Override
 	public double[] getMinMax() {

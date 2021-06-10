@@ -31,7 +31,7 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
 	private boolean cbr = false;
-	
+
 	/**
 	 * @param cbr the cbr to set
 	 */
@@ -226,15 +226,11 @@ public class RayTracerBasic extends RayTracerBase {
 	private double transparency(LightSource light, Vector l, Vector n, GeoPoint geopoint) {
 		Vector lightDirection = l.scale(-1); // from point to light source
 		Ray lightRay = new Ray(geopoint.point, lightDirection, n);
-		
-		List<GeoPoint> intersections = null;
-		if (cbr) {
-			if (scene.geometries.checkCbrIntersection(lightRay))
-				intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
-			else return 1.0;
-		} else
-			intersections = scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
 
+		List<GeoPoint> intersections = cbr ? //
+				scene.geometries.findCbrGeoIntersections(lightRay, light.getDistance(geopoint.point)) : //
+				scene.geometries.findGeoIntersections(lightRay, light.getDistance(geopoint.point));
+		
 		double ktr = 1.0;
 		if (intersections != null) {
 			for (GeoPoint gp : intersections) {
@@ -254,19 +250,12 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the closest intersection
 	 */
 	private GeoPoint findClosestIntersection(Ray ray) {
-		List<GeoPoint> intersections = null;
-		if (cbr)
-//			if (scene.geometries.checkCbrIntersection(ray))
-//				intersections = scene.geometries.findGeoIntersections(ray);
-//			else
-//				return null;
-			intersections = scene.geometries.findCbrGeoIntersections(ray, Double.POSITIVE_INFINITY);
-		else
-			intersections = scene.geometries.findGeoIntersections(ray);
+		List<GeoPoint> intersections = cbr ? //
+				scene.geometries.findCbrGeoIntersections(ray, Double.POSITIVE_INFINITY) : //
+				scene.geometries.findGeoIntersections(ray);
 
-		
 //		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray, cbr);
-		
+
 		// if there is intersections - the color determine by the close point
 		return intersections == null ? null : ray.getClosestGeoPoint(intersections);
 	}
