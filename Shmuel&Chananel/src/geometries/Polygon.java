@@ -2,6 +2,9 @@ package geometries;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import elements.AxisAlignedBox;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import static primitives.Util.*;
 
@@ -156,5 +159,12 @@ public class Polygon extends Geometry {
 
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 		return minMax;
+	}
+	
+	@Override
+	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+
+		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
 	}
 }

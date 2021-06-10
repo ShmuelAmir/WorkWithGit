@@ -2,6 +2,9 @@ package geometries;
 
 import java.util.List;
 
+import elements.AxisAlignedBox;
+import geometries.Intersectable.GeoPoint;
+
 import static primitives.Util.*;
 import primitives.*;
 
@@ -226,4 +229,10 @@ public class Tube extends Geometry {
 		return minMax;
 	}
 
+	@Override
+	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+
+		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+	}
 }

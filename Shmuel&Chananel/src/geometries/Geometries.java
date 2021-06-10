@@ -81,7 +81,30 @@ public class Geometries implements Intersectable {
 //
 //		return list;
 //	}
-	
+
+	@Override
+	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+		List<GeoPoint> list = null;
+
+		for (Intersectable intersectable : geometriesList) {
+			if (!intersectable.checkCbrIntersection(ray))
+				continue;
+
+			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
+			if (pointsOrNull == null)
+				continue;
+
+			if (list == null)
+				list = new LinkedList<>(pointsOrNull);
+			else
+				list.addAll(pointsOrNull);
+			
+			
+		}
+
+		return list;
+	}
+
 	public boolean checkCbrIntersection(Ray ray) {
 //		for (Intersectable intersectable : geometriesList) {
 //			AxisAlignedBox box = new AxisAlignedBox(intersectable.getMinMax());

@@ -93,4 +93,6 @@ public interface Intersectable {
 	}
 	
 	double[] getMinMax();
+
+	List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance);
 }
