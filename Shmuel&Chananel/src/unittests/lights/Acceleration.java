@@ -1,6 +1,3 @@
-/**
- * 
- */
 package unittests.lights;
 
 import org.junit.Test;
@@ -17,7 +14,7 @@ import scene.Scene;
  */
 public class Acceleration {
 
-//	@Test
+	@Test
 	public void accelerationTest() {
 
 		Scene scene = new Scene("Test scene") //
@@ -239,13 +236,16 @@ public class Acceleration {
 				/**
 				 * end pool
 				 */
-				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19))
+				new Sphere(new Point3D(-40, 9, -600), 0.5) //
+						.setEmission(new Color(139, 69, 19)) //
 						.setMaterial(new Material()),
-				new Sphere(new Point3D(-40, 9, -600), 0.5).setEmission(new Color(139, 69, 19))
+				new Sphere(new Point3D(-40, 9, -600), 0.5) //
+						.setEmission(new Color(139, 69, 19)) //
 						.setMaterial(new Material())
-		// GROUND FOR FLOWERS
+
+				// GROUND FOR FLOWERS
 //				new Cube(new Color(139, 69, 19), new Material(0, 0.8, 60, 0, 0), new Point3D(-40, 9, -600),
-//						new Point3D(-2, 10, -340))
+//						new Point3D(-2, 10, -340)),
 		);
 
 		double oldFlowerX = flowerX;
@@ -272,7 +272,7 @@ public class Acceleration {
 										.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 						new Sphere(new Point3D(-60.5 + flowerX, 5 + flowerY, -250 + flowerZ), 2) //
-								.setEmission(new Color(java.awt.Color.YELLOW)) //
+								.setEmission(new Color(java.awt.Color.BLACK)) //
 								.setMaterial(new Material().setkD(0.2).setkS(0.5).setnShininess(30)),
 						new Sphere(new Point3D(-60.75 + flowerX, 3.5 + flowerY, -250 + flowerZ), 1) //
 								.setEmission(new Color(java.awt.Color.YELLOW)) //
@@ -292,7 +292,9 @@ public class Acceleration {
 						new Sphere(new Point3D(-62 + flowerX, 5.75 + flowerY, -250 + flowerZ), 1) //
 								.setEmission(new Color(java.awt.Color.YELLOW)) //
 								.setMaterial(new Material().setkD(0.2).setkS(0.5).setnShininess(30).setkT(1)),
-						new Sphere(new Point3D(-62 + flowerX, 4.25 + flowerY, -250 + flowerZ), 1)
+						new Sphere(new Point3D(-62 + flowerX, 4.25 + flowerY, -250 + flowerZ), 1) //
+								.setEmission(new Color(java.awt.Color.YELLOW)) //
+								.setMaterial(new Material().setkD(0.2).setkS(0.5).setnShininess(30).setkT(1))
 
 				/**
 				 * END FLOWERS
@@ -323,7 +325,7 @@ public class Acceleration {
 		render.writeToImage();
 	}
 
-	@Test
+//	@Test
 	public void hierarchyTest() {
 		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setDistance(500) //

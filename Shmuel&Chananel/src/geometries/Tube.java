@@ -185,8 +185,12 @@ public class Tube extends Geometry {
 
 	@Override
 	public double[] getMinMax() {
-		double minMax[] = { Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY,
-				Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY };
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
 
 		Vector dir = axisRay.getDir();
 		Point3D center = axisRay.getP0();
@@ -194,37 +198,39 @@ public class Tube extends Geometry {
 		if (dir.equals(Vector.X)) {
 			double y = center.getY();
 			double z = center.getZ();
-			minMax[1] = y - radius;
-			minMax[2] = z - radius;
-			minMax[4] = y + radius;
-			minMax[5] = z + radius;
+			minY = y - radius;
+			minZ = z - radius;
+			maxY = y + radius;
+			maxZ = z + radius;
 		} else if (dir.equals(Vector.Y)) {
 			double x = center.getX();
 			double z = center.getZ();
-			minMax[0] = x - radius;
-			minMax[2] = z - radius;
-			minMax[3] = x + radius;
-			minMax[5] = z + radius;
+			minX = x - radius;
+			minZ = z - radius;
+			maxX = x + radius;
+			maxZ = z + radius;
 		} else if (dir.equals(Vector.Z)) {
 			double x = center.getX();
 			double y = center.getY();
-			minMax[0] = x - radius;
-			minMax[1] = y - radius;
-			minMax[3] = x + radius;
-			minMax[4] = y + radius;
+			minX = x - radius;
+			minY = y - radius;
+			maxX = x + radius;
+			maxY = y + radius;
 		} else if (isZero(dir.dotProduct(Vector.X))) {
 			double x = center.getX();
-			minMax[0] = x - radius;
-			minMax[3] = x + radius;
+			minX = x - radius;
+			maxX = x + radius;
 		} else if (isZero(dir.dotProduct(Vector.Y))) {
 			double y = center.getY();
-			minMax[1] = y - radius;
-			minMax[4] = y + radius;
+			minY = y - radius;
+			maxY = y + radius;
 		} else if (isZero(dir.dotProduct(Vector.Z))) {
 			double z = center.getZ();
-			minMax[2] = z - radius;
-			minMax[5] = z + radius;
+			minZ = z - radius;
+			maxZ = z + radius;
 		}
+
+		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 
 		return minMax;
 	}

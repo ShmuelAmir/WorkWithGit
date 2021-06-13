@@ -3,6 +3,7 @@ package renderer;
 import java.util.List;
 
 import elements.LightSource;
+import elements.RaysBeam;
 import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import static primitives.Util.*;
@@ -30,7 +31,26 @@ public class RayTracerBasic extends RayTracerBase {
 	 */
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
+	private int numOfRays = 80;
+	private double blackBoardDistance = 100;
+	
 	private boolean cbr = false;
+
+	/**
+	 * @param numOfRays the numOfRays to set
+	 */
+	public RayTracerBasic setNumOfRays(int numOfRays) {
+		this.numOfRays = numOfRays;
+		return this;
+	}
+
+	/**
+	 * @param blackBoardDistance the blackBoardDistance to set
+	 */
+	public RayTracerBasic setBlackBoardDistance(double blackBoardRadius) {
+		this.blackBoardDistance = blackBoardRadius;
+		return this;
+	}
 
 	/**
 	 * @param cbr the cbr to set
@@ -201,8 +221,8 @@ public class RayTracerBasic extends RayTracerBase {
 			return calcColor(gp, ray.getDir(), level - 1, kkx).scale(kx);
 
 		Color sumColor = Color.BLACK;
-		RaysBeam raysBeam = new RaysBeam(ray, ky);
-		List<Ray> rays = raysBeam.generateRays();
+		RaysBeam raysBeam = new RaysBeam(ray, ky, blackBoardDistance);
+		List<Ray> rays = raysBeam.generateRays(numOfRays);
 		for (Ray r : rays) {
 			Vector rDir = r.getDir();
 			if (ray.getDir().dotProduct(normal) * rDir.dotProduct(normal) > 0) {

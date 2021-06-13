@@ -63,32 +63,6 @@ public class Geometries implements Intersectable {
 		return list;
 	}
 
-	// אולי עדיף ככה
-//	@Override
-//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-//		List<GeoPoint> list = null;
-//
-//		for (Intersectable intersectable : geometriesList) {
-//
-//			if (intersectable instanceof Geometries) {
-//				AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//				if (! box.checkIntersection(ray))
-//					continue;
-//			}
-//
-//			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
-//			if (pointsOrNull == null)
-//				continue;
-//
-//			if (list == null)
-//				list = new LinkedList<>(pointsOrNull);
-//			else
-//				list.addAll(pointsOrNull);
-//		}
-//
-//		return list;
-//	}
-
 	@Override
 	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> list = null;
@@ -99,10 +73,6 @@ public class Geometries implements Intersectable {
 //			return null;
 			
 		for (Intersectable intersectable : geometriesList) {
-//			if (!intersectable.checkCbrIntersection(ray))
-//				continue;
-
-//			var pointsOrNull = intersectable.findGeoIntersections(ray, maxDistance);
 			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
 			if (pointsOrNull == null)
 				continue;
@@ -111,29 +81,10 @@ public class Geometries implements Intersectable {
 				list = new LinkedList<>(pointsOrNull);
 			else
 				list.addAll(pointsOrNull);
-			
-			
 		}
 
 		return list;
 	}
-
-	// מאריך כשיש היררכיה
-//	public boolean checkCbrIntersection(Ray ray) {
-////		for (Intersectable intersectable : geometriesList) {
-////			AxisAlignedBox box = new AxisAlignedBox(intersectable.getMinMax());
-////
-////			if (box.checkIntersection(ray))
-////				return true;
-////		}
-////
-////		return false;
-//		for (Intersectable intersectable : geometriesList) {
-//			if (intersectable.checkCbrIntersection(ray))
-//				return true;
-//		}
-//		return false;
-//	}
 
 	@Override
 	public double[] getMinMax() {
@@ -169,21 +120,7 @@ public class Geometries implements Intersectable {
 				maxZ = currentMaxZ;
 			if (currentMinZ < minZ)
 				minZ = currentMinZ;
-			
-//			if (minMax[3] > maxX)
-//				maxX = minMax[3];
-//			if (minMax[0] < minX)
-//				minX = minMax[0];
-//
-//			if (minMax[4] > maxY)
-//				maxY = minMax[4];
-//			if (minMax[1] < minY)
-//				minY = minMax[1];
-//
-//			if (minMax[5] > maxZ)
-//				maxZ = minMax[5];
-//			if (minMax[2] < minZ)
-//				minZ = minMax[2];
+
 		}
 
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };

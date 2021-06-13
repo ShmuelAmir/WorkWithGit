@@ -64,12 +64,8 @@ public class Triangle extends Polygon {
 
 	@Override
 	public double[] getMinMax() {
-		double minX = Double.POSITIVE_INFINITY;
-		double minY = Double.POSITIVE_INFINITY;
-		double minZ = Double.POSITIVE_INFINITY;
-		double maxX = Double.NEGATIVE_INFINITY;
-		double maxY = Double.NEGATIVE_INFINITY;
-		double maxZ = Double.NEGATIVE_INFINITY;
+		double minX, minY, minZ;
+		double maxX, maxY, maxZ;
 
 		Point3D point1 = vertices.get(0);
 		double x1 = point1.getX();
@@ -106,7 +102,7 @@ public class Triangle extends Polygon {
 			minY = y1;
 		}
 		if (y3 > maxY)
-			maxY = x3;
+			maxY = y3;
 		if (y3 < minY)
 			minY = y3;
 
@@ -125,4 +121,5 @@ public class Triangle extends Polygon {
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 		return minMax;
 	}
+	
 }

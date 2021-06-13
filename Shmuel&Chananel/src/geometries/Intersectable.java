@@ -84,13 +84,6 @@ public interface Intersectable {
 	 * @return list of GeoPoint
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
-
-	
-//	default boolean checkCbrIntersection(Ray ray) {
-//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//		
-//		return box.checkIntersection(ray);
-//	}
 	
 	double[] getMinMax();
 	
@@ -99,5 +92,6 @@ public interface Intersectable {
 		return box.getCenter(axis);
 	}
 	
+	//אולי לעשות ברירת-מחדל
 	List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance);
 }

@@ -1,4 +1,4 @@
-package renderer;
+package elements;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -29,26 +29,27 @@ public class RaysBeam {
 		 * this is a fix value that represent the distance between the intersection
 		 * point and the BlackBoard
 		 */
-		private static final double DISTANCE = 100;
+		private double blackBoardDistance;
 		private Random rand = new Random(); // for the move
 
 		private Point3D center;
 		private Vector xAxis;
 		private Vector yAxis;
 
-		private double halfEdge;
+		private double radius;
 
 		/**
-		 * construct the BlackBoard - center point, halfEdge size and axes.
+		 * construct the BlackBoard - center point, radius size and axes.
 		 * 
-		 * @param r   - distance between center to halfEdge
+		 * @param r   - distance between center to radius
 		 * @param ray - for direction and center point
 		 */
-		public BlackBoard(double r, Ray ray) {
+		public BlackBoard(double r, Ray ray, double distance) {
 			Vector vTo = ray.getDir();
-
-			halfEdge = r * DISTANCE;
-			center = ray.getPoint(DISTANCE);
+			blackBoardDistance = distance;
+			radius = r * distance;
+			
+			center = ray.getPoint(blackBoardDistance);
 			xAxis = vTo.getOrthogonal();
 			yAxis = xAxis.crossProduct(vTo);
 		}
@@ -63,7 +64,7 @@ public class RaysBeam {
 					.add(yAxis.scale(movePoint())));
 			
 			// we want the random point only if it inside a circle around the center. 
-			return (alignZero(point.distance(center) - halfEdge) < 0) ? point : null;
+			return (alignZero(point.distance(center) - radius) < 0) ? point : null;
 		}
 
 		/**
@@ -71,7 +72,7 @@ public class RaysBeam {
 		 * @return
 		 */
 		public double movePoint() {
-			return (rand.nextDouble() * 2 - 1) * halfEdge;
+			return (rand.nextDouble() * 2 - 1) * radius;
 		}
 
 	}
@@ -82,16 +83,16 @@ public class RaysBeam {
 	/**
 	 * number of rays to generate and return
 	 */
-	private static final int NUM_OF_RAYS = 80;
+//	private static final int NUM_OF_RAYS = 80;
 
 	/**
 	 * construct the start point and the blackBoard according to the ray.
 	 * 
 	 * @param ray
 	 */
-	public RaysBeam(Ray ray, double ky) {
+	public RaysBeam(Ray ray, double ky, double distance) {
 		p0 = ray.getP0();
-		blackBoard = new BlackBoard(ky, ray);
+		blackBoard = new BlackBoard(ky, ray, distance);
 	}
 
 	/**
@@ -99,11 +100,11 @@ public class RaysBeam {
 	 * 
 	 * @return list of rays
 	 */
-	public List<Ray> generateRays() {
+	public List<Ray> generateRays(int numOfRays) {
 		Point3D point;
 		List<Ray> rays = new LinkedList<>(); // to return
 		
-		while (rays.size() < NUM_OF_RAYS) {
+		while (rays.size() < numOfRays) {
 			// move the center point along the axes of the blackBoard
 			point = blackBoard.getNextPoint();
 
