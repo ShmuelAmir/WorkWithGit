@@ -6,6 +6,7 @@ import java.util.List;
 import elements.AmbientLight;
 import elements.LightSource;
 import geometries.Geometries;
+import geometries.Intersectable;
 import primitives.Color;
 
 /**
@@ -88,5 +89,72 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
+	
+	public void buildHierarchy() {
+		double[] minMax = geometries.getMinMax();
+		double center ;
+		char longestAxis;
+		double longX = minMax[3] - minMax[0];
+		double longY = minMax[4] - minMax[1];
+		double longZ = minMax[5] - minMax[2];
+		
+		Geometries firstGeometries;
+		Geometries SecondGeometries;
+		
+		
+		
+		if(longX >= longY && longX >= longZ ) {
+			longestAxis = 'x';
+			center = minMax[3]-minMax[0];
+			for (Intersectable geometry : geometries.getGeometriesList()) {
+				if(geometry.)
+			}
+			
+		}
+			
+		
+		else
+			if(longY >= longX && longY >= longZ )
+				longestAxis = 'y';
+			else
+				longestAxis = 'z';
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

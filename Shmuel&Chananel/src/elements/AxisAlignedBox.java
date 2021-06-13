@@ -34,6 +34,7 @@ public class AxisAlignedBox {
 
 	/**
 	 * האם יש חיתוך של קרן עם קופסא
+	 * 
 	 * @param ray
 	 * @return
 	 */
@@ -46,7 +47,7 @@ public class AxisAlignedBox {
 		double rDX = rD.getX();
 		if (isZero(rDX) && (p0X > maxX || p0X < minX))
 			return false;
-		
+
 		double p0Y = p0.getY();
 		double rDY = rD.getY();
 		if (isZero(rDY) && (p0Y > maxY || p0Y < minY))
@@ -56,18 +57,18 @@ public class AxisAlignedBox {
 		double rDZ = rD.getZ();
 		if (isZero(rDZ) && (p0Z > maxZ || p0Z < minZ))
 			return false;
-		
-		updateTStartTEnd(minX, maxX, p0X, 1/rDX);
+
+		updateTStartTEnd(minX, maxX, p0X, 1 / rDX);
 		// box is behind
 		if (tEnd < 0)
 			return false;
 
-		updateTStartTEnd(minY, maxY, p0Y, 1/rDY);
+		updateTStartTEnd(minY, maxY, p0Y, 1 / rDY);
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
 
-		updateTStartTEnd(minZ, maxZ, p0Z, 1/rDZ);
+		updateTStartTEnd(minZ, maxZ, p0Z, 1 / rDZ);
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
@@ -88,6 +89,19 @@ public class AxisAlignedBox {
 			tStart = t1;
 		if (t2 < tEnd)
 			tEnd = t2;
+	}
+
+	public double getCenter(char axis) {
+
+		if (axis == 'x')
+			return (maxX - minX) / 2;
+
+		else if (axis == 'y')
+			return (maxY - minY) / 2;
+
+		else
+			return (maxZ - minZ) / 2;
+
 	}
 
 }
