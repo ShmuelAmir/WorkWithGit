@@ -86,10 +86,16 @@ public class Geometries implements Intersectable {
 	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> list = null;
 
+		//מאט אבל לכאורה אמור להיות
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+		if (!box.checkIntersection(ray))
+			return null;
+			
 		for (Intersectable intersectable : geometriesList) {
-			if (!intersectable.checkCbrIntersection(ray))
-				continue;
+//			if (!intersectable.checkCbrIntersection(ray))
+//				continue;
 
+//			var pointsOrNull = intersectable.findGeoIntersections(ray, maxDistance);
 			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
 			if (pointsOrNull == null)
 				continue;
@@ -132,21 +138,45 @@ public class Geometries implements Intersectable {
 		double maxZ = Double.NEGATIVE_INFINITY;
 
 		for (Intersectable intersectable : geometriesList) {
+//			if (intersectable instanceof Plane || intersectable instanceof Tube)
+//				continue;
+			
 			double minMax[] = intersectable.getMinMax();
-			if (minMax[3] > maxX)
-				maxX = minMax[3];
-			if (minMax[0] < minX)
-				minX = minMax[0];
+			double currentMinX = minMax[0];
+			double currentMaxX = minMax[3];
+			if (currentMaxX > maxX)
+				maxX = currentMaxX;
+			if (currentMinX < minX)
+				minX = currentMinX;
 
-			if (minMax[4] > maxY)
-				maxY = minMax[4];
-			if (minMax[1] < minY)
-				minY = minMax[1];
+			double currentMinY = minMax[1];
+			double currentMaxY = minMax[4];
+			if (currentMaxY > maxY)
+				maxY = currentMaxY;
+			if (currentMinY < minY)
+				minY = currentMinY;
 
-			if (minMax[5] > maxZ)
-				maxZ = minMax[5];
-			if (minMax[2] < minZ)
-				minZ = minMax[2];
+			double currentMinZ = minMax[2];
+			double currentMaxZ = minMax[5];
+			if (currentMaxZ > maxZ)
+				maxZ = currentMaxZ;
+			if (currentMinZ < minZ)
+				minZ = currentMinZ;
+			
+//			if (minMax[3] > maxX)
+//				maxX = minMax[3];
+//			if (minMax[0] < minX)
+//				minX = minMax[0];
+//
+//			if (minMax[4] > maxY)
+//				maxY = minMax[4];
+//			if (minMax[1] < minY)
+//				minY = minMax[1];
+//
+//			if (minMax[5] > maxZ)
+//				maxZ = minMax[5];
+//			if (minMax[2] < minZ)
+//				minZ = minMax[2];
 		}
 
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };

@@ -62,132 +62,67 @@ public class Triangle extends Polygon {
 		return this.vertices.get(0) + " " + this.vertices.get(1) + " " + this.vertices.get(2) + " " + this.plane;
 	}
 
-//	@Override
-//	public double[] getMinMax() {
-//		double minX = Double.POSITIVE_INFINITY;
-//		double minY = Double.POSITIVE_INFINITY;
-//		double minZ = Double.POSITIVE_INFINITY;
-//		double maxX = Double.NEGATIVE_INFINITY;
-//		double maxY = Double.NEGATIVE_INFINITY;
-//		double maxZ = Double.NEGATIVE_INFINITY;
-//
-//		Point3D point1 = vertices.get(0);
-//		double x1 = point1.getX();
-//		double y1 = point1.getY();
-//		double z1 = point1.getZ();
-//
-//		Point3D point2 = vertices.get(1);
-//		double x2 = point2.getX();
-//		double y2 = point2.getY();
-//		double z2 = point2.getZ();
-//
-//		Point3D point3 = vertices.get(2);
-//		double x3 = point3.getX();
-//		double y3 = point3.getY();
-//		double z3 = point3.getZ();
-//
-//		if (x1 > x2) {
-//			if (x1> x3) {
-//				maxX = x1;
-//				if (x2 > x3) {
-//					minX = x3;
-//				} else {
-//					minX = x2;
-//				}
-//			} else {
-//				if (x2 > x3) {
-//					maxX = x2;
-//					minX = x3;
-//				} else {
-//					maxX = x3;
-//					minX = x2;
-//				}
-//			}
-//		} else if (x1 > x3) {
-//			if (x2 > x3) {
-//				maxX = x2;
-//				minX = x3;
-//			} else {
-//				maxX = x3;
-//				minX = x2;
-//			}
-//		} else {
-//			minX = x1;
-//			if (x2 > x3) {
-//				maxX = x2;
-//			} else {
-//				maxX = x3;
-//			}
-//		}
-//
-//		if (y1 > y2) {
-//			if (y1> y3) {
-//				maxY = y1;
-//				if (y2 > y3) {
-//					minY = y3;
-//				} else {
-//					minY = y2;
-//				}
-//			} else {
-//				if (y2 > y3) {
-//					maxY = y2;
-//					minY = y3;
-//				} else {
-//					maxY = y3;
-//					minY = y2;
-//				}
-//			}
-//		} else if (y1 > y3) {
-//			if (y2 > y3) {
-//				maxY = y2;
-//				minY = y3;
-//			} else {
-//				maxY = y3;
-//				minY = y2;
-//			}
-//		} else {
-//			minY = y1;
-//			if (y2 > y3) {
-//				maxY = y2;
-//			} else {
-//				maxY = y3;
-//			}
-//		}
-//		
-//		if (z1 > z2) {
-//			if (z1> z3) {
-//				maxZ = z1;
-//				if (z2 > z3) {
-//					minZ = z3;
-//				} else {
-//					minZ = z2;
-//				}
-//			} else {
-//				if (z2 > z3) {
-//					maxZ = z2;
-//					minZ = z3;
-//				} else {
-//					maxZ = z3;
-//					minZ = z2;
-//				}
-//			}
-//		} else if (z1 > z3) {
-//			if (z2 > z3) {
-//				maxZ = z2;
-//				minZ = z3;
-//			} else {
-//				maxZ = z3;
-//				minZ = z2;
-//			}
-//		} else {
-//			minZ = z1;
-//			if (z2 > z3) {
-//				maxZ = z2;
-//			} else {
-//				maxZ = z3;
-//			}
-//		}
-//		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
-//		return minMax;
-//	}
+	@Override
+	public double[] getMinMax() {
+		double minX = Double.POSITIVE_INFINITY;
+		double minY = Double.POSITIVE_INFINITY;
+		double minZ = Double.POSITIVE_INFINITY;
+		double maxX = Double.NEGATIVE_INFINITY;
+		double maxY = Double.NEGATIVE_INFINITY;
+		double maxZ = Double.NEGATIVE_INFINITY;
+
+		Point3D point1 = vertices.get(0);
+		double x1 = point1.getX();
+		double y1 = point1.getY();
+		double z1 = point1.getZ();
+
+		Point3D point2 = vertices.get(1);
+		double x2 = point2.getX();
+		double y2 = point2.getY();
+		double z2 = point2.getZ();
+
+		Point3D point3 = vertices.get(2);
+		double x3 = point3.getX();
+		double y3 = point3.getY();
+		double z3 = point3.getZ();
+
+		if (x1 > x2) {
+			maxX = x1;
+			minX = x2;
+		} else {
+			maxX = x2;
+			minX = x1;
+		}
+		if (x3 > maxX)
+			maxX = x3;
+		if (x3 < minX)
+			minX = x3;
+
+		if (y1 > y2) {
+			maxY = y1;
+			minY = y2;
+		} else {
+			maxY = y2;
+			minY = y1;
+		}
+		if (y3 > maxY)
+			maxY = x3;
+		if (y3 < minY)
+			minY = y3;
+
+		if (z1 > z2) {
+			maxZ = z1;
+			minZ = z2;
+		} else {
+			maxZ = z2;
+			minZ = z1;
+		}
+		if (z3 > maxZ)
+			maxZ = z3;
+		if (z3 < minZ)
+			minZ = z3;
+
+		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
+		return minMax;
+	}
 }

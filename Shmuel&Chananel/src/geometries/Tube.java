@@ -234,5 +234,6 @@ public class Tube extends Geometry {
 		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
 
 		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+//		return findGeoIntersections(ray, maxDistance);
 	}
 }

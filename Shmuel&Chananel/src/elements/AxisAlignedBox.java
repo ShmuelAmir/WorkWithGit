@@ -1,5 +1,6 @@
 package elements;
 
+import static primitives.Util.*;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -42,28 +43,31 @@ public class AxisAlignedBox {
 		Point3D rD = dir.getHead();
 
 		double p0X = p0.getX();
-		if (dir.equals(Vector.X) && (p0X > maxX || p0X < minX))
+		double rDX = rD.getX();
+		if (isZero(rDX) && (p0X > maxX || p0X < minX))
 			return false;
-
+		
 		double p0Y = p0.getY();
-		if (dir.equals(Vector.Y) && (p0Y > maxY || p0Y < minY))
+		double rDY = rD.getY();
+		if (isZero(rDY) && (p0Y > maxY || p0Y < minY))
 			return false;
 
 		double p0Z = p0.getZ();
-		if (dir.equals(Vector.Z) && (p0Z > maxZ || p0Z < minZ))
+		double rDZ = rD.getZ();
+		if (isZero(rDZ) && (p0Z > maxZ || p0Z < minZ))
 			return false;
-
-		updateTStartTEnd(minX, maxX, p0X, 1/rD.getX());
+		
+		updateTStartTEnd(minX, maxX, p0X, 1/rDX);
 		// box is behind
 		if (tEnd < 0)
 			return false;
 
-		updateTStartTEnd(minY, maxY, p0Y, 1/rD.getY());
+		updateTStartTEnd(minY, maxY, p0Y, 1/rDY);
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
 
-		updateTStartTEnd(minZ, maxZ, p0Z, 1/rD.getZ());
+		updateTStartTEnd(minZ, maxZ, p0Z, 1/rDZ);
 		// box is missed or box is behind
 		if (tStart > tEnd || tEnd < 0)
 			return false;
