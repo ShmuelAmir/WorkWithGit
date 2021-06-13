@@ -13,7 +13,8 @@ import primitives.Ray;
  */
 public class Geometries implements Intersectable {
 	private List<Intersectable> geometriesList = new LinkedList<>();
-
+	private double minMax[] = new double[6];
+			
 	/**
 	 * Default constructor that initializes an empty list.
 	 */
@@ -36,6 +37,7 @@ public class Geometries implements Intersectable {
 	 */
 	public void add(Intersectable... geometries) {
 		geometriesList.addAll(List.of(geometries));
+		minMax = getMinMax();
 	}
 
 	@Override
@@ -87,7 +89,7 @@ public class Geometries implements Intersectable {
 		List<GeoPoint> list = null;
 
 		//מאט אבל לכאורה אמור להיות
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+		AxisAlignedBox box = new AxisAlignedBox(minMax);
 		if (!box.checkIntersection(ray))
 			return null;
 			
@@ -142,41 +144,41 @@ public class Geometries implements Intersectable {
 //				continue;
 			
 			double minMax[] = intersectable.getMinMax();
-			double currentMinX = minMax[0];
-			double currentMaxX = minMax[3];
-			if (currentMaxX > maxX)
-				maxX = currentMaxX;
-			if (currentMinX < minX)
-				minX = currentMinX;
-
-			double currentMinY = minMax[1];
-			double currentMaxY = minMax[4];
-			if (currentMaxY > maxY)
-				maxY = currentMaxY;
-			if (currentMinY < minY)
-				minY = currentMinY;
-
-			double currentMinZ = minMax[2];
-			double currentMaxZ = minMax[5];
-			if (currentMaxZ > maxZ)
-				maxZ = currentMaxZ;
-			if (currentMinZ < minZ)
-				minZ = currentMinZ;
+//			double currentMinX = minMax[0];
+//			double currentMaxX = minMax[3];
+//			if (currentMaxX > maxX)
+//				maxX = currentMaxX;
+//			if (currentMinX < minX)
+//				minX = currentMinX;
+//
+//			double currentMinY = minMax[1];
+//			double currentMaxY = minMax[4];
+//			if (currentMaxY > maxY)
+//				maxY = currentMaxY;
+//			if (currentMinY < minY)
+//				minY = currentMinY;
+//
+//			double currentMinZ = minMax[2];
+//			double currentMaxZ = minMax[5];
+//			if (currentMaxZ > maxZ)
+//				maxZ = currentMaxZ;
+//			if (currentMinZ < minZ)
+//				minZ = currentMinZ;
 			
-//			if (minMax[3] > maxX)
-//				maxX = minMax[3];
-//			if (minMax[0] < minX)
-//				minX = minMax[0];
-//
-//			if (minMax[4] > maxY)
-//				maxY = minMax[4];
-//			if (minMax[1] < minY)
-//				minY = minMax[1];
-//
-//			if (minMax[5] > maxZ)
-//				maxZ = minMax[5];
-//			if (minMax[2] < minZ)
-//				minZ = minMax[2];
+			if (minMax[3] > maxX)
+				maxX = minMax[3];
+			if (minMax[0] < minX)
+				minX = minMax[0];
+
+			if (minMax[4] > maxY)
+				maxY = minMax[4];
+			if (minMax[1] < minY)
+				minY = minMax[1];
+
+			if (minMax[5] > maxZ)
+				maxZ = minMax[5];
+			if (minMax[2] < minZ)
+				minZ = minMax[2];
 		}
 
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
