@@ -89,72 +89,70 @@ public class Scene {
 		this.geometries = geometries;
 		return this;
 	}
-	
+
 	public void buildHierarchy() {
-		double[] minMax = geometries.getMinMax();
-		double center ;
+		buildHierarchy(geometries);
+	}
+
+	private void buildHierarchy(Geometries currentGeometries) {
+		if (currentGeometries.getGeometriesList().size() == 1)
+			return;
+
+		double[] minMax = currentGeometries.getMinMax();
+		double center;
 		char longestAxis;
 		double longX = minMax[3] - minMax[0];
 		double longY = minMax[4] - minMax[1];
 		double longZ = minMax[5] - minMax[2];
-		
-		Geometries firstGeometries;
-		Geometries SecondGeometries;
-		
-		
-		
-		if(longX >= longY && longX >= longZ ) {
-			longestAxis = 'x';
-			center = minMax[3]-minMax[0];
-			for (Intersectable geometry : geometries.getGeometriesList()) {
-				if(geometry.)
-			}
-			
-		}
-			
-		
-		else
-			if(longY >= longX && longY >= longZ )
-				longestAxis = 'y';
-			else
-				longestAxis = 'z';
-		
-	}
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		Geometries firstGeometries = new Geometries(); // גדול
+		Geometries SecondGeometries = new Geometries();
+
+		if (longX >= longY && longX >= longZ) {
+			longestAxis = 'x';
+			center = minMax[0] + (minMax[3] - minMax[0]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				double currentCenter = geometry.getCenter(longestAxis);
+				if (currentCenter > center)
+					firstGeometries.add(geometry);
+				else
+					SecondGeometries.add(geometry);
+			}
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(firstGeometries);
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(SecondGeometries);
+			geometries = new Geometries(firstGeometries, SecondGeometries);
+		} else if (longY >= longX && longY >= longZ) {
+			longestAxis = 'y';
+			center = minMax[1] + (minMax[4] - minMax[1]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				if (geometry.getCenter(longestAxis) > center)
+					firstGeometries.add(geometry);
+				else
+					SecondGeometries.add(geometry);
+			}
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(firstGeometries);
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(SecondGeometries);
+			geometries = new Geometries(firstGeometries, SecondGeometries);
+		} else {
+			longestAxis = 'z';
+			center = minMax[2] + (minMax[5] - minMax[2]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				if (geometry.getCenter(longestAxis) > center)
+					firstGeometries.add(geometry);
+				else
+					SecondGeometries.add(geometry);
+			}
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(firstGeometries);
+			if (! firstGeometries.getGeometriesList().isEmpty())
+				buildHierarchy(SecondGeometries);
+			geometries = new Geometries(firstGeometries, SecondGeometries);
+		}
+
+	}
 
 }

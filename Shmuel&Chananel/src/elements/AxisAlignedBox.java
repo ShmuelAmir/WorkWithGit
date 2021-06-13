@@ -20,6 +20,9 @@ public class AxisAlignedBox {
 	private double tStart = Double.NEGATIVE_INFINITY;
 	private double tEnd = Double.POSITIVE_INFINITY;
 
+	public AxisAlignedBox() {
+		
+	}
 	/**
 	 * 
 	 */
@@ -94,13 +97,13 @@ public class AxisAlignedBox {
 	public double getCenter(char axis) {
 
 		if (axis == 'x')
-			return (maxX - minX) / 2;
+			return minX + ((maxX - minX) / 2);
 
 		else if (axis == 'y')
-			return (maxY - minY) / 2;
+			return  minY + ((maxY - minY) / 2);
 
 		else
-			return (maxZ - minZ) / 2;
+			return  minZ + ((maxZ - minZ) / 2);
 
 	}
 

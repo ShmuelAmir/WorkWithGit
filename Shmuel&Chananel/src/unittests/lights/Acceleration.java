@@ -404,11 +404,12 @@ public class Acceleration {
 
 		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50), geos5, geos6, geos7, geos8, geos23);
 
+		scene.buildHierarchy();
 		ImageWriter imageWriter = new ImageWriter("hierarchy test", 1000, 1000);
 		Render render = new Render() //
 				.setImageWriter(imageWriter) //
 				.setCamera(camera) //
-				.setTracer(new RayTracerBasic(scene).setCbr(false));
+				.setTracer(new RayTracerBasic(scene).setCbr(true));
 
 		render.renderImage();
 		render.printGrid(100, new Color(java.awt.Color.YELLOW));

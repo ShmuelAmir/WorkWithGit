@@ -13,7 +13,7 @@ import primitives.*;
  * @author shmulik
  */
 public interface Intersectable {
-
+	
 	/**
 	 * class for save point and geometry together for the color in intersection
 	 * point
@@ -53,7 +53,7 @@ public interface Intersectable {
 			return this.geometry.equals(other.geometry) && this.point.equals(other.point);
 		}
 	}
-
+	
 	/**
 	 * find all intersection points between ray and shape.
 	 * 
@@ -93,6 +93,11 @@ public interface Intersectable {
 //	}
 	
 	double[] getMinMax();
-
+	
+	default double getCenter(char axis) {
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+		return box.getCenter(axis);
+	}
+	
 	List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance);
 }
