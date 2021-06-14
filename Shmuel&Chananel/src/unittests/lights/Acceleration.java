@@ -257,7 +257,6 @@ public class Acceleration {
 				scene.geometries.add(
 
 						// FLOWERS
-
 						new Triangle(new Point3D(-60 + flowerX, 10 + flowerY, -250 + flowerZ),
 								new Point3D(-60 + flowerX, 5 + flowerY, -250 + flowerZ),
 								new Point3D(-61 + flowerX, 5 + flowerY, -250 + flowerZ)) //
