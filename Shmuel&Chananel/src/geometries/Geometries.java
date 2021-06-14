@@ -20,8 +20,6 @@ public class Geometries implements Intersectable {
 	public List<Intersectable> getGeometriesList() {
 		return geometriesList;
 	}
-	
-	
 
 	/**
 	 * Default constructor that initializes an empty list.
@@ -69,11 +67,11 @@ public class Geometries implements Intersectable {
 	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> list = null;
 
-		//מאט אבל לכאורה אמור להיות
-//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//		if (!box.checkIntersection(ray))
-//			return null;
-			
+		// מאט אבל לכאורה אמור להיות
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+		if (!box.checkIntersection(ray))
+			return null;
+
 		for (Intersectable intersectable : geometriesList) {
 			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
 			if (pointsOrNull == null)
@@ -100,7 +98,7 @@ public class Geometries implements Intersectable {
 		for (Intersectable intersectable : geometriesList) {
 //			if (intersectable instanceof Plane || intersectable instanceof Tube)
 //				continue;
-			
+
 			double minMax[] = intersectable.getMinMax();
 			double currentMinX = minMax[0];
 			double currentMaxX = minMax[3];

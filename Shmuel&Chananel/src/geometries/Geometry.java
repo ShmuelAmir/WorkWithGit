@@ -1,6 +1,5 @@
 package geometries;
 
-import elements.AxisAlignedBox;
 import primitives.*;
 
 /**

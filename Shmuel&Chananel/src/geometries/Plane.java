@@ -92,12 +92,12 @@ public class Plane extends Geometry {
 
 	@Override
 	public double[] getMinMax() {
-		double minX = Double.POSITIVE_INFINITY;
-		double minY = Double.POSITIVE_INFINITY;
-		double minZ = Double.POSITIVE_INFINITY;
-		double maxX = Double.NEGATIVE_INFINITY;
-		double maxY = Double.NEGATIVE_INFINITY;
-		double maxZ = Double.NEGATIVE_INFINITY;
+		double minX = Double.NEGATIVE_INFINITY;
+		double minY = Double.NEGATIVE_INFINITY;
+		double minZ = Double.NEGATIVE_INFINITY;
+		double maxX = Double.POSITIVE_INFINITY;
+		double maxY = Double.POSITIVE_INFINITY;
+		double maxZ = Double.POSITIVE_INFINITY;
 		
 		if (normal.equals(Vector.X)) {
 			double x = p0.getX();
@@ -119,10 +119,10 @@ public class Plane extends Geometry {
 		return minMax;
 	}
 	
-	@Override
-	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-
-		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-	}
+//	@Override
+//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+//
+//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+//	}
 }

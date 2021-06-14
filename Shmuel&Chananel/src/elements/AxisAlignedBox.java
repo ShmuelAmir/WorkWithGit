@@ -95,16 +95,14 @@ public class AxisAlignedBox {
 	}
 
 	public double getCenter(char axis) {
-
 		if (axis == 'x')
 			return minX + ((maxX - minX) / 2);
-
+		
 		else if (axis == 'y')
 			return  minY + ((maxY - minY) / 2);
 
 		else
 			return  minZ + ((maxZ - minZ) / 2);
-
 	}
 
 }

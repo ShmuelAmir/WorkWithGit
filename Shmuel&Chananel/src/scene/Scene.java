@@ -96,8 +96,6 @@ public class Scene {
 	}
 
 	private Geometries buildHierarchy(Geometries currentGeometries) {
-//		if (currentGeometries.getGeometriesList().isEmpty())
-//			return null;
 		if (currentGeometries.getGeometriesList().size() == 1)
 			return new Geometries(currentGeometries);
 
@@ -108,7 +106,7 @@ public class Scene {
 		double longY = minMax[4] - minMax[1];
 		double longZ = minMax[5] - minMax[2];
 
-		Geometries firstGeometries = new Geometries(); // גדול
+		Geometries firstGeometries = new Geometries();
 		Geometries secondGeometries = new Geometries();
 
 		if (longX >= longY && longX >= longZ) {
@@ -121,30 +119,22 @@ public class Scene {
 				else
 					secondGeometries.add(geometry);
 			}
-			
-//			if (firstGeometries.getGeometriesList().size() == 0)
-			
+
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
 			if (firstGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(secondGeometries))
+				if (checkDeadlock(secondGeometries))
 					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
 			}
-				
+
 			if (secondGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(firstGeometries))
+				if (checkDeadlock(firstGeometries))
 					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
 			}
 			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
-
-//			currentGeometries = new Geometries(firstGeometries, secondGeometries);
-//			firstGeometries = buildHierarchy(firstGeometries);
-//			secondGeometries = buildHierarchy(secondGeometries);
-//			return currentGeometries;
-		} 
-		else if (longY >= longX && longY >= longZ) {
+		} else if (longY >= longX && longY >= longZ) {
 			longestAxis = 'y';
 			center = minMax[1] + (minMax[4] - minMax[1]) / 2;
 			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
@@ -153,22 +143,22 @@ public class Scene {
 				else
 					secondGeometries.add(geometry);
 			}
-			
+
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
 			if (firstGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(secondGeometries))
+				if (checkDeadlock(secondGeometries))
 					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
 			}
-				
+
 			if (secondGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(firstGeometries))
+				if (checkDeadlock(firstGeometries))
 					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
 			}
 			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
-			
+
 		} else {
 			longestAxis = 'z';
 			center = minMax[2] + (minMax[5] - minMax[2]) / 2;
@@ -181,13 +171,13 @@ public class Scene {
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
 			if (firstGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(secondGeometries))
+				if (checkDeadlock(secondGeometries))
 					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
 			}
-				
+
 			if (secondGeometries.getGeometriesList().isEmpty()) {
-				if(checkDeadlock(firstGeometries))
+				if (checkDeadlock(firstGeometries))
 					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
 			}
@@ -197,7 +187,6 @@ public class Scene {
 	}
 
 	public boolean checkDeadlock(Geometries currentGeometries) {
-
 		double[] minMax = currentGeometries.getMinMax();
 		double center;
 		char longestAxis;
@@ -205,7 +194,7 @@ public class Scene {
 		double longY = minMax[4] - minMax[1];
 		double longZ = minMax[5] - minMax[2];
 
-		Geometries firstGeometries = new Geometries(); // גדול
+		Geometries firstGeometries = new Geometries();
 		Geometries secondGeometries = new Geometries();
 
 		if (longX >= longY && longX >= longZ) {
@@ -221,7 +210,6 @@ public class Scene {
 
 			if (firstGeometries.getGeometriesList().isEmpty() || secondGeometries.getGeometriesList().isEmpty())
 				return true;
-
 
 		} else if (longY >= longX && longY >= longZ) {
 			longestAxis = 'y';

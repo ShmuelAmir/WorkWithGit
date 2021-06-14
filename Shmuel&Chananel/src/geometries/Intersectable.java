@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import elements.AxisAlignedBox;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -93,5 +94,9 @@ public interface Intersectable {
 	}
 	
 	//אולי לעשות ברירת-מחדל
-	List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance);
+	default List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance){
+		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+
+		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+	}
 }

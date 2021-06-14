@@ -235,11 +235,10 @@ public class Tube extends Geometry {
 		return minMax;
 	}
 
-	@Override
-	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-
-		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-//		return findGeoIntersections(ray, maxDistance);
-	}
+//	@Override
+//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+//
+//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+//	}
 }

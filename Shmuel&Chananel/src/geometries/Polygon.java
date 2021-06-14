@@ -161,10 +161,10 @@ public class Polygon extends Geometry {
 		return minMax;
 	}
 	
-	@Override
-	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-
-		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-	}
+//	@Override
+//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+//
+//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
+//	}
 }
