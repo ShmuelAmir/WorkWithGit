@@ -72,15 +72,15 @@ public class Acceleration {
 				// HOME
 				new Polygon(new Point3D(-20, 100, -250), new Point3D(-50, 100, -250), new Point3D(-50, -10, -250),
 						new Point3D(-20, -10, -250)) //
-								.setEmission(new Color(java.awt.Color.WHITE)) //
+								.setEmission(new Color(166,166,166)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				new Polygon(new Point3D(-50, 100, 0), new Point3D(-50, 100, -250), new Point3D(-50, -10, -250),
 						new Point3D(-50, -10, 0)) //
-								.setEmission(new Color(java.awt.Color.WHITE)) //
+								.setEmission(new Color(166,166,166)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				new Polygon(new Point3D(-20, 100, 0), new Point3D(-20, 100, -250), new Point3D(-20, -10, -250),
 						new Point3D(-20, -10, 0)) //
-								.setEmission(new Color(java.awt.Color.WHITE)) //
+								.setEmission(new Color(166,166,166)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// YADIT DOOR
@@ -184,15 +184,24 @@ public class Acceleration {
 						.setMaterial(new Material().setnShininess(60))
 		);
 		
-		// stares
+		// stars
 		Random rand = new Random(); // for the move
 		double xMove = rand.nextDouble() * 95;
 		double yMove = rand.nextDouble() * 60;
 		double zMove = rand.nextDouble() * 60;
 
-		for (int j = 0; j < 100; j++) {
+		for (int j = 0; j < 1000; j++) {
 			scene.geometries.add(new Sphere(new Point3D(20 + xMove, -100 + yMove, 400 + zMove), 0.2) //
-					.setEmission(new Color(java.awt.Color.white))); //
+					.setEmission(new Color(java.awt.Color.white)),
+					new Sphere(new Point3D(20 + xMove + 0.01, -100 + yMove + 0.01, 400 + zMove + 0.01), 0.2) //
+					.setEmission(new Color(java.awt.Color.white)),
+					new Sphere(new Point3D(20 + xMove - 0.01, -100 + yMove + 0.01, 400 + zMove + 0.01), 0.2) //
+					.setEmission(new Color(java.awt.Color.white)),
+					new Sphere(new Point3D(20 + xMove + 0.01, -100 + yMove - 0.01, 400 + zMove + 0.01), 0.2) //
+					.setEmission(new Color(java.awt.Color.white)),
+					new Sphere(new Point3D(20 + xMove + 0.01, -100 + yMove + 0.01, 400 + zMove - 0.01), 0.2) //
+					.setEmission(new Color(java.awt.Color.white))
+					); //
 
 			xMove = rand.nextDouble() * 95;
 			yMove = rand.nextDouble() * 60;
