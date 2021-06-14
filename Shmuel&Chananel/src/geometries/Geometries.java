@@ -67,7 +67,6 @@ public class Geometries implements Intersectable {
 	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 		List<GeoPoint> list = null;
 
-		// מאט אבל לכאורה אמור להיות
 		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
 		if (!box.checkIntersection(ray))
 			return null;

@@ -555,7 +555,7 @@ public class TeapotTest {
 	};
 
 	/**
-	 * Produce a scene with a 3D model and render it into a png image
+	 * Produce a scene with a teapot 3D model and render it into a png image
 	 */
 	@Test
 	public void teapot1() {

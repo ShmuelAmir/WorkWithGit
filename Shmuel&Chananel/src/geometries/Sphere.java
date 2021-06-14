@@ -2,8 +2,6 @@ package geometries;
 
 import java.util.List;
 
-import elements.AxisAlignedBox;
-
 import static primitives.Util.*;
 import primitives.*;
 
@@ -94,11 +92,4 @@ public class Sphere extends Geometry {
 		double minMax[] = { x - radius, y - radius, z - radius, x + radius, y + radius, z + radius };
 		return minMax;
 	}
-
-//	@Override
-//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//
-//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-//	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import elements.AxisAlignedBox;
-import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -14,7 +13,7 @@ import primitives.*;
  * @author shmulik
  */
 public interface Intersectable {
-	
+
 	/**
 	 * class for save point and geometry together for the color in intersection
 	 * point
@@ -54,7 +53,7 @@ public interface Intersectable {
 			return this.geometry.equals(other.geometry) && this.point.equals(other.point);
 		}
 	}
-	
+
 	/**
 	 * find all intersection points between ray and shape.
 	 * 
@@ -85,16 +84,34 @@ public interface Intersectable {
 	 * @return list of GeoPoint
 	 */
 	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
-	
+
+	/**
+	 * find the minimum and maximum points of the geometry.
+	 * 
+	 * @return array who represent the points
+	 *         (0-minX,1-minY,2-minZ,3-maxX,4-maxY,5-maxZ).
+	 */
 	double[] getMinMax();
-	
+
+	/**
+	 * find the center of the box that surround the geometry in one dimension.
+	 * 
+	 * @param axis - the dimension
+	 * @return - the center Coordinate
+	 */
 	default double getCenter(char axis) {
 		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
 		return box.getCenter(axis);
 	}
-	
-	//אולי לעשות ברירת-מחדל
-	default List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance){
+
+	/**
+	 * search for intersection only if the ray intersect the box of the geometry.
+	 * 
+	 * @param ray         - the ray to intersect.
+	 * @param maxDistance - the max distance looking for the points.
+	 * @return list of point if there are intersection points, otherwise - null.
+	 */
+	default List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
 		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
 
 		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;

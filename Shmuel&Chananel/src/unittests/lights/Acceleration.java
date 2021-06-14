@@ -1,5 +1,7 @@
 package unittests.lights;
 
+import java.util.Random;
+
 import org.junit.Test;
 
 import elements.*;
@@ -9,11 +11,16 @@ import renderer.*;
 import scene.Scene;
 
 /**
+ * testing the acceleration
+ * 
  * @author user1
  *
  */
 public class Acceleration {
 
+	/**
+	 * house test
+	 */
 	@Test
 	public void accelerationTest() {
 
@@ -23,171 +30,116 @@ public class Acceleration {
 		Camera camera = new Camera(new Point3D(0, -20, -1000), new Vector(0, 0, 1), new Vector(0, -1, 0)) //
 				.setViewPlaneSize(200, 200).setDistance(1000);
 
-		Point3D houseAdding = new Point3D(0, 0, 0);
-
-		double houseX = houseAdding.getX();
-		double houseY = houseAdding.getY();
-		double houseZ = houseAdding.getZ();
-
-		Point3D flowerAdding = new Point3D(25, 0, -200);
-
-		double flowerX = flowerAdding.getX();
-		double flowerY = flowerAdding.getY();
-		double flowerZ = flowerAdding.getZ();
-
 		scene.geometries.add(
-				/** CENTER WALL **/
-				/*
-				 * new Triangle(new Color(java.awt.Color.BLACK), new Material(0, 0.8, 60, 0,1),
-				 * // new Point3D(300, -100, 2000), new Point3D(-300, -100, 2000), new
-				 * Point3D(300, 100, 2000)), new Triangle(new Color(java.awt.Color.BLACK), new
-				 * Material(0, 0.8, 60, 0,1), // new Point3D(-300, 100, 2000), new Point3D(-300,
-				 * -100, 2000), new Point3D(300, 100, 2000)),
-				 */
-				/** SKY **/
+				// SKY
 				new Plane(new Point3D(50, -10, 700), new Point3D(0, 10, 500), new Point3D(10, -10, 700)) //
-						.setEmission(new Color(102, 178, 255)),
+						.setEmission(new Color(0, 0, 64)),
 
-				/** FLOOR **/
+				// FLOOR
 				new Plane(new Point3D(50, 10, 700), new Point3D(0, 10, 500), new Point3D(10, 10, 700)) //
 						.setEmission(new Color(java.awt.Color.DARK_GRAY)) //
 						.setMaterial(new Material().setkD(0.2).setkS(0.2).setnShininess(60)),
 
-				// SUN
+				// MOON
 				new Sphere(new Point3D(20, -100, 400), 10) //
-						.setEmission(new Color(java.awt.Color.YELLOW)) //
+						.setEmission(new Color(java.awt.Color.white)) //
+						.setMaterial(new Material().setkS(0.5).setnShininess(30)),
+				new Sphere(new Point3D(10, -100, 390), 9) //
+						.setEmission(new Color(0, 0, 64)) //
 						.setMaterial(new Material().setkS(0.5).setnShininess(30)),
 
 				// ROOFS - FRONT
-				new Polygon(new Point3D(-52 + houseX, -9 + houseY, -265 + houseZ),
-						new Point3D(-18 + houseX, -9 + houseY, -265 + houseZ),
-						new Point3D(-18 + houseX, -25 + houseY, -125 + houseZ),
-						new Point3D(-52 + houseX, -25 + houseY, -125 + houseZ)) //
+				new Polygon(new Point3D(-52, -9, -265), new Point3D(-18, -9, -265), new Point3D(-18, -25, -125),
+						new Point3D(-52, -25, -125)) //
 								.setEmission(new Color(153, 0, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				// ROOFS - BACK
-				new Polygon(new Point3D(-52 + houseX, -25 + houseY, -125 + houseZ),
-						new Point3D(-18 + houseX, -25 + houseY, -125 + houseZ),
-						new Point3D(-18 + houseX, -9 + houseY, 15 + houseZ),
-						new Point3D(-52 + houseX, -9 + houseY, 15 + houseZ)) //
+				new Polygon(new Point3D(-52, -25, -125), new Point3D(-18, -25, -125), new Point3D(-18, -9, 15),
+						new Point3D(-52, -9, 15)) //
 								.setEmission(new Color(153, 0, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// ROOF LEFT SIDE
-				new Triangle(new Point3D(-50 + houseX, -10 + houseY, -250 + houseZ),
-						new Point3D(-50 + houseX, -25 + houseY, -125 + houseZ),
-						new Point3D(-50 + houseX, -10 + houseY, 0 + houseZ)) //
-								.setEmission(new Color(java.awt.Color.BLUE)) //
-								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
+				new Triangle(new Point3D(-50, -10, -250), new Point3D(-50, -25, -125), new Point3D(-50, -10, 0)) //
+						.setEmission(new Color(java.awt.Color.BLUE)) //
+						.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// ROOF RIGHT SIDE
-				new Triangle(new Point3D(-20 + houseX, -10 + houseY, -250 + houseZ),
-						new Point3D(-20 + houseX, -25 + houseY, -125 + houseZ),
-						new Point3D(-20 + houseX, -10 + houseY, 0 + houseZ)) //
-								.setEmission(new Color(java.awt.Color.BLUE)) //
+				new Triangle(new Point3D(-20, -10, -250), new Point3D(-20, -25, -125), new Point3D(-20, -10, 0)) //
+						.setEmission(new Color(java.awt.Color.BLUE)) //
+						.setMaterial(new Material().setkS(0.8).setnShininess(60)),
+
+				// HOME
+				new Polygon(new Point3D(-20, 100, -250), new Point3D(-50, 100, -250), new Point3D(-50, -10, -250),
+						new Point3D(-20, -10, -250)) //
+								.setEmission(new Color(java.awt.Color.WHITE)) //
+								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
+				new Polygon(new Point3D(-50, 100, 0), new Point3D(-50, 100, -250), new Point3D(-50, -10, -250),
+						new Point3D(-50, -10, 0)) //
+								.setEmission(new Color(java.awt.Color.WHITE)) //
+								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
+				new Polygon(new Point3D(-20, 100, 0), new Point3D(-20, 100, -250), new Point3D(-20, -10, -250),
+						new Point3D(-20, -10, 0)) //
+								.setEmission(new Color(java.awt.Color.WHITE)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
-				// ARUBA
-//				new Cube(new Color(192, 192, 192), new Material(0, 0, 0, 0, 0),
-//						new Point3D(-45 + houseX, -30 + houseY, -200 + houseZ),
-//						new Point3D(-40 + houseX, -20 + houseY, -190 + houseZ)),
-
-//				// HOUSE CUBE
-//				new Cube(new Color(java.awt.Color.WHITE), new Material(0, 0.8, 60, 0, 0),
-//						new Point3D(-50 + houseX, -10 + houseY, -250 + houseZ),
-//						new Point3D(-20 + houseX, 10 + houseY, 0 + houseZ)),
-//
-//				// HOUSE BOTTOM LINE
-//				new Cube(new Color(java.awt.Color.GRAY), new Material(0, 0.8, 60, 0, 0),
-//						new Point3D(-50.0001 + houseX, 8 + houseY, -250.0001 + houseZ),
-//						new Point3D(-19.9999 + houseX, 10 + houseY, 0.0001 + houseZ)),
-//				// HOUSE FIRST STAIRS
-//				new Cube(new Color(java.awt.Color.GRAY), new Material(0, 0.8, 60, 0, 0),
-//						new Point3D(-40 + houseX, 8 + houseY, -252 + houseZ),
-//						new Point3D(-30 + houseX, 10 + houseY, -250 + houseZ)),
-//
-//				// HOUSE SECOND STAIRS
-//				new Cube(new Color(java.awt.Color.GRAY), new Material(0, 0.8, 60, 0, 0),
-//						new Point3D(-40 + houseX, 9 + houseY, -255 + houseZ),
-//						new Point3D(-30 + houseX, 10 + houseY, -250 + houseZ)),
-
 				// YADIT DOOR
-				new Sphere(new Point3D(-38 + houseX, 0 + houseY, -250.0001 + houseZ), 0.5) //
+				new Sphere(new Point3D(-38, 0, -250.0001), 0.5) //
 						.setEmission(new Color(224, 224, 224)) //
 						.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// DOOR
-				new Polygon(new Point3D(-39 + houseX, 8 + houseY, -250.0001 + houseZ),
-						new Point3D(-31 + houseX, 8 + houseY, -250.0001 + houseZ),
-						new Point3D(-31 + houseX, -7 + houseY, -250.0001 + houseZ),
-						new Point3D(-39 + houseX, -7 + houseY, -250.0001 + houseZ)) //
+				new Polygon(new Point3D(-39, 8, -250.0001), new Point3D(-31, 8, -250.0001),
+						new Point3D(-31, -7, -250.0001), new Point3D(-39, -7, -250.0001)) //
 								.setEmission(new Color(51, 25, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// top left -door
-				new Polygon(new Point3D(-38 + houseX, -1 + houseY, -250.1001 + houseZ),
-						new Point3D(-35.5 + houseX, -1 + houseY, -250.1001 + houseZ),
-						new Point3D(-35.5 + houseX, -6 + houseY, -250.1001 + houseZ),
-						new Point3D(-38 + houseX, -6 + houseY, -250.1001 + houseZ)) //
+				new Polygon(new Point3D(-38, -1, -250.1001), new Point3D(-35.5, -1, -250.1001),
+						new Point3D(-35.5, -6, -250.1001), new Point3D(-38, -6, -250.1001)) //
 								.setEmission(new Color(153, 76, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				// bottom left door
-				new Polygon(new Point3D(-38 + houseX, 7 + houseY, -250.1001 + houseZ),
-						new Point3D(-35.5 + houseX, 7 + houseY, -250.1001 + houseZ),
-						new Point3D(-35.5 + houseX, 0 + houseY, -250.1001 + houseZ),
-						new Point3D(-38 + houseX, 0 + houseY, -250.1001 + houseZ)) //
+				new Polygon(new Point3D(-38, 7, -250.1001), new Point3D(-35.5, 7, -250.1001),
+						new Point3D(-35.5, 0, -250.1001), new Point3D(-38, 0, -250.1001)) //
 								.setEmission(new Color(153, 76, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60).setkT(1)),
 
 				// top right door
-				new Polygon(new Point3D(-35 + houseX, -1 + houseY, -250.1001 + houseZ),
-						new Point3D(-32 + houseX, -1 + houseY, -250.1001 + houseZ),
-						new Point3D(-32 + houseX, -6 + houseY, -250.1001 + houseZ),
-						new Point3D(-35 + houseX, -6 + houseY, -250.1001 + houseZ)) //
+				new Polygon(new Point3D(-35, -1, -250.1001), new Point3D(-32, -1, -250.1001),
+						new Point3D(-32, -6, -250.1001), new Point3D(-35, -6, -250.1001)) //
 								.setEmission(new Color(153, 76, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// bottom right door
-				new Polygon(new Point3D(-35 + houseX, 7 + houseY, -250.1001 + houseZ),
-						new Point3D(-32 + houseX, 7 + houseY, -250.1001 + houseZ),
-						new Point3D(-32 + houseX, 0 + houseY, -250.1001 + houseZ),
-						new Point3D(-35 + houseX, 0 + houseY, -250.1001 + houseZ)) //
+				new Polygon(new Point3D(-35, 7, -250.1001), new Point3D(-32, 7, -250.1001),
+						new Point3D(-32, 0, -250.1001), new Point3D(-35, 0, -250.1001)) //
 								.setEmission(new Color(153, 76, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 
 				// WINDOWS
-				new Polygon(new Point3D(-49 + houseX, 0 + houseY, -250.0001 + houseZ),
-						new Point3D(-41 + houseX, 0 + houseY, -250.0001 + houseZ),
-						new Point3D(-41 + houseX, -7 + houseY, -250.0001 + houseZ),
-						new Point3D(-49 + houseX, -7 + houseY, -250.0001 + houseZ)) //
+				new Polygon(new Point3D(-49, 0, -250.0001), new Point3D(-41, 0, -250.0001),
+						new Point3D(-41, -7, -250.0001), new Point3D(-49, -7, -250.0001)) //
 								.setEmission(new Color(51, 25, 0)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				// LEFT TOP WINDOW
-				new Polygon(new Point3D(-48.5 + houseX, -0.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-45.2 + houseX, -0.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-45.2 + houseX, -3.3 + houseY, -250.0002 + houseZ),
-						new Point3D(-48.5 + houseX, -3.3 + houseY, -250.0002 + houseZ)) //
+				new Polygon(new Point3D(-48.5, -0.5, -250.0002), new Point3D(-45.2, -0.5, -250.0002),
+						new Point3D(-45.2, -3.3, -250.0002), new Point3D(-48.5, -3.3, -250.0002)) //
 								.setEmission(new Color(192, 192, 192)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60)),
 				// LEFT BOTTOM WINDOW
-				new Polygon(new Point3D(-48.5 + houseX, -3.7 + houseY, -250.0002 + houseZ),
-						new Point3D(-45.2 + houseX, -3.7 + houseY, -250.0002 + houseZ),
-						new Point3D(-45.2 + houseX, -6.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-48.5 + houseX, -6.5 + houseY, -250.0002 + houseZ)) //
+				new Polygon(new Point3D(-48.5, -3.7, -250.0002), new Point3D(-45.2, -3.7, -250.0002),
+						new Point3D(-45.2, -6.5, -250.0002), new Point3D(-48.5, -6.5, -250.0002)) //
 								.setEmission(new Color(192, 192, 192)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60).setkT(0.8)),
 				// right top window
-				new Polygon(new Point3D(-44.8 + houseX, -0.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-41.5 + houseX, -0.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-41.5 + houseX, -3.3 + houseY, -250.0002 + houseZ),
-						new Point3D(-44.8 + houseX, -3.3 + houseY, -250.0002 + houseZ)) //
+				new Polygon(new Point3D(-44.8, -0.5, -250.0002), new Point3D(-41.5, -0.5, -250.0002),
+						new Point3D(-41.5, -3.3, -250.0002), new Point3D(-44.8, -3.3, -250.0002)) //
 								.setEmission(new Color(192, 192, 192)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60).setkT(0.8)),
 				// LEFT BOTTOM WINDOW
-				new Polygon(new Point3D(-44.8 + houseX, -3.7 + houseY, -250.0002 + houseZ),
-						new Point3D(-41.5 + houseX, -3.7 + houseY, -250.0002 + houseZ),
-						new Point3D(-41.5 + houseX, -6.5 + houseY, -250.0002 + houseZ),
-						new Point3D(-44.8 + houseX, -6.5 + houseY, -250.0002 + houseZ)) //
+				new Polygon(new Point3D(-44.8, -3.7, -250.0002), new Point3D(-41.5, -3.7, -250.0002),
+						new Point3D(-41.5, -6.5, -250.0002), new Point3D(-44.8, -6.5, -250.0002)) //
 								.setEmission(new Color(192, 192, 192)) //
 								.setMaterial(new Material().setkS(0.8).setnShininess(60).setkT(0.8)),
 
@@ -202,16 +154,14 @@ public class Acceleration {
 						.setEmission(new Color(java.awt.Color.YELLOW)) //
 						.setMaterial(new Material().setkD(0.2).setkS(0.5).setnShininess(30)),
 
-				/**
-				 * POOL
-				 */
+				// POOL
 				new Triangle(new Point3D(30, 5, -700), new Point3D(0, 10, 0), new Point3D(80, 10, 0)) //
 						.setEmission(new Color(75, 209, 246)) //
 						.setMaterial(new Material().setkD(0.4).setkS(0.1).setnShininess(60).setkR(0.5)),
 				new Triangle(new Point3D(30, 5, -700), new Point3D(0, 10, 0), new Point3D(0, 5, -700)) //
 						.setEmission(new Color(75, 209, 246)) //
 						.setMaterial(new Material().setkD(0.4).setkS(0.1).setnShininess(60).setkR(0.5)),
-				//
+
 				new Triangle(new Point3D(0, 5, -30), new Point3D(0, 10, 0), new Point3D(80, 10, 0)) //
 						.setEmission(new Color(160, 82, 45)) //
 						.setMaterial(new Material().setkS(0.8).setnShininess(60)),
@@ -231,22 +181,47 @@ public class Acceleration {
 						.setMaterial(new Material().setnShininess(60)),
 				new Triangle(new Point3D(32, 4.9, -730), new Point3D(0, 4.75, -730), new Point3D(30.5, 5, -700)) //
 						.setEmission(new Color(160, 82, 45)) //
-						.setMaterial(new Material().setnShininess(60)),
-
-				/**
-				 * end pool
-				 */
-				new Sphere(new Point3D(-40, 9, -600), 0.5) //
-						.setEmission(new Color(139, 69, 19)) //
-						.setMaterial(new Material()),
-				new Sphere(new Point3D(-40, 9, -600), 0.5) //
-						.setEmission(new Color(139, 69, 19)) //
-						.setMaterial(new Material())
-
-		// GROUND FOR FLOWERS
-//				new Cube(new Color(139, 69, 19), new Material(0, 0.8, 60, 0, 0), new Point3D(-40, 9, -600),
-//						new Point3D(-2, 10, -340)),
+						.setMaterial(new Material().setnShininess(60))
 		);
+		
+		// stares
+		Random rand = new Random(); // for the move
+		double xMove = rand.nextDouble() * 95;
+		double yMove = rand.nextDouble() * 60;
+		double zMove = rand.nextDouble() * 60;
+
+		for (int j = 0; j < 100; j++) {
+			scene.geometries.add(new Sphere(new Point3D(20 + xMove, -100 + yMove, 400 + zMove), 0.2) //
+					.setEmission(new Color(java.awt.Color.white))); //
+
+			xMove = rand.nextDouble() * 95;
+			yMove = rand.nextDouble() * 60;
+			zMove = rand.nextDouble() * 60;
+
+			if (j % 4 == 0) {
+				xMove = xMove * -1;
+			}
+
+			if (j % 4 == 1) {
+				yMove = yMove * -1;
+			}
+
+			if (j % 4 == 2) {
+				zMove = zMove * -1;
+			}
+			if (j % 4 == 3) {
+				xMove = xMove * -1;
+				yMove = yMove * -1;
+				zMove = zMove * -1;
+			}
+
+		}
+
+		Point3D flowerAdding = new Point3D(25, 0, -200);
+
+		double flowerX = flowerAdding.getX();
+		double flowerY = flowerAdding.getY();
+		double flowerZ = flowerAdding.getZ();
 
 		double oldFlowerX = flowerX;
 
@@ -309,7 +284,7 @@ public class Acceleration {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(imageWriter) //
-				.setTracer(new RayTracerBasic(scene).setCbr(false)) //
+				.setTracer(new RayTracerBasic(scene).setCbr(true)) //
 				.setMultithreading(3).setDebugPrint();
 
 		render.renderImage();

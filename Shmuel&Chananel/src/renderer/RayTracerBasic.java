@@ -38,6 +38,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * @param numOfRays the numOfRays to set
+	 * @return this (builder pattern)
 	 */
 	public RayTracerBasic setNumOfRays(int numOfRays) {
 		this.numOfRays = numOfRays;
@@ -46,6 +47,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * @param blackBoardDistance the blackBoardDistance to set
+	 * @return this (builder pattern)
 	 */
 	public RayTracerBasic setBlackBoardDistance(double blackBoardRadius) {
 		this.blackBoardDistance = blackBoardRadius;
@@ -53,7 +55,8 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 	/**
-	 * @param cbr the cbr to set
+	 * @param cbr - if to first check intersections with the box
+	 * @return this (builder pattern)
 	 */
 	public RayTracerBasic setCbr(boolean cbr) {
 		this.cbr = cbr;
@@ -273,8 +276,6 @@ public class RayTracerBasic extends RayTracerBase {
 		List<GeoPoint> intersections = cbr ? //
 				scene.geometries.findCbrGeoIntersections(ray, Double.POSITIVE_INFINITY) : //
 				scene.geometries.findGeoIntersections(ray);
-
-//		List<GeoPoint> intersections = scene.geometries.findGeoIntersections(ray, cbr);
 
 		// if there is intersections - the color determine by the close point
 		return intersections == null ? null : ray.getClosestGeoPoint(intersections);

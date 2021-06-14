@@ -2,8 +2,6 @@ package geometries;
 
 import java.util.List;
 
-import elements.AxisAlignedBox;
-import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import static primitives.Util.*;
 
@@ -98,7 +96,8 @@ public class Plane extends Geometry {
 		double maxX = Double.POSITIVE_INFINITY;
 		double maxY = Double.POSITIVE_INFINITY;
 		double maxZ = Double.POSITIVE_INFINITY;
-		
+
+		//the plane is parallel to one of the axis
 		if (normal.equals(Vector.X)) {
 			double x = p0.getX();
 			minX = x;
@@ -114,15 +113,8 @@ public class Plane extends Geometry {
 			minZ = z;
 			maxZ = z;
 		}
-		
+
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 		return minMax;
 	}
-	
-//	@Override
-//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//
-//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-//	}
 }

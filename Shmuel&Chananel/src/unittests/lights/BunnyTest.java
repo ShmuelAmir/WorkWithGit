@@ -9,6 +9,8 @@ import renderer.*;
 import scene.Scene;
 
 /**
+ * Test rendering an image
+ * 
  * @author shmulik
  *
  */
@@ -524,13 +526,16 @@ public class BunnyTest {
 			new Point3D(-0.058845, 0.0695274, 0.0842669), //
 			new Point3D(-0.0202874, 0.332706, -0.042694) };
 
+	/**
+	 * Produce a scene with a bunny 3D model and render it into a png image
+	 */
 	@Test
 	public void bunnyTest() {
 		for (int i = 1; i < pointArray.length; i++) {
 			Point3D point3d = pointArray[i];
 			pointArray[i] = new Point3D(point3d.getX() * 500, point3d.getY() * 500, point3d.getZ() * 500);
-		}		
-		
+		}
+
 		scene.geometries.add( //
 				new Triangle(pointArray[327], pointArray[165], pointArray[239]).setEmission(color).setMaterial(mat), //
 				new Triangle(pointArray[251], pointArray[137], pointArray[158]).setEmission(color).setMaterial(mat), //
@@ -1533,18 +1538,18 @@ public class BunnyTest {
 				new Triangle(pointArray[199], pointArray[173], pointArray[174]).setEmission(color).setMaterial(mat), //
 				new Triangle(pointArray[179], pointArray[173], pointArray[199]).setEmission(color).setMaterial(mat) //
 		);
-		
+
 		scene.lights.add(new PointLight(new Color(255, 255, 255), new Point3D(100, 0, -100)) //
 				.setkQ(0.000001));
 		scene.lights.add(new PointLight(new Color(200, 200, 200), new Point3D(-100, 0, -100)) //
 				.setkQ(0.000001));
 
-//		scene.buildHierarchy();
+		scene.buildHierarchy();
 		ImageWriter imageWriter = new ImageWriter("bunny", 800, 800);
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(imageWriter) //
-				.setTracer(new RayTracerBasic(scene).setCbr(false)) //
+				.setTracer(new RayTracerBasic(scene).setCbr(true)) //
 				.setMultithreading(3).setDebugPrint();
 
 		render.renderImage();

@@ -3,8 +3,6 @@ package geometries;
 import java.util.LinkedList;
 import java.util.List;
 
-import elements.AxisAlignedBox;
-import geometries.Intersectable.GeoPoint;
 import primitives.*;
 import static primitives.Util.*;
 
@@ -136,11 +134,11 @@ public class Polygon extends Geometry {
 		double maxY = Double.NEGATIVE_INFINITY;
 		double maxZ = Double.NEGATIVE_INFINITY;
 
-		for(Point3D point : vertices) {
+		for (Point3D point : vertices) {
 			double x = point.getX();
 			double y = point.getY();
 			double z = point.getZ();
-			
+
 			if (x > maxX)
 				maxX = x;
 			if (x < minX)
@@ -150,7 +148,7 @@ public class Polygon extends Geometry {
 				maxY = y;
 			if (y < minY)
 				minY = y;
-			
+
 			if (z > maxZ)
 				maxZ = z;
 			if (z < minZ)
@@ -160,11 +158,4 @@ public class Polygon extends Geometry {
 		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
 		return minMax;
 	}
-	
-//	@Override
-//	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-//		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-//
-//		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
-//	}
 }
