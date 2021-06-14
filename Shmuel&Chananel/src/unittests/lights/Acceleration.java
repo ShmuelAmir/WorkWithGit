@@ -14,7 +14,7 @@ import scene.Scene;
  */
 public class Acceleration {
 
-	@Test
+//	@Test
 	public void accelerationTest() {
 
 		Scene scene = new Scene("Test scene") //
@@ -325,7 +325,7 @@ public class Acceleration {
 		render.writeToImage();
 	}
 
-//	@Test
+	@Test
 	public void hierarchyTest() {
 		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setDistance(500) //

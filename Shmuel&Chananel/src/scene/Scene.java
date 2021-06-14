@@ -91,12 +91,14 @@ public class Scene {
 	}
 
 	public void buildHierarchy() {
-		buildHierarchy(geometries);
+		geometries = buildHierarchy(geometries);
 	}
 
-	private void buildHierarchy(Geometries currentGeometries) {
+	private Geometries buildHierarchy(Geometries currentGeometries) {
+//		if (currentGeometries.getGeometriesList().isEmpty())
+//			return null;
 		if (currentGeometries.getGeometriesList().size() == 1)
-			return;
+			return new Geometries(currentGeometries);
 
 		double[] minMax = currentGeometries.getMinMax();
 		double center;
@@ -106,7 +108,7 @@ public class Scene {
 		double longZ = minMax[5] - minMax[2];
 
 		Geometries firstGeometries = new Geometries(); // גדול
-		Geometries SecondGeometries = new Geometries();
+		Geometries secondGeometries = new Geometries();
 
 		if (longX >= longY && longX >= longZ) {
 			longestAxis = 'x';
@@ -116,27 +118,38 @@ public class Scene {
 				if (currentCenter > center)
 					firstGeometries.add(geometry);
 				else
-					SecondGeometries.add(geometry);
+					secondGeometries.add(geometry);
 			}
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(firstGeometries);
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(SecondGeometries);
-			geometries = new Geometries(firstGeometries, SecondGeometries);
-		} else if (longY >= longX && longY >= longZ) {
+			
+			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries();
+			if (firstGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(secondGeometries));
+			if (secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(firstGeometries));
+			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
+
+//			currentGeometries = new Geometries(firstGeometries, secondGeometries);
+//			firstGeometries = buildHierarchy(firstGeometries);
+//			secondGeometries = buildHierarchy(secondGeometries);
+//			return currentGeometries;
+		} 
+		else if (longY >= longX && longY >= longZ) {
 			longestAxis = 'y';
 			center = minMax[1] + (minMax[4] - minMax[1]) / 2;
 			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
 				if (geometry.getCenter(longestAxis) > center)
 					firstGeometries.add(geometry);
 				else
-					SecondGeometries.add(geometry);
+					secondGeometries.add(geometry);
 			}
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(firstGeometries);
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(SecondGeometries);
-			geometries = new Geometries(firstGeometries, SecondGeometries);
+			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries();
+			if (firstGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(secondGeometries));
+			if (secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(firstGeometries));
+			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
 		} else {
 			longestAxis = 'z';
 			center = minMax[2] + (minMax[5] - minMax[2]) / 2;
@@ -144,13 +157,15 @@ public class Scene {
 				if (geometry.getCenter(longestAxis) > center)
 					firstGeometries.add(geometry);
 				else
-					SecondGeometries.add(geometry);
+					secondGeometries.add(geometry);
 			}
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(firstGeometries);
-			if (! firstGeometries.getGeometriesList().isEmpty())
-				buildHierarchy(SecondGeometries);
-			geometries = new Geometries(firstGeometries, SecondGeometries);
+			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries();
+			if (firstGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(secondGeometries));
+			if (secondGeometries.getGeometriesList().isEmpty())
+				return new Geometries(buildHierarchy(firstGeometries));
+			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
 		}
 
 	}

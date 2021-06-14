@@ -1544,7 +1544,7 @@ public class BunnyTest {
 		Render render = new Render() //
 				.setCamera(camera) //
 				.setImageWriter(imageWriter) //
-				.setTracer(new RayTracerBasic(scene).setCbr(true)) //
+				.setTracer(new RayTracerBasic(scene).setCbr(false)) //
 				.setMultithreading(3).setDebugPrint();
 
 		render.renderImage();
