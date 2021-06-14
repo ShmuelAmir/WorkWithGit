@@ -20,6 +20,8 @@ public class Geometries implements Intersectable {
 	public List<Intersectable> getGeometriesList() {
 		return geometriesList;
 	}
+	
+	
 
 	/**
 	 * Default constructor that initializes an empty list.

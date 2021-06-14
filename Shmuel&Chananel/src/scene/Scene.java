@@ -16,6 +16,7 @@ import primitives.Color;
  * @author Shmulik & Chananel
  */
 public class Scene {
+
 	/**
 	 * Scene name
 	 */
@@ -121,12 +122,21 @@ public class Scene {
 					secondGeometries.add(geometry);
 			}
 			
+//			if (firstGeometries.getGeometriesList().size() == 0)
+			
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
-			if (firstGeometries.getGeometriesList().isEmpty())
+			if (firstGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(secondGeometries))
+					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
-			if (secondGeometries.getGeometriesList().isEmpty())
+			}
+				
+			if (secondGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(firstGeometries))
+					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
+			}
 			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
 
 //			currentGeometries = new Geometries(firstGeometries, secondGeometries);
@@ -143,13 +153,22 @@ public class Scene {
 				else
 					secondGeometries.add(geometry);
 			}
+			
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
-			if (firstGeometries.getGeometriesList().isEmpty())
+			if (firstGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(secondGeometries))
+					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
-			if (secondGeometries.getGeometriesList().isEmpty())
+			}
+				
+			if (secondGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(firstGeometries))
+					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
+			}
 			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
+			
 		} else {
 			longestAxis = 'z';
 			center = minMax[2] + (minMax[5] - minMax[2]) / 2;
@@ -161,13 +180,74 @@ public class Scene {
 			}
 			if (firstGeometries.getGeometriesList().isEmpty() && secondGeometries.getGeometriesList().isEmpty())
 				return new Geometries();
-			if (firstGeometries.getGeometriesList().isEmpty())
+			if (firstGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(secondGeometries))
+					return new Geometries(secondGeometries);
 				return new Geometries(buildHierarchy(secondGeometries));
-			if (secondGeometries.getGeometriesList().isEmpty())
+			}
+				
+			if (secondGeometries.getGeometriesList().isEmpty()) {
+				if(checkDeadlock(firstGeometries))
+					return new Geometries(firstGeometries);
 				return new Geometries(buildHierarchy(firstGeometries));
+			}
 			return new Geometries(buildHierarchy(firstGeometries), buildHierarchy(secondGeometries));
 		}
 
 	}
 
+	public boolean checkDeadlock(Geometries currentGeometries) {
+
+		double[] minMax = currentGeometries.getMinMax();
+		double center;
+		char longestAxis;
+		double longX = minMax[3] - minMax[0];
+		double longY = minMax[4] - minMax[1];
+		double longZ = minMax[5] - minMax[2];
+
+		Geometries firstGeometries = new Geometries(); // גדול
+		Geometries secondGeometries = new Geometries();
+
+		if (longX >= longY && longX >= longZ) {
+			longestAxis = 'x';
+			center = minMax[0] + (minMax[3] - minMax[0]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				double currentCenter = geometry.getCenter(longestAxis);
+				if (currentCenter > center)
+					firstGeometries.add(geometry);
+				else
+					secondGeometries.add(geometry);
+			}
+
+			if (firstGeometries.getGeometriesList().isEmpty() || secondGeometries.getGeometriesList().isEmpty())
+				return true;
+
+
+		} else if (longY >= longX && longY >= longZ) {
+			longestAxis = 'y';
+			center = minMax[1] + (minMax[4] - minMax[1]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				if (geometry.getCenter(longestAxis) > center)
+					firstGeometries.add(geometry);
+				else
+					secondGeometries.add(geometry);
+			}
+			if (firstGeometries.getGeometriesList().isEmpty() || secondGeometries.getGeometriesList().isEmpty())
+				return true;
+
+		} else {
+			longestAxis = 'z';
+			center = minMax[2] + (minMax[5] - minMax[2]) / 2;
+			for (Intersectable geometry : currentGeometries.getGeometriesList()) {
+				if (geometry.getCenter(longestAxis) > center)
+					firstGeometries.add(geometry);
+				else
+					secondGeometries.add(geometry);
+			}
+			if (firstGeometries.getGeometriesList().isEmpty() || secondGeometries.getGeometriesList().isEmpty())
+				return true;
+		}
+		return false;
+
+	}
 }

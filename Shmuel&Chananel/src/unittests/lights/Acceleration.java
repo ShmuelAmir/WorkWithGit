@@ -324,8 +324,39 @@ public class Acceleration {
 		render.renderImage();
 		render.writeToImage();
 	}
-
+	
 	@Test
+	public void basicRenderMultiColorTest() {
+		Camera camera = new Camera(Point3D.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+				.setDistance(100) //
+				.setViewPlaneSize(500, 500);
+		
+		Scene scene = new Scene("Test scene")//
+				.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), 0.2)); //
+
+		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50), //
+				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, 100, -100), new Point3D(-100, 100, -100)) // up left
+						.setEmission(new Color(java.awt.Color.GREEN)),
+				new Triangle(new Point3D(100, 0, -100), new Point3D(0, 100, -100), new Point3D(100, 100, -100)), // up right
+				new Triangle(new Point3D(-100, 0, -100), new Point3D(0, -100, -100), new Point3D(-100, -100, -100)) // down left
+						.setEmission(new Color(java.awt.Color.RED)),
+				new Triangle(new Point3D(100, 0, -100), new Point3D(0, -100, -100), new Point3D(100, -100, -100)) // down right
+						.setEmission(new Color(java.awt.Color.BLUE)));
+		
+		scene.buildHierarchy();
+
+		ImageWriter imageWriter = new ImageWriter("color render test - hierarchyTest", 1000, 1000);
+		Render render = new Render() //
+				.setImageWriter(imageWriter) //
+				.setCamera(camera) //
+				.setTracer(new RayTracerBasic(scene));
+
+		render.renderImage();
+		render.printGrid(100, new Color(java.awt.Color.WHITE));
+		render.writeToImage();
+	}
+
+	//@Test
 	public void hierarchyTest() {
 		Camera camera = new Camera(new Point3D(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setDistance(500) //
@@ -404,7 +435,7 @@ public class Acceleration {
 		Geometries geos23 = new Geometries(geos19, geos18, geos17, geos16, geos15, geos14, geos13, geos12, geos11,
 				geos10, geos9, geos20, geos21);
 
-		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50), geos5, geos6, geos7, geos8, geos23);
+		scene.geometries.add(new Sphere(new Point3D(0, 0, -100), 50), geos5, geos6, geos7, geos8 ,geos23);
 
 		scene.buildHierarchy();
 		ImageWriter imageWriter = new ImageWriter("hierarchy test", 1000, 1000);
