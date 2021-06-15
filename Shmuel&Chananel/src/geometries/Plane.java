@@ -89,7 +89,7 @@ public class Plane extends Geometry {
 	}
 
 	@Override
-	public double[] getMinMax() {
+	protected double[] getMinMax() {
 		double minX = Double.NEGATIVE_INFINITY;
 		double minY = Double.NEGATIVE_INFINITY;
 		double minZ = Double.NEGATIVE_INFINITY;

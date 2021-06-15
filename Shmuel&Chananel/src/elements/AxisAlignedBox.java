@@ -63,6 +63,8 @@ public class AxisAlignedBox {
 		if (isZero(rDZ) && (p0Z > maxZ || p0Z < minZ))
 			return false;
 
+		tStart = Double.NEGATIVE_INFINITY;
+		tEnd = Double.POSITIVE_INFINITY;
 		updateTStartTEnd(minX, maxX, p0X, 1 / rDX);
 		// box is behind
 		if (tEnd < 0)
@@ -120,6 +122,10 @@ public class AxisAlignedBox {
 
 		else
 			return minZ + ((maxZ - minZ) / 2);
+	}
+
+	public double[] getMinMax() {
+		return new double[] { minX, minY, minZ, maxX, maxY, maxZ };
 	}
 
 }

@@ -63,7 +63,7 @@ public class Triangle extends Polygon {
 	}
 
 	@Override
-	public double[] getMinMax() {
+	protected double[] getMinMax() {
 		double minX, minY, minZ;
 		double maxX, maxY, maxZ;
 
@@ -118,8 +118,7 @@ public class Triangle extends Polygon {
 		if (z3 < minZ)
 			minZ = z3;
 
-		double minMax[] = { minX, minY, minZ, maxX, maxY, maxZ };
-		return minMax;
+		return new double [] { minX, minY, minZ, maxX, maxY, maxZ };
 	}
 	
 }

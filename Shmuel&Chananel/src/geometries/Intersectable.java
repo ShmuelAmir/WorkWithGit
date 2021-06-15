@@ -12,7 +12,8 @@ import primitives.*;
  * 
  * @author shmulik
  */
-public interface Intersectable {
+public abstract class Intersectable {
+	protected AxisAlignedBox box = null;
 
 	/**
 	 * class for save point and geometry together for the color in intersection
@@ -60,7 +61,7 @@ public interface Intersectable {
 	 * @param ray - the ray you want its points of intersection with the shape.
 	 * @return list of intersection points
 	 */
-	default List<Point3D> findIntersections(Ray ray) {
+	public List<Point3D> findIntersections(Ray ray) {
 		var geoList = findGeoIntersections(ray);
 		return geoList == null ? null : geoList.stream().map(gp -> gp.point).collect(Collectors.toList());
 	}
@@ -71,7 +72,7 @@ public interface Intersectable {
 	 * @param ray - the ray you want its points of intersection with the shape.
 	 * @return list of intersection goePoints
 	 */
-	default List<GeoPoint> findGeoIntersections(Ray ray) {
+	public List<GeoPoint> findGeoIntersections(Ray ray) {
 		return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
 	}
 
@@ -83,7 +84,7 @@ public interface Intersectable {
 	 * @param maxDistance - the scope
 	 * @return list of GeoPoint
 	 */
-	List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
+	public abstract List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance);
 
 	/**
 	 * find the minimum and maximum points of the geometry.
@@ -91,7 +92,16 @@ public interface Intersectable {
 	 * @return array who represent the points
 	 *         (0-minX,1-minY,2-minZ,3-maxX,4-maxY,5-maxZ).
 	 */
-	double[] getMinMax();
+	public double[] getMinMaxHelper() {
+		synchronized (this) {
+			if (box == null)
+				box = new AxisAlignedBox(getMinMax());
+
+		}
+		return box.getMinMax();
+	}
+
+	protected abstract double[] getMinMax();
 
 	/**
 	 * find the center of the box that surround the geometry in one dimension.
@@ -99,8 +109,9 @@ public interface Intersectable {
 	 * @param axis - the dimension
 	 * @return - the center Coordinate
 	 */
-	default double getCenter(char axis) {
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
+	public double getCenter(char axis) {
+		if (box == null)
+			getMinMaxHelper();
 		return box.getCenter(axis);
 	}
 
@@ -111,9 +122,9 @@ public interface Intersectable {
 	 * @param maxDistance - the max distance looking for the points.
 	 * @return list of point if there are intersection points, otherwise - null.
 	 */
-	default List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
-
+	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
+		if (box == null)
+			getMinMaxHelper();
 		return box.checkIntersection(ray) ? findGeoIntersections(ray, maxDistance) : null;
 	}
 }

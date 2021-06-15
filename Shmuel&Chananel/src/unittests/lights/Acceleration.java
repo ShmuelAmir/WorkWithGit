@@ -186,9 +186,9 @@ public class Acceleration {
 		
 		// stars
 		Random rand = new Random(); // for the move
-		double xMove = rand.nextDouble() * 95;
-		double yMove = rand.nextDouble() * 60;
-		double zMove = rand.nextDouble() * 60;
+		double xMove = rand.nextDouble() * 150;
+		double yMove = rand.nextDouble() * 100;
+		double zMove = rand.nextDouble() * 100;
 
 		for (int j = 0; j < 1000; j++) {
 			scene.geometries.add(new Sphere(new Point3D(20 + xMove, -100 + yMove, 400 + zMove), 0.2) //
@@ -203,9 +203,9 @@ public class Acceleration {
 					.setEmission(new Color(java.awt.Color.white))
 					); //
 
-			xMove = rand.nextDouble() * 95;
-			yMove = rand.nextDouble() * 60;
-			zMove = rand.nextDouble() * 60;
+			xMove = rand.nextDouble() * 115;
+			yMove = rand.nextDouble() * 80;
+			zMove = rand.nextDouble() * 80;
 
 			if (j % 4 == 0) {
 				xMove = xMove * -1;
@@ -288,7 +288,7 @@ public class Acceleration {
 		scene.lights.add(// PANAS Light
 				new PointLight(new Color(java.awt.Color.YELLOW), new Point3D(81.5, -10, 0.001)));
 
-//		scene.buildHierarchy();
+		//scene.buildHierarchy();
 		ImageWriter imageWriter = new ImageWriter("MiniProject2", 1800, 1800);
 		Render render = new Render() //
 				.setCamera(camera) //

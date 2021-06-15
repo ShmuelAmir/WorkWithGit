@@ -104,7 +104,7 @@ public class Scene {
 	 * @return a list arranged hierarchically
 	 */
 	private Geometries buildHierarchy(Geometries currentGeometries) {
-		double[] minMax = currentGeometries.getMinMax();
+		double[] minMax = currentGeometries.getMinMaxHelper();
 		double lengthX = minMax[3] - minMax[0];
 		double lengthY = minMax[4] - minMax[1];
 		double lengthZ = minMax[5] - minMax[2];

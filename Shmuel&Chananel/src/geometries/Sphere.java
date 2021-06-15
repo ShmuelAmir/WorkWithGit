@@ -84,7 +84,7 @@ public class Sphere extends Geometry {
 	}
 
 	@Override
-	public double[] getMinMax() {
+	protected double[] getMinMax() {
 		double x = center.getX();
 		double y = center.getY();
 		double z = center.getZ();

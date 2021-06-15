@@ -181,7 +181,7 @@ public class Tube extends Geometry {
 	}
 
 	@Override
-	public double[] getMinMax() {
+	protected double[] getMinMax() {		
 		double minX = Double.POSITIVE_INFINITY;
 		double minY = Double.POSITIVE_INFINITY;
 		double minZ = Double.POSITIVE_INFINITY;

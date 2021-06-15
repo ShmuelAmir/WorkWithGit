@@ -8,7 +8,7 @@ import primitives.*;
  * 
  * @author shmulik
  */
-public abstract class Geometry implements Intersectable {
+public abstract class Geometry extends Intersectable {
 	/**
 	 * The light that the body emits
 	 */

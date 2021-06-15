@@ -11,7 +11,7 @@ import primitives.Ray;
  * 
  * @author shmulik
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 	private List<Intersectable> geometriesList = new LinkedList<>();
 
 	/**
@@ -65,12 +65,13 @@ public class Geometries implements Intersectable {
 
 	@Override
 	public List<GeoPoint> findCbrGeoIntersections(Ray ray, double maxDistance) {
-		List<GeoPoint> list = null;
+		if (box == null)
+			getMinMaxHelper();
 
-		AxisAlignedBox box = new AxisAlignedBox(getMinMax());
 		if (!box.checkIntersection(ray))
 			return null;
 
+		List<GeoPoint> list = null;
 		for (Intersectable intersectable : geometriesList) {
 			var pointsOrNull = intersectable.findCbrGeoIntersections(ray, maxDistance);
 			if (pointsOrNull == null)
@@ -86,7 +87,7 @@ public class Geometries implements Intersectable {
 	}
 
 	@Override
-	public double[] getMinMax() {
+	protected double[] getMinMax() {
 		double minX = Double.POSITIVE_INFINITY;
 		double minY = Double.POSITIVE_INFINITY;
 		double minZ = Double.POSITIVE_INFINITY;
@@ -98,7 +99,7 @@ public class Geometries implements Intersectable {
 //			if (intersectable instanceof Plane || intersectable instanceof Tube)
 //				continue;
 
-			double minMax[] = intersectable.getMinMax();
+			double minMax[] = intersectable.getMinMaxHelper();
 			double currentMinX = minMax[0];
 			double currentMaxX = minMax[3];
 			if (currentMaxX > maxX)
